@@ -12,6 +12,7 @@ class CreatePetugas extends Migration
             'PetugasID' => [
                 'type' => 'INT',
                 'constraint' => 11,
+                'unsigned' => true,
                 'auto_increment' => true,
             ],
             'Username' => [

@@ -12,6 +12,7 @@ class CreateUlasanbuku extends Migration
             'UlasanID' => [
                 'type' => 'INT',
                 'constraint' => 11,
+                'unsigned' => true,
                 'auto_increment' => true,
             ],
             'UserID' => [

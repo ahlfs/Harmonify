@@ -12,6 +12,7 @@ class CreateUser extends Migration
             'UserID' => [
                 'type' => 'INT',
                 'constraint' => 11,
+                'unsigned' => true,
                 'auto_increment' => true,
             ],
             'Username' => [

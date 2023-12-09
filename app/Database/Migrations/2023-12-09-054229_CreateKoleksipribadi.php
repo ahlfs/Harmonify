@@ -12,6 +12,7 @@ class CreateKoleksipribadi extends Migration
             'KoleksiID' => [
                 'type' => 'INT',
                 'constraint' => 11,
+                'unsigned' => true,
                 'auto_increment' => true,
             ],
             'UserID' => [

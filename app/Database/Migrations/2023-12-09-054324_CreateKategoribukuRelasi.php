@@ -12,6 +12,7 @@ class CreateKategoribukuRelasi extends Migration
             'KategoriBukuID' => [
                 'type' => 'INT',
                 'constraint' => 11,
+                'unsigned' => true,
                 'auto_increment' => true,
             ],
             'BukuID' => [
