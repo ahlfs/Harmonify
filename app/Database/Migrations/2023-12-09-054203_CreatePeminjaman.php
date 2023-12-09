@@ -17,10 +17,12 @@ class CreatePeminjaman extends Migration
             ],
             'UserID' => [
                 'type' => 'INT',
+                'unsigned' => true,
                 'constraint' => 11,
             ],
             'BukuID' => [
                 'type' => 'INT',
+                'unsigned' => true,
                 'constraint' => 11,
             ],
             'TanggalPeminjaman' => [
