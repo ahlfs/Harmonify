@@ -4,12 +4,12 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class CreateUser extends Migration
+class CreatePetugas extends Migration
 {
     public function up()
     {
         $this->forge->addField([
-            'UserID' => [
+            'PetugasID' => [
                 'type' => 'INT',
                 'constraint' => 11,
                 'auto_increment' => true,
@@ -30,19 +30,28 @@ class CreateUser extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => 255,
             ],
+            'NoTelp' => [
+                'type' => 'VARCHAR',
+                'constraint' => 255,
+            ],
             'Alamat' => [
                 'type' => 'TEXT',
+            ],
             'Foto' => [
                 'type' => 'BLOB',
             ],
+            'Level' => [
+                'type' => 'ENUM',
+                'constraint' => ['petugas', 'admin'],
+                'default' => 'petugas',
             ],
         ]);
-        $this->forge->addKey('UserID', true);
-        $this->forge->createTable('user');
+        $this->forge->addKey('PetugasID', true);
+        $this->forge->createTable('petugas');
     }
 
     public function down()
     {
-        $this->forge->dropTable('user');
+        $this->forge->dropTable('petugas');
     }
 }
