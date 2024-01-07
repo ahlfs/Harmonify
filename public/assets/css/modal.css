@@ -1,0 +1,360 @@
+/*=============== GOOGLE FONTS ===============*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
+
+/*=============== VARIABLES CSS ===============*/
+:root {
+  /*========== Colors ==========*/
+
+  /*========== Font and typography ==========*/
+  --body-font: 'Poppins', sans-serif;
+  --big-font-size: 1.5rem;
+  --normal-font-size: .938rem;
+
+  /*========== z index ==========*/
+  --z-modal: 1000;
+}
+
+@media screen and (min-width: 968px) {
+  :root {
+    --big-font-size: 1.75rem;
+    --normal-font-size: 1rem;
+  }
+}
+
+/*=============== BASE ===============*/
+*{
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+
+
+
+
+
+/*=============== MODAL ===============*/
+.containerModal{
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.modal{
+  display: grid;
+  place-items: center;
+}
+
+.modal__button{
+  display: inline-block;
+  background-color: black;
+  color: #FFF;
+  padding: 1rem 1.25rem;
+  border-radius: .5rem;
+  transition: .3s;
+}
+
+.modal__button:hover{
+  background-color: var(--first-color-alt);
+}
+
+.modal__container{
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: hsla(var(--hue), 18%, 75%, .8);
+  width: 100%;
+  height: 100%;
+  display: grid;
+  align-items: flex-end;
+  overflow: hidden;
+  transition: all .3s;
+  z-index: var(--z-modal);
+  visibility: hidden;
+  opacity: 0;
+
+  /*=== Effect 3 ===*/
+  /* perspective: 1000px; */
+}
+
+.modal__content{
+  position: relative;
+  background-color: var(--container-color);
+  text-align: center;
+  padding: 3rem 2rem 2rem;
+  border-radius: 1rem 1rem 0 0;
+  transition: all .3s;
+
+  /*=== Effect 1 ===*/
+  transform: translateY(10%);
+
+  /*=== Effect 2 ===*/
+  /* transform: scale(.5) translateY(10%); */
+
+  /*=== Effect 3 ===*/
+  /* transform: rotateX(65deg) scale(.75) translateY(10%);
+  transform-origin: 50% 100%; */
+}
+
+.modal__close{
+  display: inline-flex;
+  background-color: black;
+  border-radius: .25rem;
+  color: black;
+  font-size: 1.5rem;
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  cursor: pointer;
+}
+
+.modal__title{
+  font-size: var(--big-font-size);
+  color: var(--title-color);
+  font-weight: 500;
+}
+
+.modal__description{
+  margin-bottom: 1.5rem;
+}
+
+.modal__button-width{
+  width: 90%;
+}
+
+.modal__button-link{
+  display: block;
+  margin: 1rem auto 0;
+  background-color: transparent;
+  color: var(--first-color);
+  font-weight: 500;
+}
+
+/* Show modal */
+.show-modal{
+  visibility: visible;
+  opacity: 1;
+}
+
+.show-modal .modal__content{
+  /*=== Effect 1 ===*/
+  transform: translateY(0);
+
+  /*=== Effect 2 ===*/
+  /* transform: scale(1) translateY(0); */
+
+  /*=== Effect 3 ===*/
+  /* transform: rotateX(0) scale(1) translateY(0); */
+}
+
+/*=============== BREAKPOINTS ===============*/
+/* For small devices */
+@media screen and (min-width: 576px){
+  .modal__content{
+    margin: auto;
+    width: 380px;
+    border-radius: 1.25rem;
+  }
+
+  .modal__img{
+    width: 170px;
+  }
+}
+
+
+
+/* Login */
+
+
+
+
+.login{
+    margin: 0 auto;
+    width: 600px;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 20px;
+    padding: 30px 70px 50px 70px;
+}
+
+.login h1{
+    color: white;
+    padding-bottom: 10px;
+}
+
+.input-text{
+    margin-bottom: 20px;
+}
+
+.input-text input{
+    width: 100%;
+    height: 45px;
+    background-color: #333;
+    color: white;
+    border-radius:5px;
+    border: none;
+    outline: transparent;
+    text-indent: 18px;
+}
+
+.input-text input::-webkit-input-placeholder {
+    font-size: 1rem;
+    color: #999;
+}
+
+.input-text input::-moz-placeholder {
+    font-size: 1rem;
+    color: #999;
+    text-indent: 40px;
+}
+
+.signin-button{
+    margin-top: 20px;
+    width: 100%;
+    padding: 13px;
+    border-radius: 5px;
+    background-color: red;
+    color:white;
+    border:none;
+    font-weight: bold;
+    font-size: 1.05rem;
+    cursor: pointer;
+}
+
+.remember-flex{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-size: 0.8rem;
+}
+
+.color_text{
+    color: #b3b3b3;
+}
+
+.color_link{
+    color: #737373;
+}
+
+.signup-link{
+    color: white;
+    text-decoration: none;
+}
+
+.warning-input{
+    display: none;
+    color:#e87c03;
+    margin-top: 0;
+    font-size: 0.8rem;
+    margin-top: 6px;
+}
+
+.signup-link:hover{
+    text-decoration: underline;
+}
+
+.face_icon{
+    color: #3b5998;
+    margin-right: 6px;
+    font-size: 20px;
+}
+
+.log_face{
+    text-decoration: none;
+    margin-left: 10px;
+    font-size: 0.8rem;
+}
+
+.login-face{
+    margin: 50px 0 15px 0;
+    vertical-align: middle;
+    color: #8c8c8c;
+}
+
+.new-members{
+    margin-bottom: 10px;
+    color: #8c8c8c;
+}
+
+.help a{
+    text-decoration: none;
+}
+.help a:hover{
+    text-decoration: underline;
+}
+
+.protection{
+    font-size: 0.8rem;
+    color: #8c8c8c;
+}
+
+.protection a{
+    text-decoration: none;
+}
+
+.protection a:hover{
+    text-decoration: underline;
+}
+
+.tel-link{
+    text-decoration: none;
+    color: #757575;
+}
+
+.tel-link:hover{
+    text-decoration: underline;
+}
+
+.select-language{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDUwIDUwIiBoZWlnaHQ9IjUwcHgiIGlkPSJMYXllcl8xIiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCA1MCA1MCIgd2lkdGg9IjUwcHgiIHhtbDpzcGFjZT0icHJlc2VydmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxyZWN0IGZpbGw9Im5vbmUiIGhlaWdodD0iNTAiIHdpZHRoPSI1MCIvPjxwb2x5Z29uIHN0cm9rZT0id2hpdGUiICBwb2ludHM9IjQ3LjI1LDE1IDQ1LjE2NCwxMi45MTQgMjUsMzMuMDc4IDQuODM2LDEyLjkxNCAyLjc1LDE1IDI1LDM3LjI1ICIvPjwvc3ZnPg==");
+    background-size: 12px;
+    background-position-x: calc(100% - 7px);
+    background-position-y: calc(100% - 14px);
+    background-repeat: no-repeat;
+    background-color: #000;
+    color:#757575;
+    padding: 14px 20px 14px 14px;
+    margin: 30px 0 40px 0;
+    font-size: 0.9rem;
+    min-height: 40px;
+    border: 1px solid #333;
+}
+
+.select-language option{
+    padding-left: 10px; 
+}
+
+@media screen and (max-width: 740px){
+
+
+    .login{
+        padding: 30px 30px 20px 30px;
+        width: 70%;
+    }
+
+    .login-div{
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .bottom {
+        border-top: 1px solid #737373;
+    }
+
+    .upper{
+        padding-bottom: 93px;
+    }
+
+    .list-bottom{
+        width: 33%;
+    }
+}
+
+@media screen and (max-width: 500px){
+    .list-bottom{
+        width: 70%;
+    }
+}
+
+
+
