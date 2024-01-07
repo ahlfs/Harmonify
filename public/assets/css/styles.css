@@ -1,0 +1,1194 @@
+/*ROOT*/
+* {
+  outline: none;
+}
+body {
+  margin-top: 70px;
+  padding: 0px;
+  font-family: arial;
+  min-height: 200vh;
+}
+img {
+  user-select: none;
+}
+
+/*MENU*/
+.menu {
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  font-weight: bold;
+}
+.menu .logo {
+  width: 25px;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+.menu .logo:hover {
+  background: #eeeeee;
+}
+.menu .home {
+  color: #fff;
+  background: #000000;
+  padding: 12px 25px;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 40px;
+  margin: 0px 5px;
+  text-decoration: none;
+}
+.menu .create {
+  color: #fff;
+  background: #000000;
+  padding: 12px 25px;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 40px;
+  margin: 0px 5px;
+  text-decoration: none;
+}
+.menu .search-bar {
+  width: 100%;
+  margin: 0px 5px;
+  padding: 12px 35px;
+  border-radius: 40px;
+  outline: none;
+  position: relative;
+  background-color: #efefef;
+  font-size: 15px;
+  background-image: url("https://cdn4.iconfinder.com/data/icons/music-ui-solid-24px/24/search-3-256.png");
+  background-size: 21px;
+  background-repeat: no-repeat;
+  background-position: center left;
+  background-position: 10px;
+  color: gray;
+  border: 4px solid transparent;
+}
+.menu .search-bar:hover {
+  background-color: #3333;
+}
+.menu .search-bar:focus {
+  border: 4px solid #7bb5f0;
+  padding: 12px 20px;
+  background-image: none;
+}
+.menu .search-bar::placeholder {
+  user-select: none;
+}
+.icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.icon-container .icon {
+  width: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 2px;
+}
+.icon-container .icon:hover {
+  background-color: #eeeeee;
+}
+.icon-container .btn {
+  width: 14px;
+  padding: 5px;
+}
+
+.pp-bar a {
+  text-decoration: none;
+  padding: 5px 15px;
+  border: 2px solid #161b22;
+  color: #161b22;
+  border-radius: 5px;
+}
+.pp-bar {
+  flex-direction: column;
+}
+.pp-bar img {
+  width: 150px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+.pp-bar a:hover {
+  background: #161b22;
+  color: white;
+}
+
+/*MINI SEARCH BAR*/
+#two {
+  display: none;
+  padding: 15px;
+}
+.responsive-search-bar {
+  max-width: 100%;
+  padding: 40px 10px;
+  text-align: center;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: -300px;
+  transition: all 0.3s;
+  overflow: hidden;
+  display: none;
+  background: #fff;
+  box-shadow: 0px 0px 2px 0px #333;
+  margin: 0px 5px;
+  z-index: 99;
+}
+.responsive-search-bar input {
+  width: 100%;
+  height: 35px;
+  outline: none;
+  border-radius: 40px;
+  border: 4px solid transparent;
+  background-image: url("https://cdn4.iconfinder.com/data/icons/music-ui-solid-24px/24/search-3-256.png");
+  background-size: 21px;
+  background-repeat: no-repeat;
+  background-position: center left;
+  background-position: 10px;
+  padding: 0px 15px 0px 35px;
+  background-color: #efefef;
+}
+.responsive-search-bar input:focus {
+  border: 4px solid #7bb5f0;
+}
+.responsive-search-bar p {
+  font-size: 11px;
+  padding: 11px;
+  margin-left: 5px;
+  border-radius: 50%;
+  cursor: pointer;
+  user-select: none;
+  position: absolute;
+  top: -12px;
+  right: -1px;
+  transition: all 0.3s;
+}
+.responsive-search-bar p:hover {
+  background: #eeeeee;
+  transform: rotate(-180deg);
+}
+
+/*POSTS*/
+.container {
+  float: center;
+  margin-left: 15px;
+  margin-right: 15px;
+  columns: 6;
+  column-gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.window {
+  border-radius: 20px;
+  flex-direction: column;
+  width: 238;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  max-height: 100%;
+  overflow: hidden;
+  position: relative;
+  z-index: 97;
+}
+.window .foto {
+  cursor: zoom-in;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.window .content {
+  margin-left: 10px;
+  margin-top: -2px;
+  max-width: 100%;
+  font-size: 13px;
+  font-weight: bold;
+}
+/*HOVER ZONE*/
+.hover-zone {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  cursor: zoom-in;
+  display: flex;
+  align-content: space-between;
+  align-items: baseline;
+  justify-content: center;
+  flex-wrap: wrap;
+  background-color: rgba(000, 000, 0, 0.4);
+  user-select: none;
+}
+.hover-zone .top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 10px;
+  width: 100%;
+  border-radius: 20px;
+}
+
+.hover-zone .top-bar .icon {
+  width: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 2px;
+}
+.hover-zone .top-bar .saveButton {
+  color: white;
+  padding: 15px 25px;
+  font-weight: bolder;
+  font-size: 18px;
+  border-radius: 40px;
+  cursor: pointer;
+  background: red;
+  margin-top: 3px;
+}
+.hover-zone .top-bar .saveButton:hover {
+  background: #b80202;
+}
+.hover-zone .bottom-bar {
+  padding: 10px 10px;
+  width: 100%;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.hover-zone .bottom-bar a {
+  padding: 5px 10px;
+  background: #efefef;
+  border-radius: 40px;
+  cursor: pointer;
+  font-weight: bolder;
+}
+.hover-zone .bottom-bar a:hover {
+  background: white;
+}
+.hover-zone .bottom-bar img {
+  width: 20px;
+  border-radius: 50%;
+  background: #efefef;
+  padding: 6px;
+  cursor: pointer;
+  margin: 0px 2px;
+}
+.hover-zone .bottom-bar img:hover {
+  background: white;
+}
+.hover-zone {
+  opacity: 0;
+}
+.window:hover .hover-zone {
+  opacity: 1;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  width: 100%;
+  z-index: 1000000;
+  transition: 0.6s;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+@media (max-width: 1450px) {
+  .container {
+    margin-left: 15px;
+    margin-right: 15px;
+    columns: 5;
+    column-gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+  .window {
+    
+    flex-direction: column;
+    width: 260;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    max-height: 720;
+    overflow: hidden;
+    position: relative;
+    z-index: 97;
+  }
+  /*HOVER ZONE*/
+  .hover-zone {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    cursor: zoom-in;
+    display: flex;
+    align-content: space-between;
+    align-items: baseline;
+    justify-content: center;
+    flex-wrap: wrap;
+    background-color: rgba(000, 000, 0, 0.4);
+    user-select: none;
+  }
+  .hover-zone .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+    width: 100%;
+    border-radius: 20px;
+  }
+  .hover-zone .top-bar .icon {
+    width: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 2px;
+  }
+  .hover-zone .top-bar .saveButton {
+    color: white;
+    padding: 15px 25px;
+    font-weight: bolder;
+    font-size: 18px;
+    border-radius: 40px;
+    cursor: pointer;
+    background: red;
+    margin-top: 3px;
+  }
+  .hover-zone .top-bar .saveButton:hover {
+    background: #b80202;
+  }
+  .hover-zone .bottom-bar {
+    padding: 10px 10px;
+    width: 100%;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .hover-zone .bottom-bar a {
+    padding: 5px 10px;
+    background: #efefef;
+    border-radius: 40px;
+    cursor: pointer;
+    font-weight: bolder;
+  }
+  .hover-zone .bottom-bar a:hover {
+    background: white;
+  }
+  .hover-zone .bottom-bar img {
+    width: 20px;
+    border-radius: 50%;
+    background: #efefef;
+    padding: 6px;
+    cursor: pointer;
+    margin: 0px 2px;
+  }
+  .hover-zone .bottom-bar img:hover {
+    background: white;
+  }
+  .hover-zone {
+    opacity: 0;
+  }
+  .window:hover .hover-zone {
+    opacity: 1;
+  }
+
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    width: 100%;
+    z-index: 1000000;
+    transition: 0.6s;
+  }
+
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .container {
+    margin-left: 15px;
+    margin-right: 15px;
+    columns: 5;
+    column-gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+  .window {
+    border-radius: 20px;
+    flex-direction: column;
+    width: 185;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    max-height: 720;
+    overflow: hidden;
+    position: relative;
+    border-radius: 20px;
+    z-index: 97;
+  }
+  /*HOVER ZONE*/
+  .hover-zone {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    cursor: zoom-in;
+    display: flex;
+    align-content: space-between;
+    align-items: baseline;
+    justify-content: center;
+    flex-wrap: wrap;
+    background-color: rgba(000, 000, 0, 0.4);
+    user-select: none;
+  }
+  .hover-zone .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+    width: 100%;
+    border-radius: 20px;
+  }
+  .hover-zone .top-bar .icon {
+    width: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 2px;
+  }
+  .hover-zone .top-bar .saveButton {
+    color: white;
+    padding: 15px 25px;
+    font-weight: bolder;
+    font-size: 18px;
+    border-radius: 40px;
+    cursor: pointer;
+    background: red;
+    margin-top: 3px;
+  }
+  .hover-zone .top-bar .saveButton:hover {
+    background: #b80202;
+  }
+  .hover-zone .bottom-bar {
+    padding: 10px 10px;
+    width: 100%;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .hover-zone .bottom-bar a {
+    padding: 5px 10px;
+    background: #efefef;
+    border-radius: 40px;
+    cursor: pointer;
+    font-weight: bolder;
+  }
+  .hover-zone .bottom-bar a:hover {
+    background: white;
+  }
+  .hover-zone .bottom-bar img {
+    width: 20px;
+    border-radius: 50%;
+    background: #efefef;
+    padding: 6px;
+    cursor: pointer;
+    margin: 0px 2px;
+  }
+  .hover-zone .bottom-bar img:hover {
+    background: white;
+  }
+  .hover-zone {
+    opacity: 0;
+  }
+  .window:hover .hover-zone {
+    opacity: 1;
+  }
+
+}
+
+@media (max-width: 770px) {
+  .container {
+    margin-left: 15px;
+    margin-right: 15px;
+    columns: 4;
+    column-gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+  .window {
+    border-radius: 20px;
+    flex-direction: column;
+    width: 173;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    max-height: 720;
+    overflow: hidden;
+    position: relative;
+    border-radius: 20px;
+    z-index: 97;
+  }
+  /*HOVER ZONE*/
+  .hover-zone {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    cursor: zoom-in;
+    display: flex;
+    align-content: space-between;
+    align-items: baseline;
+    justify-content: center;
+    flex-wrap: wrap;
+    background-color: rgba(000, 000, 0, 0.4);
+    user-select: none;
+  }
+  .hover-zone .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+    width: 100%;
+    border-radius: 20px;
+  }
+  .hover-zone .top-bar .icon {
+    width: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 2px;
+  }
+  .hover-zone .top-bar .saveButton {
+    color: white;
+    padding: 15px 25px;
+    font-weight: bolder;
+    font-size: 18px;
+    border-radius: 40px;
+    cursor: pointer;
+    background: red;
+    margin-top: 3px;
+  }
+  .hover-zone .top-bar .saveButton:hover {
+    background: #b80202;
+  }
+  .hover-zone .bottom-bar {
+    padding: 10px 10px;
+    width: 100%;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .hover-zone .bottom-bar a {
+    padding: 5px 10px;
+    background: #efefef;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bolder;
+    font-size: 10px;
+  }
+  .hover-zone .bottom-bar a:hover {
+    background: white;
+  }
+  .hover-zone .bottom-bar img {
+    width: 13px;
+    border-radius: 50%;
+    background: #efefef;
+    padding: 6px;
+    cursor: pointer;
+    margin: 0px 2px;
+  }
+  .hover-zone .bottom-bar img:hover {
+    background: white;
+  }
+  .hover-zone {
+    opacity: 0;
+  }
+  .window:hover .hover-zone {
+    opacity: 1;
+  }
+
+}
+
+@media (max-width: 480px) {
+  /*MENU*/
+.menu {
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  font-weight: bold;
+}
+.menu .logo {
+  display: none;
+}
+.menu .logo:hover {
+  background: #eeeeee;
+}
+.menu .home {
+  display: none;
+}
+.menu .create {
+  color: #fff;
+  background: #000000;
+  padding: 10px 22px;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 40px;
+  margin: 0px 5px;
+}
+.menu .search-bar {
+  width: 100%;
+  margin: 0px 5px;
+  padding: 12px 35px;
+  border-radius: 40px;
+  outline: none;
+  position: relative;
+  background-color: #efefef;
+  font-size: 15px;
+  background-image: url("https://cdn4.iconfinder.com/data/icons/music-ui-solid-24px/24/search-3-256.png");
+  background-size: 21px;
+  background-repeat: no-repeat;
+  background-position: center left;
+  background-position: 10px;
+  color: gray;
+  border: 4px solid transparent;
+}
+.menu .search-bar:hover {
+  background-color: #3333;
+}
+.menu .search-bar:focus {
+  border: 4px solid #7bb5f0;
+  padding: 12px 20px;
+  background-image: none;
+}
+.menu .search-bar::placeholder {
+  user-select: none;
+}
+.icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.icon-container .icon {
+  width: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 2px;
+}
+.icon-container .icon:hover {
+  background-color: #eeeeee;
+}
+.icon-container .btn {
+  width: 14px;
+  padding: 5px;
+}
+
+.pp-bar a {
+  text-decoration: none;
+  padding: 5px 15px;
+  border: 2px solid #161b22;
+  color: #161b22;
+  border-radius: 5px;
+}
+.pp-bar {
+  flex-direction: column;
+}
+.pp-bar img {
+  width: 150px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+.pp-bar a:hover {
+  background: #161b22;
+  color: white;
+}
+
+/*MINI SEARCH BAR*/
+#two {
+  display: none;
+  padding: 15px;
+}
+.responsive-search-bar {
+  max-width: 100%;
+  padding: 40px 10px;
+  text-align: center;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: -300px;
+  transition: all 0.3s;
+  overflow: hidden;
+  display: none;
+  background: #fff;
+  box-shadow: 0px 0px 2px 0px #333;
+  margin: 0px 5px;
+  z-index: 99;
+}
+.responsive-search-bar input {
+  width: 100%;
+  height: 35px;
+  outline: none;
+  border-radius: 40px;
+  border: 4px solid transparent;
+  background-image: url("https://cdn4.iconfinder.com/data/icons/music-ui-solid-24px/24/search-3-256.png");
+  background-size: 21px;
+  background-repeat: no-repeat;
+  background-position: center left;
+  background-position: 10px;
+  padding: 0px 15px 0px 35px;
+  background-color: #efefef;
+}
+.responsive-search-bar input:focus {
+  border: 4px solid #7bb5f0;
+}
+.responsive-search-bar p {
+  font-size: 11px;
+  padding: 11px;
+  margin-left: 5px;
+  border-radius: 50%;
+  cursor: pointer;
+  user-select: none;
+  position: absolute;
+  top: -12px;
+  right: -1px;
+  transition: all 0.3s;
+}
+.responsive-search-bar p:hover {
+  background: #eeeeee;
+  transform: rotate(-180deg);
+}
+
+  .container {
+    margin-left: 8px;
+    margin-right: 8px;
+    columns: 2;
+    column-gap: 6px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+  .window {
+    border-radius: 20px;
+    flex-direction: column;
+    width: 156;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    max-height: 720;
+    overflow: hidden;
+    position: relative;
+    border-radius: 20px;
+    z-index: 97;
+  }
+  /*HOVER ZONE*/
+  .hover-zone {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    cursor: zoom-in;
+    display: flex;
+    align-content: space-between;
+    align-items: baseline;
+    justify-content: center;
+    flex-wrap: wrap;
+    background-color: rgba(000, 000, 0, 0.4);
+    user-select: none;
+  }
+  .hover-zone .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+    width: 100%;
+    border-radius: 20px;
+  }
+  .hover-zone .top-bar .icon {
+    width: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 2px;
+  }
+  .hover-zone .top-bar .saveButton {
+    color: white;
+    padding: 15px 25px;
+    font-weight: bolder;
+    font-size: 18px;
+    border-radius: 40px;
+    cursor: pointer;
+    background: red;
+    margin-top: 3px;
+  }
+  .hover-zone .top-bar .saveButton:hover {
+    background: #b80202;
+  }
+  .hover-zone .bottom-bar {
+    padding: 10px 10px;
+    width: 100%;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .hover-zone .bottom-bar a {
+    padding: 5px 10px;
+    background: #efefef;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bolder;
+    font-size: 10px;
+  }
+  .hover-zone .bottom-bar a:hover {
+    background: white;
+  }
+  .hover-zone .bottom-bar img {
+    width: 13px;
+    border-radius: 50%;
+    background: #efefef;
+    padding: 6px;
+    cursor: pointer;
+    margin: 0px 2px;
+  }
+  .hover-zone .bottom-bar img:hover {
+    background: white;
+  }
+  .hover-zone {
+    opacity: 0;
+  }
+  .window:hover .hover-zone {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 431px) {
+  .container {
+    float: left;
+    margin-left: 8px;
+    margin-right: 8px;
+    columns: 2;
+    column-gap: 4px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+  .window {
+    border-radius: 20px;
+    flex-direction: column;
+    width: 196;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    max-height: 720;
+    overflow: hidden;
+    position: relative;
+    border-radius: 20px;
+    z-index: 97;
+  }
+  /*HOVER ZONE*/
+  .hover-zone {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    cursor: zoom-in;
+    display: flex;
+    align-content: space-between;
+    align-items: baseline;
+    justify-content: center;
+    flex-wrap: wrap;
+    background-color: rgba(000, 000, 0, 0.4);
+    user-select: none;
+  }
+  .hover-zone .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+    width: 100%;
+    border-radius: 20px;
+  }
+  .hover-zone .top-bar .icon {
+    width: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 2px;
+  }
+  .hover-zone .top-bar .saveButton {
+    color: white;
+    padding: 15px 25px;
+    font-weight: bolder;
+    font-size: 18px;
+    border-radius: 40px;
+    cursor: pointer;
+    background: red;
+    margin-top: 3px;
+  }
+  .hover-zone .top-bar .saveButton:hover {
+    background: #b80202;
+  }
+ 
+  .hover-zone .bottom-bar {
+    padding: 10px 10px;
+    width: 100%;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .hover-zone .bottom-bar a {
+    padding: 5px 10px;
+    background: #efefef;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bolder;
+    font-size: 10px;
+  }
+  .hover-zone .bottom-bar a:hover {
+    background: white;
+  }
+  .hover-zone .bottom-bar img {
+    width: 13px;
+    border-radius: 50%;
+    background: #efefef;
+    padding: 6px;
+    cursor: pointer;
+    margin: 0px 2px;
+  }
+  .hover-zone .bottom-bar img:hover {
+    background: white;
+  }
+  .hover-zone {
+    opacity: 0;
+  }
+  .window:hover .hover-zone {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 415px) {
+  .container {
+    float: left;
+    margin-left: 8px;
+    margin-right: 8px;
+    columns: 2;
+    column-gap: 4px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+  .window {
+    border-radius: 20px;
+    flex-direction: column;
+    width: 176;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    max-height: 720;
+    overflow: hidden;
+    position: relative;
+    border-radius: 20px;
+    z-index: 97;
+  }
+   /*HOVER ZONE*/
+  .hover-zone {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    cursor: zoom-in;
+    display: flex;
+    align-content: space-between;
+    align-items: baseline;
+    justify-content: center;
+    flex-wrap: wrap;
+    background-color: rgba(000, 000, 0, 0.4);
+    user-select: none;
+  }
+  .hover-zone .top-bar .icon {
+    width: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 2px;
+  }
+  .hover-zone .top-bar .saveButton {
+    color: white;
+    padding: 15px 25px;
+    font-weight: bolder;
+    font-size: 18px;
+    border-radius: 40px;
+    cursor: pointer;
+    background: red;
+    margin-top: 3px;
+  }
+  .hover-zone .top-bar .saveButton:hover {
+    background: #b80202;
+  }
+  .hover-zone .bottom-bar {
+    padding: 10px 10px;
+    width: 100%;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .hover-zone .bottom-bar a {
+    padding: 5px 10px;
+    background: #efefef;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bolder;
+    font-size: 10px;
+  }
+  .hover-zone .bottom-bar a:hover {
+    background: white;
+  }
+  .hover-zone .bottom-bar img {
+    width: 13px;
+    border-radius: 50%;
+    background: #efefef;
+    padding: 6px;
+    cursor: pointer;
+    margin: 0px 2px;
+  }
+  .hover-zone .bottom-bar img:hover {
+    background: white;
+  }
+  .hover-zone {
+    opacity: 0;
+  }
+  .window:hover .hover-zone {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 376px) {
+  .container {
+    float: left;
+    margin-left: 8px;
+    margin-right: 8px;
+    columns: 2;
+    column-gap: 6px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+  .window {
+    border-radius: 20px;
+    flex-direction: column;
+    width: 154;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    max-height: 720;
+    overflow: hidden;
+    position: relative;
+    border-radius: 20px;
+    z-index: 97;
+  }
+
+  /*HOVER ZONE*/
+  .hover-zone {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    cursor: zoom-in;
+    display: flex;
+    align-content: space-between;
+    align-items: baseline;
+    justify-content: center;
+    flex-wrap: wrap;
+    background-color: rgba(000, 000, 0, 0.4);
+    user-select: none;
+  }
+  .hover-zone .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+    width: 100%;
+    border-radius: 20px;
+  }
+  .hover-zone .top-bar .icon {
+    width: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 2px;
+  }
+  .hover-zone .top-bar .saveButton {
+    color: white;
+    padding: 15px 25px;
+    font-weight: bolder;
+    font-size: 18px;
+    border-radius: 40px;
+    cursor: pointer;
+    background: red;
+    margin-top: 3px;
+  }
+  .hover-zone .top-bar .saveButton:hover {
+    background: #b80202;
+  }
+  .hover-zone .bottom-bar {
+    padding: 10px 10px;
+    width: 100%;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .hover-zone .bottom-bar a {
+    padding: 5px 10px;
+    background: #efefef;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bolder;
+    font-size: 10px;
+  }
+  .hover-zone .bottom-bar a:hover {
+    background: white;
+  }
+  .hover-zone .bottom-bar img {
+    width: 13px;
+    border-radius: 50%;
+    background: #efefef;
+    padding: 3px;
+    cursor: pointer;
+    margin: 0px 2px;
+  }
+  .hover-zone .bottom-bar img:hover {
+    background: white;
+  }
+  .hover-zone {
+    opacity: 0;
+  }
+  .window:hover .hover-zone {
+    opacity: 1;
+  }
+
+  
+}
