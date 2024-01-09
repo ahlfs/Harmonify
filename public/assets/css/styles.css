@@ -168,6 +168,13 @@ img {
   font-size: 13px;
   font-weight: bold;
 }
+.iconpost {
+  width: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-left: 3px;
+  margin-top: 3px;
+}
 /*HOVER ZONE*/
 .hover-zone {
   position: absolute;
@@ -235,7 +242,7 @@ img {
 .hover-zone .bottom-bar .iconButton {
   color: #161b22;
   width: 40px;
-  border-radius: 50%;
+  border-radius: 30%;
   background: #efefef;
   padding: 9px;
   cursor: pointer;
