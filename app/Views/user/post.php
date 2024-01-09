@@ -3,8 +3,8 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-4">
-      <div class="window">
+    <div class="col colku1">
+      <div class="window boxshadowpost">
         <img class="foto" src="https://i.pinimg.com/736x/47/5e/ba/475eba57454015bfe214e8722e2422a1.jpg" alt="">
         <div class="hover-zone" onclick="redirectToPage('/post')">
           <div class="top-bar">
@@ -21,14 +21,14 @@
         </div>
       </div>
     </div>
-    <div class="col-8">
+    <div class="col colku2">
       <!-- buatlah sebuah kolom komentar seperti aplikasi instagram -->
       <div class="containerPost border-mix melengkung">
         <div class="row">
           <div class="col-12">
             <div class="display-flex">
           <a href="/profile"><img tabindex="1" draggable="false" class="iconpost pp" src="https://i.pinimg.com/564x/bd/94/ce/bd94ce28cf8aefb521bac31d547f6409.jpg"></a>
-          Hai
+          <span class="centerprofilepost">ahlfss</span>
           </div>
             <h3 class="mt-3">Title</h3>
             <p>Description</p>

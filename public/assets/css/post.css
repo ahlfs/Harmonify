@@ -19,11 +19,32 @@
 }
 
 .colku1 {
-  flex: 0 0 50%;
-  max-width: 50%;
+  flex: 0 0 33%;
+  max-width: 33%;
 }
 
 .colku2 {
-  flex: 0 0 50%;
-  max-width: 50%;
+  flex: 0 0 67%;
+  max-width: 67%;
+}
+
+.centerprofilepost {
+  justify-content: center;
+  align-items: center;
+}
+
+.boxshadowpost {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.52);
+}
+
+@media (max-width: 992px) { 
+  .colku1 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  
+  .colku2 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
 }
