@@ -17,4 +17,9 @@ class UserController extends BaseController
     {
         return view('user/profileSecondary');
     }
+
+    public function post(): string
+    {
+        return view('user/post');
+    }
 }

@@ -8,3 +8,7 @@ document.querySelector(".close").onclick=function(){
   document.getElementById("two").style.opacity="1";
   document.querySelector(".responsive-search-bar").style.top="-300px";
 }
+
+function redirectToPage(pageUrl) {
+  window.location.href = pageUrl;
+}

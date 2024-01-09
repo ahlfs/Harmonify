@@ -10,8 +10,8 @@
         <p class="count">0 photo</p>
     </div>
     <div class="managebar">
-        <a class="shareButton">Share</a>
-        <a class="editButton">Edit</a>
+        <a href="#" class="shareButton">Share</a>
+        <a href="#" class="editButton">Edit</a>
     </div>
 </div>
 <div class="box">
