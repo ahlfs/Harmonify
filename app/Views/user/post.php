@@ -41,9 +41,9 @@
             <form action="/komentar/" method="post">
               <?= csrf_field(); ?>
               <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Komentar" name="komentar" id="komentar">
+                <input type="text" autocomplete="off" class="form-control" placeholder="Komentar" name="komentar" id="komentar" required>
                 <div class="input-group-append">
-                  <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Kirim</button>
+                  <button class="btn btn-outline-primary" type="submit" id="button-addon2"><i class="fa-solid fa-paper-plane fa"></i></button>
                 </div>
               </div>
             </form>

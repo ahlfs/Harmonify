@@ -27,21 +27,24 @@
 .profilebar .count{
     font-size: 16px;
     font-style: italic;
-    color: #000000;
+    color: #161b22;
 }
 
 .profilebar .username{
     font-size: 20px;
     font-weight: bold;
-    color: #000000;
+    color: #161b22;
 }
 
 .garis {
     margin-top: 20px;
     margin-bottom: 20px;
-    width: 100%;
+    margin-left: 26%;
+    
+    display: flex;
+    width: 50%;
     height: 2px;
-    background-color: rgba(0, 0, 0, 0.5); /* Warna hitam dengan tingkat transparansi 0.5 */
+    background-color: #161b22; /* Warna hitam dengan tingkat transparansi 0.5 */
     opacity: 0.5;
   }
 

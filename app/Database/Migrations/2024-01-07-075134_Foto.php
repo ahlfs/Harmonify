@@ -40,6 +40,9 @@ class Foto extends Migration
             'Url' => [
                 'type' => 'TEXT',
             ],
+            'Foto' => [
+                'type' => 'BLOB',
+            ],
         ]);
         $this->forge->addKey('FotoID', true);
         $this->forge->createTable('foto');

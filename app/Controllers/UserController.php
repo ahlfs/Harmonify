@@ -22,4 +22,9 @@ class UserController extends BaseController
     {
         return view('user/post');
     }
+
+    public function create(): string
+    {
+        return view('user/create');
+    }
 }
