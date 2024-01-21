@@ -1,19 +1,56 @@
 <?= $this->extend('layouts/layoutUser'); ?>
 <?= $this->section('content'); ?>
 
-
-
-<!-- We'll transform this input into a pond -->
-<form action="/upload" method="post" enctype="multipart/form-data">
-<?= csrf_field() ?>
-<input type="file" class="filepond" name="filepond" multiple data-allow-reorder="true" data-max-file-size="3MB" data-max-files="1">
-<input type="text" name="JudulFoto">
-<input type="text" name="DeskripsiFoto">
-<input type="text" name="Url">
-<button type="submit">Submit</button>
-</form>
-
-
-
-
+<div class="container">
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col colku1">
+                <!-- Image Preview -->
+                <div id="img-preview"></div>
+                <!-- Input Images -->
+                <label for="foto" id="drop-area">
+                    <input type="file" accept="image/*" id="foto" name="foto" hidden />
+                    <div id="img-view">
+                        <div class="row">
+                            <div class="col-12">
+                                <h5 class="mt-4"><i class="fa-solid fa-cloud-arrow-up fa-xl"></i></h5>
+                            </div>
+                            <div class="col-12">
+                                <div class="displaydrag">
+                                    <h5 class="mt-1" style="font-size: 15px; display: flex; justify-content: center;"> Drag and drop or click here <br> to upload image </h5>
+                                </div>
+                                <div class="nodisplaydrag">
+                                    <h5 class="mt-1" style="font-size: 15px; display: flex; justify-content: center;"> Browse file</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </label>
+            </div>
+            <div class="col colku2">
+                <!-- buatlah sebuah kolom komentar seperti aplikasi instagram -->
+                <div class="containerPost border-mix melengkung">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-detail">
+                                <div class="form-row">
+                                    <input autocomplete="off" type="text" name="JudulFoto" id="full-name" class="input-text" placeholder="Title" required>
+                                </div>
+                                <div class="form-row">
+                                    <input autocomplete="off" type="text" name="DeskripsiFoto" id="password" class="input-text" placeholder="Description" required>
+                                </div>
+                                <div class="form-row">
+                                    <input autocomplete="off" type="text" name="Url" id="comfirm-password" class="input-text" placeholder="Link">
+                                </div>
+                                <div class="form-row-last">
+                                    <button type="submit" name="register" class="submit">Post</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
 <?= $this->endSection(); ?>

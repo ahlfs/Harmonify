@@ -6,6 +6,20 @@ use CodeIgniter\Model;
 
 class FotoModel extends Model
 {
-    protected $allowedFields    = ['FotoID', 'JudulFoto', 'DeskripsiFoto', 'TanggalUnggah', 'LokasiFile', 'AlbumID', 'UserID', 'Url'];
+    protected $table = "foto";
+    protected $primaryKey = "FotoID";
+    protected $allowedFields    = ['FotoID', 'JudulFoto', 'DeskripsiFoto', 'TanggalUnggah', 'LokasiFile', 'AlbumID', 'UserID', 'Url', 'Foto'];
+
+    public function getFoto($id = false)
+    {
+        if($id == false){
+            return $this->findAll();
+        }
+        return $this->where(['FotoID' => $id])->first();
+    }
+    public function getRandomFoto()
+    {
+        return $this->orderBy('FotoID', 'RANDOM')->findAll();
+    }
     
 }
