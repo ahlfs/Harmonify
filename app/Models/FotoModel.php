@@ -21,5 +21,10 @@ class FotoModel extends Model
     {
         return $this->orderBy('FotoID', 'RANDOM')->findAll();
     }
+
+    public function getCreatedFoto($UserID)
+    {
+        return $this->where('UserID', $UserID)->findAll();
+    }
     
 }

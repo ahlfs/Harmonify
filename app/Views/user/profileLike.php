@@ -6,12 +6,14 @@
         <img draggable="false" class="profilefoto" src="https://i.pinimg.com/564x/bd/94/ce/bd94ce28cf8aefb521bac31d547f6409.jpg">
     </div>
     <div class="profilebar">
-        <p class="username">@ahlfss</p>
+        <h5></h5>
+        <p class="username">@<?= $user['Username']; ?></p>
         <p class="count">0 photo</p>
     </div>
     <div class="managebar">
         <a class="shareButton">Share</a>
         <a class="editButton">Edit</a>
+        <a href="/logout" class="editButton">Logout</a>
     </div>
 </div>
 <div class="box">
@@ -19,8 +21,9 @@
 </div>
 <div class="box">
     <div class="photobar">
-        <a href="/profile" class="no-decoration no-underline photoButtonCreated">Created</a>
-        <a href="/profile/saved" class="underline no-decoration photoButtonSaved selected">Saved</a>
+        <a href="/profile/<?= $user['UserID']; ?>" class="no-decoration no-underline photoButtonCreated">Created</a>
+        <a href="/profile/<?= $user['UserID']; ?>/liked" class="underline no-decoration photoButtonSaved selected">Like</a>
+        <a href="/profile/<?= $user['UserID']; ?>/album" class="no-decoration no-underline photoButtonAlbum">Album</a>
     </div>
 </div>
 

@@ -35,7 +35,7 @@ class User extends Migration
                 'type' => 'TEXT',
             ],
             'PhotoProfile' => [
-                'type' => 'BLOB',
+                'type' => 'FotoProfil',
             ],
         ]);
         $this->forge->addKey('UserID', true);

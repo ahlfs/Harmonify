@@ -41,7 +41,8 @@ class Foto extends Migration
                 'type' => 'TEXT',
             ],
             'Foto' => [
-                'type' => 'BLOB',
+                'type' => 'VARCHAR',
+                'constraint' => 255,
             ],
         ]);
         $this->forge->addKey('FotoID', true);

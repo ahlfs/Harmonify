@@ -50,6 +50,22 @@ img {
   margin: 0px 5px;
   text-decoration: none;
 }
+.menu .homeicon {
+  padding: 5px 12px;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 40px;
+  margin: 0px 5px;
+  text-decoration: none;
+}
+.menu .createicon {
+  padding: 5px 12px;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 40px;
+  margin: 0px 5px;
+  text-decoration: none;
+}
 .menu .search-bar {
   width: 100%;
   margin: 0px 5px;
@@ -134,6 +150,65 @@ img {
   padding: 15px;
 }
 
+.buttonlogin {
+  --primary-color: #645bff;
+  --secondary-color: #fff;
+  --hover-color: #111;
+  --arrow-width: 10px;
+  --arrow-stroke: 2px;
+  box-sizing: border-box;
+  border: 0;
+  border-radius: 40px;
+  color: var(--secondary-color);
+  padding: 12px 25px;
+  background: var(--primary-color);
+  display: flex;
+  transition: 0.2s background;
+  align-items: center;
+  gap: 0.6em;
+  font-weight: bold;
+}
+
+.buttonlogin .arrow-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttonlogin .arrow {
+  margin-top: 1px;
+  width: var(--arrow-width);
+  background: var(--primary-color);
+  height: var(--arrow-stroke);
+  position: relative;
+  transition: 0.2s;
+}
+
+.buttonlogin .arrow::before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  border: solid var(--secondary-color);
+  border-width: 0 var(--arrow-stroke) var(--arrow-stroke) 0;
+  display: inline-block;
+  top: -3px;
+  right: 3px;
+  transition: 0.2s;
+  padding: 3px;
+  transform: rotate(-45deg);
+}
+
+.buttonlogin:hover {
+  background: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
+}
+
+.buttonlogin:hover .arrow {
+  background: var(--secondary-color);
+}
+
+.buttonlogin:hover .arrow:before {
+  right: 0;
+}
 
 /*POSTS*/
 .containerFoto {
@@ -809,6 +884,10 @@ header {
   .pp-bar a:hover {
     background: #161b22;
     color: white;
+  }
+
+  .buttonlogin .arrow-wrapper {
+    display: none;
   }
 
   /*MINI SEARCH BAR*/

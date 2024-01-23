@@ -3,16 +3,19 @@
 
 <div class="box">
     <div class="profilefotobar">
-        <img draggable="false" class="profilefoto" src="https://i.pinimg.com/564x/bd/94/ce/bd94ce28cf8aefb521bac31d547f6409.jpg">
+        <img draggable="false" class="profilefoto" src="/user_profile/<?= $user['FotoProfil']; ?>">
     </div>
     <div class="profilebar">
-        <h5>@ahlfss</h5>
-        <p class="username">@ahlfss</p>
+        <h5></h5>
+        <p class="username">@<?= $user['Username']; ?></p>
         <p class="count">0 photo</p>
     </div>
     <div class="managebar">
         <a href="#" class="shareButton">Share</a>
+        <?php if (session()->get('UserID') == $user['UserID']) : ?>
         <a href="#" class="editButton">Edit</a>
+        <a href="/logout" class="editButton">Logout</a>
+        <?php endif; ?>
     </div>
 </div>
 <div class="box">
@@ -20,10 +23,27 @@
 </div>
 <div class="box">
     <div class="photobar">
-        <a href="/profile" class="underline no-decoration photoButtonCreated selected">Created</a>
-        <a href="/profile/saved" class="no-decoration no-underline photoButtonSaved">Saved</a>
+        <a href="/profile/<?= $user['UserID']; ?>" class="underline no-decoration photoButtonCreated selected">Created</a>
+        <a href="/profile/<?= $user['UserID']; ?>/liked" class="no-decoration no-underline photoButtonSaved">Like</a>
+        <a href="/profile/<?= $user['UserID']; ?>/album" class="no-decoration no-underline photoButtonAlbum">Album</a>
     </div>
 </div>
+
+<div class="containerFoto">
+  <?php foreach ($foto as $f) : ?>
+    <div class="window">
+      <img class="foto" src="/image_storage/<?= $f['Foto']; ?>">
+      <div class="hover-zone" onclick="redirectToPage('/post/<?= $f['FotoID']; ?>')" >
+        <div class="bottom-bar">
+          <div class="radius-ico">
+            <a href="/download/<?= $f['FotoID']?>" class="iconButton"><i class="fa-solid fa-download fa-xl"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <?php endforeach; ?>
+
+  </div>
 
 
 
