@@ -4686,6 +4686,7 @@
   
   .modal {
     position: fixed;
+
     top: 0;
     left: 0;
     z-index: 1050;
@@ -4696,6 +4697,7 @@
     outline: 0; }
   
   .modal-dialog {
+    z-index: 1000 !important;
     position: relative;
     width: auto;
     margin: 0.5rem;

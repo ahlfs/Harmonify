@@ -1,4 +1,11 @@
-
+.iconkomentar {
+    height: 18px;
+    width: 18px;
+    margin-right: 5px;
+    margin-top: 2px;
+    border-radius: 20px;
+    object-fit: cover;
+}
 .addtxt{
 	padding-top: 10px;
 	padding-bottom: 10px;

@@ -1,11 +1,14 @@
 <?= $this->extend('layouts/layoutUser'); ?>
 <?= $this->section('content'); ?>
 
+<link rel="stylesheet" href="/assets/css/comment.css" />
+
 <?php
 
 use App\Models\UserModel;
 
 $this->UserModel = new UserModel();
+$isLogin = session()->get('isLogin');
 ?>
 
 <div class="container">
@@ -19,16 +22,24 @@ $this->UserModel = new UserModel();
           <!-------------------->
           <div class="bottom-bar">
             <?php if (!empty($fotodata['Url'])) : ?>
-              <a href="<?= $fotodata['Url']; ?>" class="webButton">↗ website.com</a>
+              <a href="<?= $fotodata['Url']; ?>" class="webButton">
+              <?= $url ?>
+            </a>
             <?php endif; ?>
             <div class="radius-ico">
-              <a href="#" class="iconButton"><i class="fa-regular fa-heart fa-xl"></i></a>
+              <?php if ($liked) : ?>
+                <a href="/unlike/<?= $fotodata['FotoID'] ?>" class="iconButton"><i class="fa-solid fa-heart fa-xl" style="color: #ff0000;"></i></a>
+              <?php else : ?>
+                <a href="/like/<?= $fotodata['FotoID'] ?>" class="iconButton"><i class="fa-regular fa-heart fa-xl"></i></a>
+              <?php endif; ?>
               <a href="/download/<?= $fotodata['FotoID'] ?>" class="iconButton"><i class="fa-solid fa-download fa-xl"></i></a>
             </div>
           </div>
         </div>
       </div>
     </div>
+
+
     <div class="col colku2">
       <!-- buatlah sebuah kolom komentar seperti aplikasi instagram -->
       <div class="containerPost border-mix melengkung">
@@ -44,22 +55,38 @@ $this->UserModel = new UserModel();
           </div>
         </div>
         <div class="row mt-5">
+          <?php if ($isLogin == True) : ?>
           <div class="col-12">
             <form action="/komentar/<?= $fotodata['FotoID'] ?>" method="post">
               <?= csrf_field(); ?>
               <div class="input-group mb-3">
                 <input type="text" autocomplete="off" class="form-control" placeholder="Komentar" name="IsiKomentar" id="komentar" required>
                 <div class="input-group-append">
-                  <button class="btn btn-outline-primary" type="submit" id="button-addon2"><i class="fa-solid fa-paper-plane fa"></i></button>
+                  <button style="margin-left: 1px;" class="btn btn-outline-primary" type="submit" id="button-addon2"><i class="fa-solid fa-paper-plane fa"></i></button>
                 </div>
               </div>
             </form>
           </div>
+          <?php else : ?>
+          <div class="col-12">
+            <div class="input-group mb-3">
+              <input type="text" autocomplete="off" class="form-control" placeholder="Komentar" name="IsiKomentar" id="komentar" value="Oops, you need to login before post a comment" required disabled>
+              <div class="input-group-append">
+                <button style="margin-left: 1px;" class="btn btn-outline-primary disabled" type="submit" id="button-addon2"><i class="fa-solid fa-paper-plane fa"></i></button>
+              </div>
+            </div>
+        </div>
+        <?php endif; ?>
         </div>
 
-        <div class="row">
-          <div class="col-12">
 
+
+
+
+
+        <?php if ($komentar) : ?>
+        <div class="row">
+          <div class="col-12 scrolling">
             <?php foreach ($komentar as $k) : ?>
               <?php
               $komentaruser = $this->UserModel->getUser($k['UserID']);
@@ -68,7 +95,8 @@ $this->UserModel = new UserModel();
                 <div class="d-flex justify-content-start py-2">
                   <div class="second px-2">
                     <div class="d-flex">
-                      <div class="komentarprofile" onclick="redirectToPage('/profile/<?= $k['UserID']; ?>')"><img src="/user_profile/<?= $komentaruser['FotoProfil'] ?>" width="18" style="border-radius: 20px;">
+                      <div class="komentarprofile" onclick="redirectToPage('/profile/<?= $k['UserID']; ?>')">
+                      <img src="/user_profile/<?= $komentaruser['FotoProfil'] ?>" class="iconkomentar" >
                         <span class="text2"><?= $komentaruser['Username'] ?></span>
                         <?php if ($k['UserID'] == $fotodata['UserID']) : ?>
                           <a class="creatorlogo" draggable="false"><span style="font-size: 10px; color: #fff;">Creator</span></a>
@@ -80,9 +108,17 @@ $this->UserModel = new UserModel();
                 </div>
               </div>
             <?php endforeach; ?>
-
           </div>
         </div>
+        <?php else : ?>
+          <div class="row">
+            <div class="col-12">
+              <div class="d-flex justify-content-center">
+                <span class="text1">No comments yet</span>
+              </div>
+            </div>
+          </div>
+        <?php endif; ?>
 
       </div>
     </div>

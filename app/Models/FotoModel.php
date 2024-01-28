@@ -26,5 +26,11 @@ class FotoModel extends Model
     {
         return $this->where('UserID', $UserID)->findAll();
     }
+
+    public function getFotoByKeyword($keyword)
+    {
+        return $this->like('JudulFoto', $keyword)->orLike('DeskripsiFoto', $keyword)->findAll();
+    }
+    
     
 }

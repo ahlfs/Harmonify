@@ -3,15 +3,21 @@
 namespace App\Controllers;
 use App\Models\FotoModel;
 use App\Models\KomentarModel;
+use App\Models\LikeModel;
+use App\Models\UserModel;
 
 class PostController extends BaseController
 {
     protected $FotoModel;
     protected $KomentarModel;
+    protected $LikeModel;
+    protected $UserModel;
     public function __construct()
     {
         $this->FotoModel = new FotoModel();
         $this->KomentarModel = new KomentarModel();
+        $this->LikeModel = new LikeModel();
+        $this->UserModel = new UserModel();
     }
 
     public function upload()
@@ -56,4 +62,68 @@ class PostController extends BaseController
         ]);
         return redirect()->to('/post/' . $id);
     }
+
+    public function like($id)
+    {
+        $UserID = session('UserID');
+        $this->LikeModel->save([
+            'FotoID' => $id,
+            'UserID' => $UserID,
+            'TanggalLike' => date('Y-m-d'),
+        ]);
+        return redirect()->to('/post/' . $id);
+    }
+
+    public function unlike($id)
+    {
+        $UserID = session('UserID');
+        $this->LikeModel->where('FotoID', $id)->where('UserID', $UserID)->delete();
+        return redirect()->to('/post/' . $id);
+    }
+
+    
+
+    public function editpost($id): string
+    {
+        $data = [
+            'validation' => \Config\Services::validation(),
+            'foto' => $this->FotoModel->getFoto($id)
+        ];
+        return view('user/editpost', $data);
+    }
+
+    public function updatepost($id)
+    {
+        $fotoLama = $this->FotoModel->getFoto($id);
+        if ("" == $this->request->getVar('Foto')) {
+            $newName = $fotoLama['Foto'];
+        } else {
+            $rule_foto = 'uploaded[foto]|max_size[foto,1024]|is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/png]';
+
+            // ambil gambar
+        $fileDokumen = $this->request->getFile('foto');
+        $newName = $fileDokumen->getRandomName();
+        $fileDokumen->move('image_storage', $newName);
+        }
+
+        $this->FotoModel->save([
+            "FotoID" => $id,
+            "JudulFoto" => $this->request->getVar('JudulFoto'),
+            'DeskripsiFoto' => $this->request->getVar('DeskripsiFoto'),
+            'Url' => $this->request->getVar('Url'),
+            'Foto' => $newName,
+        ]);
+
+        session()->setFlashdata('pesan', 'Post Succesfully Updated');
+        return redirect()->to('/');
+    }
+
+    public function deletepost($id)
+    {
+        $this->FotoModel->where('FotoID', $id)->delete();
+        session()->setFlashdata('pesan', 'Post Succesfully Deleted');
+        return redirect()->to('/');
+    }
+
+    
 }

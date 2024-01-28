@@ -1,6 +1,10 @@
 /*ROOT*/
-::-webkit-scrollbar {
+body::-webkit-scrollbar {
   display: none;
+}
+
+header {
+  z-index: 1000;
 }
 
 * {
@@ -66,7 +70,11 @@ img {
   margin: 0px 5px;
   text-decoration: none;
 }
-.menu .search-bar {
+.full-search-bar {
+  width: 100%;
+  margin-right: 5px;
+}
+.search-bar {
   width: 100%;
   margin: 0px 5px;
   padding: 12px 35px;
@@ -83,15 +91,15 @@ img {
   color: gray;
   border: 4px solid transparent;
 }
-.menu .search-bar:hover {
+.search-bar:hover {
   background-color: #3333;
 }
-.menu .search-bar:focus {
+.search-bar:focus {
   border: 4px solid #7bb5f0;
   padding: 12px 20px;
   background-image: none;
 }
-.menu .search-bar::placeholder {
+.search-bar::placeholder {
   user-select: none;
 }
 .icon-container {
@@ -102,11 +110,13 @@ img {
 }
 .icon-container .icon {
   width: 50px;
+  height: 50px;
   border-radius: 50%;
   cursor: pointer;
   margin-left: 3px;
   padding: 2px;
   padding: 0px;
+  object-fit: cover;
 }
 .icon-container .icon:hover {
   background-color: #eeeeee;
@@ -156,6 +166,7 @@ img {
   --hover-color: #111;
   --arrow-width: 10px;
   --arrow-stroke: 2px;
+  margin-left: 5px;
   box-sizing: border-box;
   border: 0;
   border-radius: 40px;
@@ -232,6 +243,7 @@ img {
   overflow: hidden;
   position: relative;
   z-index: 97;
+  
 }
 .window .foto {
   cursor: zoom-in;
@@ -278,26 +290,43 @@ img {
   padding: 5px 10px;
   width: 100%;
   border-radius: 20px;
+  margin-top: 5px;
 }
 
 .hover-zone .top-bar .icon {
   width: 40px;
+  height: 40px;
+  object-fit: cover;
   border-radius: 50%;
   cursor: pointer;
   padding: 2px;
 }
-.hover-zone .top-bar .saveButton {
+.hover-zone .top-bar .deleteButton {
   color: white;
-  padding: 15px 25px;
+  padding: 9px;
   font-weight: bolder;
-  font-size: 18px;
+  font-size: 12px;
   border-radius: 40px;
   cursor: pointer;
-  background: #1fa7e1;
+  background: #ff4d4d;
   margin-top: 3px;
 }
-.hover-zone .top-bar .saveButton:hover {
-  background: #4CB9E7;
+.hover-zone .top-bar .deleteButton:hover {
+  background: #ff3333;
+}
+
+.hover-zone .top-bar .editButton {
+  color: white;
+  padding: 9px;
+  font-weight: bolder;
+  font-size: 12px;
+  border-radius: 40px;
+  cursor: pointer;
+  background: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
+  margin-top: 3px;
+}
+.hover-zone .top-bar .editButton:hover {
+  background: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
 }
 .hover-zone .bottom-bar {
   padding: 10px 10px;
@@ -377,6 +406,12 @@ header {
 
 .profile-deactive {
   color: #161b22;
+}
+
+.harmonify-icon {
+  max-width: 50px; 
+  max-height: 50px; 
+  margin: 10px;
 }
 
 @media (max-width: 1450px) {
@@ -793,6 +828,10 @@ header {
   .window:hover .hover-zone {
     opacity: 1;
   }
+
+  .harmonify-icon {
+    display: none;
+  }
 }
 
 @media (max-width: 480px) {
@@ -824,7 +863,7 @@ header {
     border-radius: 40px;
     margin: 0px 5px;
   }
-  .menu .search-bar {
+  .search-bar {
     width: 100%;
     margin: 0px 5px;
     padding: 12px 35px;
@@ -841,15 +880,15 @@ header {
     color: gray;
     border: 4px solid transparent;
   }
-  .menu .search-bar:hover {
+  .search-bar:hover {
     background-color: #3333;
   }
-  .menu .search-bar:focus {
+  .search-bar:focus {
     border: 4px solid #7bb5f0;
     padding: 12px 20px;
     background-image: none;
   }
-  .menu .search-bar::placeholder {
+  .search-bar::placeholder {
     user-select: none;
   }
   .icon-container {
@@ -994,6 +1033,8 @@ header {
   }
   .hover-zone .top-bar .icon {
     width: 40px;
+    height: 40px;
+    object-fit: cover;
     border-radius: 50%;
     cursor: pointer;
     padding: 2px;

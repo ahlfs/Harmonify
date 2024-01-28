@@ -41,6 +41,7 @@
 }
  .form-row {
     width: 100%;
+	justify-content: center;
     font-family: "Nunito", sans-serif;
 }
 .form-detail .form-row-last {

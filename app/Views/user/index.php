@@ -16,7 +16,7 @@ $this->UserModel = new UserModel();
       <img class="foto" src="/image_storage/<?= $f['Foto']; ?>">
       <div class="hover-zone" onclick="redirectToPage('/post/<?= $f['FotoID']; ?>')" >
         <div class="top-bar">
-          <a href="/profile/<?= $f['UserID']; ?>"><img tabindex="1" draggable="false" class="icon pp" src="/user_profile/<?= $user['FotoProfil']; ?>"></a>
+          <a href="/profile/<?= $f['UserID']; ?>"><img draggable="false" class="icon" src="/user_profile/<?= $user['FotoProfil']; ?>"></a>
         </div>
         <!-------------------->
         <div class="bottom-bar">

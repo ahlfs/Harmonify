@@ -6,6 +6,13 @@ chooseFile.addEventListener("change", function () {
     getImgData();
 });
 
+function displayImage(url) {
+    var imgPreview = document.getElementById("img-preview");
+    imgPreview.style.display = "block";
+    imgPreview.innerHTML = '<img src="' + url + '" />';
+ }
+
+
 function getImgData() {
     const files = chooseFile.files[0];
     if (files) {

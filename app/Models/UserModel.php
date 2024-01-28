@@ -23,4 +23,8 @@ class UserModel extends Model
         return $this->where(['UserID' => $id])->first();
     }
     
+    public function getUserByKeyword($keyword)
+    {
+        return $this->like('Username', $keyword)->orLike('NamaLengkap', $keyword);
+    }
 }

@@ -19,6 +19,8 @@ class AuthController extends BaseController
     }
     public function valid_register()
     {
+        // Load helper yang diperlukan
+        helper(['form', 'url']);
         //tangkap data dari form 
         $data = $this->request->getPost();
 
@@ -33,10 +35,11 @@ class AuthController extends BaseController
 
         //jika ada error kembalikan ke halaman register
         if ($errors) {
-            session()->setFlashdata('username', $this->validation->getError('username'));
-            session()->setFlashdata('password', $this->validation->getError('password'));
-            session()->setFlashdata('confirm', $this->validation->getError('confirm'));
-            return redirect()->to('/');
+            session()->setFlashdata('usernameError', $this->validation->getError('username'));
+            session()->setFlashdata('passwordError', $this->validation->getError('password'));
+            session()->setFlashdata('confirmError', $this->validation->getError('confirm'));
+            session()->setFlashdata('RegisterFailed', 'True');
+            return redirect()->back()->withInput();
         }
 
         $hashedpass = md5($data['password']);
@@ -48,7 +51,7 @@ class AuthController extends BaseController
             'Password' => $hashedpass,
             'FotoProfil' => $defaultprofile,
         ]);
-        
+
 
         $user = $this->UserModel->where('Username', $data['username'])->first();
 
@@ -61,11 +64,15 @@ class AuthController extends BaseController
 
         //arahkan ke halaman login
         session()->setFlashdata('login', 'Anda berhasil mendaftar, silahkan login');
-        return redirect()->to('/profile/' . $user['UserID']);
+        //redirect kembali ke page sebelumnya
+        return redirect()->back();
+        // return redirect()->to('/profile/' . $user['UserID']);
     }
 
     public function valid_login()
     {
+        // Load helper yang diperlukan
+        helper(['form', 'url']);
         //ambil data dari form
         $data = $this->request->getPost();
 
@@ -77,14 +84,11 @@ class AuthController extends BaseController
             //cek password
             //jika salah arahkan lagi ke halaman login
             if ($user['Password'] != md5($data['password'])) {
-                session()->setFlashdata('password', 'Password salah');
-              
-                $errorLogin = [
-                    'hehe' => 1,
-                ];
-                
-                return redirect()->to('/');
-                
+                session()->setFlashdata('LoginFailed', 'True');
+                session()->setFlashdata('passwordWrong', 'Password tidak sesuai');
+
+
+                return redirect()->back()->withInput();
             } else {
                 //jika benar, arahkan user masuk ke aplikasi 
                 $sessLogin = [
@@ -93,12 +97,14 @@ class AuthController extends BaseController
                     'FotoProfil' => $user['FotoProfil'],
                 ];
                 $this->session->set($sessLogin);
-                return redirect()->to('/profile/' . $user['UserID']);
+                return redirect()->back();
+                // return redirect()->to('/profile/' . $user['UserID']);
             }
         } else {
 
             //kembali ke halaman login sekaligus membuka modal register
-            session()->setFlashdata('register', 'Username belum terdaftar, silahkan daftar terlebih dahulu');
+            session()->setFlashdata('LoginFailed', 'True');
+            session()->setFlashdata('usernameNotFound', 'Username tidak ditemukan');
             return redirect()->to('/');
         }
     }

@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="/assets/css/imagepreview.css"/>
 
 <div class="container">
-    <form action="/upload" method="post" enctype="multipart/form-data">
+    <form action="/updatepost/<?= $foto['FotoID'] ?>" method="post" enctype="multipart/form-data">
         <div class="row">
             <div class="col colku1">
                 <!-- Image Preview -->
@@ -36,17 +36,19 @@
                         <div class="col-12">
                             <div class="form-detail">
                                 <div class="form-row">
-                                    <input autocomplete="off" type="text" name="JudulFoto" id="full-name" class="input-text" placeholder="Title" required>
+                                    <input autocomplete="off" type="text" name="JudulFoto" id="full-name" class="input-text" placeholder="Title" value="<?= $foto['JudulFoto'] ?>" required>
                                 </div>
                                 <div class="form-row">
-                                    <input autocomplete="off" type="text" name="DeskripsiFoto" class="input-text" placeholder="Description" required>
+                                    <input autocomplete="off" type="text" name="DeskripsiFoto" class="input-text" placeholder="Description" value="<?= $foto['DeskripsiFoto'] ?>" required>
                                 </div>
                                 <div class="form-row">
-                                    <input autocomplete="off" type="text" name="Url" id="comfirm-password" class="input-text" placeholder="Link / Url / Credit (Optional)">
+                                    <input autocomplete="off" type="text" name="Url" id="comfirm-password" class="input-text" placeholder="Link" value="<?= $foto['Url'] ?>">
                                 </div>
                                 <div class="form-row-last">
-                                    <button type="submit" name="register" class="submit">Post</button>
+                                    <button type="submit" name="register" class="submit">Update</button>
                                 </div>
+
+                                
                             </div>
                         </div>
                     </div>
@@ -57,5 +59,12 @@
 </div>
 
 <script src="/assets/js/imagepreview.js"></script>
-<?= $this->endSection(); ?>
+<script>
+      // Pemanggilan displayImage dengan URL gambar yang sudah dimiliki
+      var imageUrl = <?php echo json_encode(base_url('image_storage/' . $foto["Foto"])); ?>;
+        window.onload = function() {
+            displayImage(imageUrl);
+        };
 
+   </script>
+<?= $this->endSection(); ?>
