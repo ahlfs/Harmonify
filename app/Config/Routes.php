@@ -14,9 +14,11 @@ $routes->get('/post/(:num)', 'UserController::post/$1');
 $routes->post('/updatepost/(:num)', 'PostController::updatepost/$1');
 
 $routes->get('/editprofile/(:num)', 'UserController::editprofile/$1');
+$routes->post('/updateprofile/(:num)', 'UserController::updateprofile/$1');
 
 
 $routes->post('/search', 'UserController::search');
+$routes->get('/accessdenied', 'UserController::accessdenied');
 
 $routes->get('/editpost/(:num)', 'PostController::editpost/$1');
 $routes->get('/deletepost/(:num)', 'PostController::deletepost/$1');

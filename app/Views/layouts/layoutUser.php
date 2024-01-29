@@ -65,12 +65,12 @@ $ActiveCreate = session()->getFlashdata('ActiveCreateNavbar');
               <form action="/login" class="contact-form" method="post">
                 <div class="form-group mb-3">
                   <p class="text-danger"><?= $LoginUsernameError ?></p>
-                  <input type="text" class="form-control" name="username" placeholder="Username" autocomplete="off">
+                  <input type="text" class="form-control" name="username" placeholder="Username" autocomplete="off" value="<?= old('username') ?>">
                 </div>
                 <div class="form-group mb-3">
                   <p class="text-danger"><?= $LoginPasswordError ?></p>
                   <div class="input-group">
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Password" value="<?= old('password') ?>">
                     <button class="btn" style="color: white; width: 10px;" type="button" id="togglePassword">
                       <i class="fa fa-eye" aria-hidden="true"></i>
                     </button>
@@ -113,13 +113,13 @@ $ActiveCreate = session()->getFlashdata('ActiveCreateNavbar');
 
                 <div class="form-group mb-3">
                   <p class="text-danger"><?= $RegisterUsernameError ?></p>
-                  <input type="text" class="form-control" name="username" placeholder="Username" autocomplete="off">
+                  <input type="text" class="form-control" name="username" placeholder="Username" autocomplete="off" value="<?= old('username') ?>">
                 </div>
 
                 <div class="form-group mb-3">
                   <p class="text-danger"><?= $RegisterPasswordError ?></p>
                   <div class="input-group">
-                    <input type="password" id="passwordRegister" class="form-control" name="password" placeholder="Password">
+                    <input type="password" id="passwordRegister" class="form-control" name="password" placeholder="Password" value="<?= old('password') ?>">
                     <button class="btn" style="color: white; width: 10px;" type="button" id="togglePasswordRegister">
                       <i class="fa fa-eye" aria-hidden="true"></i>
                     </button>
@@ -128,7 +128,7 @@ $ActiveCreate = session()->getFlashdata('ActiveCreateNavbar');
                 <div class="form-group mb-3">
                   <p class="text-danger"><?= $RegisterConfirmError ?></p>
                   <div class="input-group">
-                    <input type="password" class="form-control" id="passwordConfirm" name="confirm" placeholder="Confirm Password">
+                    <input type="password" class="form-control" id="passwordConfirm" name="confirm" placeholder="Confirm Password" value="<?= old('confirm') ?>">
                     <button class="btn" style="color: white; width: 10px;" type="button" id="togglePasswordConfirm">
                       <i class="fa fa-eye" aria-hidden="true"></i>
                     </button>

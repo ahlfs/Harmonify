@@ -12,12 +12,14 @@ class PostController extends BaseController
     protected $KomentarModel;
     protected $LikeModel;
     protected $UserModel;
+    protected $session;
     public function __construct()
     {
         $this->FotoModel = new FotoModel();
         $this->KomentarModel = new KomentarModel();
         $this->LikeModel = new LikeModel();
         $this->UserModel = new UserModel();
+        $this->session = \Config\Services::session();
     }
 
     public function upload()
@@ -65,6 +67,11 @@ class PostController extends BaseController
 
     public function like($id)
     {
+        if (session('isLogin') == false) {
+            session()->setFlashdata('LoginFailed', 'True');
+            session()->setFlashdata('usernameNotFound', 'Oops, you need to login first before like a post');
+            return redirect()->back();
+        }
         $UserID = session('UserID');
         $this->LikeModel->save([
             'FotoID' => $id,
@@ -95,7 +102,7 @@ class PostController extends BaseController
     public function updatepost($id)
     {
         $fotoLama = $this->FotoModel->getFoto($id);
-        if ("" == $this->request->getVar('Foto')) {
+        if ("" == $this->request->getFile('foto')) {
             $newName = $fotoLama['Foto'];
         } else {
             $rule_foto = 'uploaded[foto]|max_size[foto,1024]|is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/png]';
@@ -120,9 +127,11 @@ class PostController extends BaseController
 
     public function deletepost($id)
     {
+        $foto = $this->FotoModel->getFoto($id);
+        unlink('image_storage/' . $foto['Foto']);
         $this->FotoModel->where('FotoID', $id)->delete();
         session()->setFlashdata('pesan', 'Post Succesfully Deleted');
-        return redirect()->to('/');
+        return redirect()->back();
     }
 
     

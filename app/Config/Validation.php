@@ -43,8 +43,10 @@ class Validation extends BaseConfig
     // --------------------------------------------------------------------
     public $register = [
         'username' => [
-            'rules' => 'alpha_numeric|is_unique[user.Username]',  
+            'rules' => 'required|min_length[5]|alpha_numeric|is_unique[user.Username]',
             'errors' => [
+                'required' => 'Username harus diisi',
+                'min_length' => 'Username harus terdiri dari 5 huruf',
                 'alpha_numeric' => 'Username hanya boleh mengandung huruf dan angka',
                 'is_unique' => 'Username sudah dipakai'
             ]
@@ -58,8 +60,34 @@ class Validation extends BaseConfig
         ],
         'confirm' => [
             'rules' => 'matches[password]',
-            'errors'=> [
+            'errors' => [
                 'matches' => 'Konfirmasi password tidak cocok'
+            ]
+        ],
+    ];
+
+    public $updateprofile = [
+        'username' => [
+            'rules' => 'required|min_length[5]|alpha_numeric',
+            'errors' => [
+                'required' => 'Username harus diisi',
+                'min_length' => 'Username harus terdiri dari 5 huruf',
+                'alpha_numeric' => 'Username hanya boleh mengandung huruf dan angka',
+            ]
+        ],
+        'email' => [
+            'rules' => 'permit_empty|valid_email|is_unique[user.Email]',
+            'errors' => [
+                'valid_email' => 'Penulisan email tidak valid',
+                'is_unique' => 'Email sudah terdaftar'
+            ]
+        ],
+        'fotoprofile' => [
+            'rules' => 'permit_empty|max_size[foto,10240]|is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/png,image/webp,image/svg]',
+            'errors' => [
+                'max_size' => 'Ukuran gambar terlalu besar (max 10MB)',
+                'is_image' => 'File yang anda pilih bukan gambar',
+                'mime_in' => 'File yang anda pilih bukan gambar',
             ]
         ],
     ];

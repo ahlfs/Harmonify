@@ -11,7 +11,7 @@
                 <div id="img-preview"></div>
                 <!-- Input Images -->
                 <label for="foto" id="drop-area">
-                    <input type="file" accept="image/*" id="foto" name="foto" hidden />
+                    <input type="file" accept="image/*" id="foto" name="foto" hidden/>
                     <div id="img-view">
                         <div class="row">
                             <div class="col-12">

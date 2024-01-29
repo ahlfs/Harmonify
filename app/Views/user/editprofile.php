@@ -3,32 +3,46 @@
 
 <link rel="stylesheet" href="/assets/css/imagepreviewprofile.css" />
 
+<?php
+
+$usernameError = session()->getFlashdata('usernameError');
+$emailError = session()->getFlashdata('emailError');
+$fotoprofileError = session()->getFlashdata('fotoprofileError');
+?>
+
 <div class="container">
     <form action="/updateprofile/<?= $user['UserID'] ?>" method="post" enctype="multipart/form-data">
         <div class="containerPost border-mix melengkung">
-            <div class="fotoprofile d-flex justify-content-center">
-                <label for="foto" id="drop-area-profile">
-                    <input type="file" accept="image/*" id="foto" name="foto" hidden />
-                    <div id="img-view-profile">
-                        <div id="img-preview-profile"></div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="fotoprofile d-flex justify-content-center">
+                        <label for="foto" id="drop-area-profile">
+                            <input type="file" accept="image/*" id="foto" name="fotoprofile" hidden />
+                            <div id="img-view-profile">
+                                <div id="img-preview-profile"></div>
+                            </div>
+                        </label>
+                        <span><?= $fotoprofileError ?></span>
                     </div>
-                </label>
+                </div>
             </div>
 
             <div class="row">
                 <div class="col-12">
                     <div class="form-detail">
                         <div class="form-row">
-                            <input autocomplete="off" type="text" name="Username" class="input-text" placeholder="Username" value="<?= $user['Username'] ?>" required>
+                            <span><?= $usernameError ?></span>
+                            <input autocomplete="off" type="text" name="username" class="input-text" placeholder="Username" value="<?= (old('username')) ? old('username') : $user['Username']; ?>" required>
                         </div>
                         <div class="form-row">
-                            <input autocomplete="off" type="text" name="NamaLengkap" class="input-text" placeholder="Nama Lengkap" value="<?= $user['NamaLengkap'] ?>" required>
+                            <input autocomplete="off" type="text" name="namalengkap" class="input-text" placeholder="Nama Lengkap" value="<?= (old('namalengkap')) ? old('namalengkap') : $user['NamaLengkap']; ?>">
                         </div>
                         <div class="form-row">
-                            <input autocomplete="off" type="text" name="Email" class="input-text" placeholder="Email Address" value="<?= $user['Email'] ?>" required>
+                            <span><?= $emailError ?></span>
+                            <input autocomplete="off" type="text" name="email" class="input-text" placeholder="Email Address" value="<?= (old('email')) ? old('email') : $user['Email']; ?>">
                         </div>
                         <div class="form-row">
-                            <input autocomplete="off" type="text" name="Alamat" class="input-text" placeholder="Address" value="<?= $user['Alamat'] ?>">
+                            <input autocomplete="off" type="text" name="alamat" class="input-text" placeholder="Address" value="<?= (old('alamat')) ? old('alamat') : $user['Alamat']; ?>">
                         </div>
                         <div class="form-row-last">
                             <button type="submit" name="register" class="submit">Update Profile</button>

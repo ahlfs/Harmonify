@@ -14,6 +14,8 @@ class UserController extends BaseController
     protected $UserModel;
     protected $KomentarModel;
     protected $LikeModel;
+    protected $validation;
+    protected $session;
 
 
     public function __construct()
@@ -22,13 +24,14 @@ class UserController extends BaseController
         $this->UserModel = new UserModel();
         $this->KomentarModel = new KomentarModel();
         $this->LikeModel = new LikeModel();
+        $this->validation = \Config\Services::validation();
+        $this->session = \Config\Services::session();
     }
     public function index(): string
     {
         $foto = $this->FotoModel->getRandomFoto();
 
         $data = [
-            'validation' => \Config\Services::validation(),
             'foto' => $foto,
         ];
 
@@ -156,12 +159,75 @@ class UserController extends BaseController
         return view('user/create');
     }
 
-    public function editprofile($id): string
+    public function editprofile($id)
     {
+        if (session('UserID') != $id) {
+            return redirect()->to('/accessdenied');
+        }
         $data = [
             'validation' => \Config\Services::validation(),
             'user' => $this->UserModel->getUser($id)
         ];
         return view('user/editprofile', $data);
     }
+
+    public function updateprofile($id) 
+    {
+        $data = $this->request->getPost();
+        $user = $this->UserModel->getUser($id);
+        if ($data['username'] != $user['Username']) {
+            if (!$this->validate([
+                'username' => [
+                    'rules' => 'is_unique[user.Username]'
+                ],
+            ])) {
+                session()->setFlashdata('usernameError', "Username sudah dipakai");
+                return redirect()->back()->withInput();
+            }
+        } 
+
+        $this->validation->run($data, 'updateprofile');
+
+        $errors = $this->validation->getErrors();
+
+        //jika ada error kembalikan ke halaman register
+        if ($errors) {
+            session()->setFlashdata('usernameError', $this->validation->getError('username'));
+            session()->setFlashdata('emailError', $this->validation->getError('email'));
+            session()->setFlashdata('fotoprofileError', $this->validation->getError('fotoprofile'));
+            return redirect()->back()->withInput();
+        }
+
+        $fileFoto = $user['FotoProfil'];
+        $fileDokumen = $this->request->getFile('fotoprofile');
+        if ($fileDokumen == "") {
+            $namaFoto = $fileFoto;
+        } else {
+            unlink('user_profile/' . $user['FotoProfil']);
+            $namaFoto = $fileDokumen->getRandomName();
+            $fileDokumen->move('user_profile', $namaFoto);
+
+            $sessLogin = [
+                'isLogin' => true,
+                'UserID' => $user['UserID'],
+                'FotoProfil' => $namaFoto,
+            ];
+            $this->session->set($sessLogin);
+        }
+        $this->UserModel->save([
+            "UserID" => $id,
+            "Username" => $data['username'],
+            'Email' =>  $data['email'],
+            'NamaLengkap' =>  $data['namalengkap'],
+            'Alamat' =>  $data['alamat'],
+            'FotoProfil' => $namaFoto,
+        ]);
+        return redirect()->to('/profile/' . $id);
+    }
+
+    public function accessdenied()
+    {
+        return view('user/accessdenied');
+    }
+
 }
