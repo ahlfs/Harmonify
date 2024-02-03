@@ -42,7 +42,7 @@ class Validation extends BaseConfig
     // Rules
     // --------------------------------------------------------------------
     public $register = [
-        'username' => [
+        'usernameRegister' => [
             'rules' => 'required|min_length[5]|alpha_numeric|is_unique[user.Username]',
             'errors' => [
                 'required' => 'Username harus diisi',
@@ -51,15 +51,15 @@ class Validation extends BaseConfig
                 'is_unique' => 'Username sudah dipakai'
             ]
         ],
-        'password' => [
+        'passwordRegister' => [
             'rules' => 'min_length[8]|alpha_numeric_punct',
             'errors' => [
                 'min_length' => 'Password harus terdiri dari 8 kata',
                 'alpha_numeric_punct' => 'Password hanya boleh mengandung angka, huruf, dan karakter yang valid'
             ]
         ],
-        'confirm' => [
-            'rules' => 'matches[password]',
+        'confirmRegister' => [
+            'rules' => 'matches[passwordRegister]',
             'errors' => [
                 'matches' => 'Konfirmasi password tidak cocok'
             ]

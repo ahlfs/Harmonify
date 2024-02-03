@@ -1,7 +1,7 @@
 <?= $this->extend('layouts/layoutUser'); ?>
 <?= $this->section('content'); ?>
 
-<link rel="stylesheet" href="/assets/css/imagepreview.css"/>
+<link rel="stylesheet" href="/assets/css/imagepreview.css" />
 
 <div class="container">
     <form action="/updatepost/<?= $foto['FotoID'] ?>" method="post" enctype="multipart/form-data">
@@ -11,7 +11,7 @@
                 <div id="img-preview"></div>
                 <!-- Input Images -->
                 <label for="foto" id="drop-area">
-                    <input type="file" accept="image/*" id="foto" name="foto" hidden/>
+                    <input type="file" accept="image/*" id="foto" name="foto" hidden />
                     <div id="img-view">
                         <div class="row">
                             <div class="col-12">
@@ -44,27 +44,34 @@
                                 <div class="form-row">
                                     <input autocomplete="off" type="text" name="Url" id="comfirm-password" class="input-text" placeholder="Link" value="<?= $foto['Url'] ?>">
                                 </div>
-                                <div class="form-row-last">
-                                    <button type="submit" name="register" class="submit">Update</button>
-                                </div>
+                                <div class="form-row">
+                                    <select name="dynamicSelect" id="dynamicSelect" onchange="checkAddOption(this)">
+                                        <option selected value="0" >Pure CSS Select</option>
+                                        <option value="addNewOption">Tambahkan opsi baru</option>
+                                        <option value="2">No JS</option>
+                                        <option value="3">Nice!</option>
+                                    </select>
+                                    <input type="text" id="newOption" name="newOption" placeholder="Tambah opsi baru" style="display: none;">
+                                    <div class="form-row-last">
+                                        <button type="submit" name="register" class="submit">Update</button>
+                                    </div>
 
-                                
+
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
     </form>
 </div>
 
 <script src="/assets/js/imagepreview.js"></script>
 <script>
-      // Pemanggilan displayImage dengan URL gambar yang sudah dimiliki
-      var imageUrl = <?php echo json_encode(base_url('image_storage/' . $foto["Foto"])); ?>;
-        window.onload = function() {
-            displayImage(imageUrl);
-        };
-
-   </script>
+    // Pemanggilan displayImage dengan URL gambar yang sudah dimiliki
+    var imageUrl = <?php echo json_encode(base_url('image_storage/' . $foto["Foto"])); ?>;
+    window.onload = function() {
+        displayImage(imageUrl);
+    };
+</script>
 <?= $this->endSection(); ?>

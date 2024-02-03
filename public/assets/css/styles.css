@@ -1,4 +1,7 @@
 /*ROOT*/
+body {
+  font-family: "Times New Roman", Times, serif;
+}
 body::-webkit-scrollbar {
   display: none;
 }
@@ -10,6 +13,7 @@ header {
 * {
   outline: none;
 }
+
 body {
   margin-top: 90px;
   padding: 0px;
@@ -261,6 +265,7 @@ img {
 }
 .iconpost {
   width: 50px;
+  height: 50px;
   border-radius: 50%;
   cursor: pointer;
   margin-left: 3px;

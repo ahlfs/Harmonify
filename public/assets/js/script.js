@@ -12,3 +12,13 @@
 function redirectToPage(pageUrl) {
   window.location.href = pageUrl;
 }
+
+function checkAddOption(selectBox) {
+    var selectedOption = selectBox.options[selectBox.selectedIndex].value;
+    
+    if (selectedOption === 'addNewOption') {
+        document.getElementById('newOption').style.display = 'block';
+    } else {
+        document.getElementById('newOption').style.display = 'none';
+    }
+}

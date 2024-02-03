@@ -35,25 +35,25 @@ class AuthController extends BaseController
 
         //jika ada error kembalikan ke halaman register
         if ($errors) {
-            session()->setFlashdata('usernameError', $this->validation->getError('username'));
-            session()->setFlashdata('passwordError', $this->validation->getError('password'));
-            session()->setFlashdata('confirmError', $this->validation->getError('confirm'));
+            session()->setFlashdata('usernameError', $this->validation->getError('usernameRegister'));
+            session()->setFlashdata('passwordError', $this->validation->getError('passwordRegister'));
+            session()->setFlashdata('confirmError', $this->validation->getError('confirmRegister'));
             session()->setFlashdata('RegisterFailed', 'True');
             return redirect()->back()->withInput();
         }
 
-        $hashedpass = md5($data['password']);
+        $hashedpass = md5($data['passwordRegister']);
         $defaultprofile = 'default.jpg';
         //jika tdk ada error 
         //masukan data ke database
         $this->UserModel->save([
-            'Username' => $data['username'],
+            'Username' => $data['usernameRegister'],
             'Password' => $hashedpass,
             'FotoProfil' => $defaultprofile,
         ]);
 
 
-        $user = $this->UserModel->where('Username', $data['username'])->first();
+        $user = $this->UserModel->where('Username', $data['usernameRegister'])->first();
 
         $sessLogin = [
             'isLogin' => true,
@@ -77,13 +77,13 @@ class AuthController extends BaseController
         $data = $this->request->getPost();
 
         //ambil data user di database yang usernamenya sama 
-        $user = $this->UserModel->where('Username', $data['username'])->first();
+        $user = $this->UserModel->where('Username', $data['usernameLogin'])->first();
 
         //cek apakah username ditemukan
         if ($user) {
             //cek password
             //jika salah arahkan lagi ke halaman login
-            if ($user['Password'] != md5($data['password'])) {
+            if ($user['Password'] != md5($data['passwordLogin'])) {
                 session()->setFlashdata('LoginFailed', 'True');
                 session()->setFlashdata('passwordWrong', 'Password tidak sesuai');
 

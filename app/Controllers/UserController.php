@@ -29,8 +29,11 @@ class UserController extends BaseController
     }
     public function index(): string
     {
-        $foto = $this->FotoModel->getRandomFoto();
-
+        $db = \Config\Database::connect(); // Mendapatkan objek database
+        $sql = "SELECT * FROM foto JOIN user ON foto.UserID = user.UserID ORDER BY RAND()";
+        $query = $db->query($sql);
+        $foto = $query->getResult();
+        $foto = json_decode(json_encode($foto), true);
         $data = [
             'foto' => $foto,
         ];
@@ -59,7 +62,6 @@ class UserController extends BaseController
     {
         $user = $this->UserModel->getUser($id);
         $foto = $this->FotoModel->getCreatedFoto($id);
-
         $jumlahfoto = count($foto);
 
         $data = [
@@ -108,10 +110,19 @@ class UserController extends BaseController
 
     public function post($id): string
     {
+        $db = \Config\Database::connect(); // Mendapatkan objek database
+        $sql = "SELECT * FROM komentarfoto JOIN user ON komentarfoto.UserID = user.UserID ORDER BY komentarfoto.TanggalKomentar";
+        $query = $db->query($sql);
+        $komentar = $query->getResult();
+        $komentar = json_decode(json_encode($komentar), true);
+        $komentar = array_filter($komentar, function ($var) use ($id) {
+            return ($var['FotoID'] == $id);
+        });
+
+
         $userId = session('UserID');
         $fotodata = $this->FotoModel->getFoto($id);
         $user = $this->UserModel->where('UserID', $fotodata['UserID'])->first();
-        $komentar = $this->KomentarModel->getKomentarByPost($id);
         $like = $this->LikeModel->getLikeByPost($id);
         $jumlahlike = count($like);
         $liked = $this->LikeModel->hasUserLikedPost($userId, $id);
@@ -135,16 +146,15 @@ class UserController extends BaseController
         //jika $url ada www.tiktok.com
         else if (strpos($url, 'www.tiktok.com') !== false) {
             $url = '<i class="fa-brands fa-tiktok fa-xl"></i> tiktok.com';
-        }
-        else {
+        } else {
             $url = '↗ website.com';
         }
 
         $data = [
             'validation' => \Config\Services::validation(),
             'fotodata' => $fotodata,
-            'user' => $user,
             'komentar' => $komentar,
+            'user' => $user,
             'jumlahlike' => $jumlahlike,
             'liked' => $liked,
             'url' => $url,
@@ -171,7 +181,7 @@ class UserController extends BaseController
         return view('user/editprofile', $data);
     }
 
-    public function updateprofile($id) 
+    public function updateprofile($id)
     {
         $data = $this->request->getPost();
         $user = $this->UserModel->getUser($id);
@@ -184,7 +194,7 @@ class UserController extends BaseController
                 session()->setFlashdata('usernameError', "Username sudah dipakai");
                 return redirect()->back()->withInput();
             }
-        } 
+        }
 
         $this->validation->run($data, 'updateprofile');
 
@@ -203,7 +213,9 @@ class UserController extends BaseController
         if ($fileDokumen == "") {
             $namaFoto = $fileFoto;
         } else {
-            unlink('user_profile/' . $user['FotoProfil']);
+            if ($fileFoto != 'default.jpg') {
+                unlink('user_profile/' . $user['FotoProfil']);
+            }
             $namaFoto = $fileDokumen->getRandomName();
             $fileDokumen->move('user_profile', $namaFoto);
 
@@ -230,4 +242,17 @@ class UserController extends BaseController
         return view('user/accessdenied');
     }
 
+    public function deleteaccount($id)
+    {
+        $user = $this->UserModel->getUser($id);
+        if ($user['UserID'] != session('UserID')) {
+            return redirect()->to('/accessdenied');
+        }
+        $this->KomentarModel->where('UserID', $id)->delete();
+        $this->LikeModel->where('UserID', $id)->delete();
+        $this->FotoModel->where('UserID', $id)->delete();
+        $this->UserModel->where('UserID', $id)->delete();
+        session()->destroy();
+        return redirect()->to('/');
+    }
 }

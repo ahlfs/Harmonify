@@ -128,10 +128,15 @@ class PostController extends BaseController
     public function deletepost($id)
     {
         $foto = $this->FotoModel->getFoto($id);
+        if ($foto['UserID'] != session('UserID')) {
+            return redirect()->to('/accessdenied');
+        }
+        $this->KomentarModel->where('FotoID', $id)->delete();
+        $this->LikeModel->where('FotoID', $id)->delete();
         unlink('image_storage/' . $foto['Foto']);
         $this->FotoModel->where('FotoID', $id)->delete();
         session()->setFlashdata('pesan', 'Post Succesfully Deleted');
-        return redirect()->back();
+        return redirect()->to('/profile/' . session('UserID'));
     }
 
     

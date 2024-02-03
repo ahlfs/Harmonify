@@ -5,9 +5,6 @@
 
 <?php
 
-use App\Models\UserModel;
-
-$this->UserModel = new UserModel();
 $isLogin = session()->get('isLogin');
 ?>
 
@@ -88,16 +85,13 @@ $isLogin = session()->get('isLogin');
         <div class="row">
           <div class="col-12 scrolling">
             <?php foreach ($komentar as $k) : ?>
-              <?php
-              $komentaruser = $this->UserModel->getUser($k['UserID']);
-              ?>
               <div class="container justify-content-center border-left border-right">
                 <div class="d-flex justify-content-start py-2">
                   <div class="second px-2">
                     <div class="d-flex">
                       <div class="komentarprofile" onclick="redirectToPage('/profile/<?= $k['UserID']; ?>')">
-                      <img src="/user_profile/<?= $komentaruser['FotoProfil'] ?>" class="iconkomentar" >
-                        <span class="text2"><?= $komentaruser['Username'] ?></span>
+                      <img src="/user_profile/<?= $k['FotoProfil'] ?>" class="iconkomentar" >
+                        <span class="text2"><?= $k['Username'] ?></span>
                         <?php if ($k['UserID'] == $fotodata['UserID']) : ?>
                           <a class="creatorlogo" draggable="false"><span style="font-size: 10px; color: #fff;">Creator</span></a>
                         <?php endif; ?>
