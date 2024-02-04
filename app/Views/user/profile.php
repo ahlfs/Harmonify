@@ -6,7 +6,7 @@
     <img draggable="false" class="profilefoto" src="/user_profile/<?= $user['FotoProfil']; ?>">
   </div>
   <div class="profilebar">
-    <h5></h5>
+    <h5 class="mt-2" ><?= $user['NamaLengkap'] ?></h5>
     <p class="username">@<?= $user['Username']; ?></p>
     <p class="count"><?= $jumlahfoto ?> photo</p>
   </div>

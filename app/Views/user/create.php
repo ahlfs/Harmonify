@@ -1,7 +1,7 @@
 <?= $this->extend('layouts/layoutUser'); ?>
 <?= $this->section('content'); ?>
 
-<link rel="stylesheet" href="/assets/css/imagepreview.css"/>
+<link rel="stylesheet" href="/assets/css/imagepreview.css" />
 
 <div class="container">
     <form action="/upload" method="post" enctype="multipart/form-data">
@@ -11,7 +11,7 @@
                 <div id="img-preview"></div>
                 <!-- Input Images -->
                 <label for="foto" id="drop-area">
-                    <input type="file" accept="image/*" id="foto" name="foto" hidden/>
+                    <input type="file" accept="image/*" id="foto" name="foto" hidden />
                     <div id="img-view">
                         <div class="row">
                             <div class="col-12">
@@ -34,19 +34,24 @@
                 <div class="containerPost border-mix melengkung">
                     <div class="row">
                         <div class="col-12">
-                            <div class="form-detail">
-                                <div class="form-row">
-                                    <input autocomplete="off" type="text" name="JudulFoto" id="full-name" class="input-text" placeholder="Title" required>
-                                </div>
-                                <div class="form-row">
-                                    <input autocomplete="off" type="text" name="DeskripsiFoto" class="input-text" placeholder="Description" required>
-                                </div>
-                                <div class="form-row">
-                                    <input autocomplete="off" type="text" name="Url" id="comfirm-password" class="input-text" placeholder="Link / Url / Credit (Optional)">
-                                </div>
-                                <div class="form-row-last">
+                            <div class="form-container">
+                                <form class="form">
+                                    <div class="form-group">
+                                        <label for="title">Title</label>
+                                        <input type="text" id="title" name="JudulFoto" autocomplete="off" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description">Description</label>
+                                        <textarea name="DeskripsiFoto" id="description" rows="10" cols="50" required></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="url">Url</label>
+                                        <input type="text" id="url" name="Url" autocomplete="off">
+                                    </div>
+                                    <div class="form-submit">
                                     <button type="submit" name="register" class="submit">Post</button>
-                                </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>

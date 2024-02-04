@@ -16,6 +16,10 @@ $routes->post('/updatepost/(:num)', 'PostController::updatepost/$1');
 $routes->get('/editprofile/(:num)', 'UserController::editprofile/$1');
 $routes->post('/updateprofile/(:num)', 'UserController::updateprofile/$1');
 
+$routes->get('/addalbum', 'UserController::addalbum');
+$routes->post('/submitalbum', 'UserController::submitalbum');
+$routes->get('/profile/album/(:num)', 'UserController::viewalbum/$1');
+
 
 $routes->post('/search', 'UserController::search');
 $routes->get('/accessdenied', 'UserController::accessdenied');

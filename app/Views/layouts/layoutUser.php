@@ -12,7 +12,6 @@
   <link rel="stylesheet" href="/assets/css/form.css" />
   
   <link rel="stylesheet" href="/assets/css/searchresult.css" />
-  <link rel="stylesheet" href="/assets/css/loading.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito">
   <link rel="icon" type="image/x-icon" href="/image/icon.png">
   <!-- <link href="/assets/filepond/css/filepond.min.css" rel="stylesheet">
@@ -203,7 +202,7 @@ $ActiveCreate = session()->getFlashdata('ActiveCreateNavbar');
 <script src="/assets/js/modal.js"></script>
 
 
-<script src="/assets/js/loading.js"></script>
+
 <script src="/vendor/modal/jquery.min.js"></script>
 <script src="/vendor/modal/popper.js"></script>
 <script src="/vendor/modal/bootstrap.min.js"></script>

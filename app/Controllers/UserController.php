@@ -2,11 +2,11 @@
 
 namespace App\Controllers;
 
-use App\Database\Migrations\User;
 use App\Models\FotoModel;
 use App\Models\UserModel;
 use App\Models\KomentarModel;
 use App\Models\LikeModel;
+use App\Models\AlbumModel;
 
 class UserController extends BaseController
 {
@@ -16,6 +16,7 @@ class UserController extends BaseController
     protected $LikeModel;
     protected $validation;
     protected $session;
+    protected $AlbumModel;
 
 
     public function __construct()
@@ -23,6 +24,7 @@ class UserController extends BaseController
         $this->FotoModel = new FotoModel();
         $this->UserModel = new UserModel();
         $this->KomentarModel = new KomentarModel();
+        $this->AlbumModel = new AlbumModel();
         $this->LikeModel = new LikeModel();
         $this->validation = \Config\Services::validation();
         $this->session = \Config\Services::session();
@@ -97,6 +99,7 @@ class UserController extends BaseController
 
     public function album($id): string
     {
+        $album = $this->AlbumModel->getAlbumByID($id);
         $createdfoto = $this->FotoModel->getCreatedFoto($id);
         $jumlahfoto = count($createdfoto);
 
@@ -104,6 +107,7 @@ class UserController extends BaseController
             'validation' => \Config\Services::validation(),
             'user' => $this->UserModel->getUser($id),
             'jumlahfoto' => $jumlahfoto,
+            'album' => $album,
         ];
         return view('user/profileAlbum', $data);
     }
@@ -254,5 +258,44 @@ class UserController extends BaseController
         $this->UserModel->where('UserID', $id)->delete();
         session()->destroy();
         return redirect()->to('/');
+    }
+
+    public function addalbum()
+    {
+        return view('user/addalbum');
+    }
+
+    public function submitalbum()
+    {
+        $UserID = session('UserID');
+        $post = $this->request->getPost();
+        $NamaAlbum = $this->request->getVar('NamaAlbum');
+        log_message('debug', 'Nama Album: ' . $NamaAlbum);
+
+        $this->AlbumModel->save([
+            "NamaAlbum" => $NamaAlbum,
+            'DeskripsiAlbum' => $post['DeskripsiAlbum'],
+            'TanggalAlbum' => date('Y-m-d'),
+            'UserID' => $UserID
+        ]);
+
+        session()->setFlashdata('pesan', 'Data Berhasil Ditambahkan');
+        return redirect()->to('/profile/' . $UserID . '/album');
+    }
+
+    public function viewalbum($id)
+    {
+        $album = $this->AlbumModel->getAlbumByID($id);
+        $foto = $this->FotoModel->getFotoByAlbum($id);
+        $jumlahfoto = count($foto);
+
+        $data = [
+            'validation' => \Config\Services::validation(),
+            'user' => $this->UserModel->getUser($id),
+            'jumlahfoto' => $jumlahfoto,
+            'album' => $album,
+            'foto' => $foto,
+        ];
+        return view('user/viewalbum', $data);
     }
 }

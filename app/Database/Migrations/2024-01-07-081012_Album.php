@@ -16,14 +16,13 @@ class Album extends Migration
                 'auto_increment' => true,
             ],
             'NamaAlbum' => [
-                'type' => 'INT',
-                'constraint' => 11,
-                'unsigned' => true,
+                'type' => 'VARCHAR',
+                'constraint' => 255,
             ],
-            'Deskripsi' => [
+            'DeskripsiAlbum' => [
                 'type' => 'TEXT',
             ],
-            'TanggalKomentar' => [
+            'TanggalAlbum' => [
                 'type' => 'DATE',
             ],
             'UserID' => [

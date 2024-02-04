@@ -27,6 +27,11 @@ class FotoModel extends Model
         return $this->where('UserID', $UserID)->findAll();
     }
 
+    public function getFotoByAlbum($AlbumID)
+    {
+        return $this->where('AlbumID', $AlbumID)->findAll();
+    }
+
     public function getFotoByKeyword($keyword)
     {
         return $this->like('JudulFoto', $keyword)->orLike('DeskripsiFoto', $keyword)->findAll();

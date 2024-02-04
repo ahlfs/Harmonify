@@ -5,6 +5,7 @@ use App\Models\FotoModel;
 use App\Models\KomentarModel;
 use App\Models\LikeModel;
 use App\Models\UserModel;
+use App\Models\AlbumModel;
 
 class PostController extends BaseController
 {
@@ -12,6 +13,7 @@ class PostController extends BaseController
     protected $KomentarModel;
     protected $LikeModel;
     protected $UserModel;
+    protected $AlbumModel;
     protected $session;
     public function __construct()
     {
@@ -19,6 +21,7 @@ class PostController extends BaseController
         $this->KomentarModel = new KomentarModel();
         $this->LikeModel = new LikeModel();
         $this->UserModel = new UserModel();
+        $this->AlbumModel = new AlbumModel();
         $this->session = \Config\Services::session();
     }
 
@@ -92,9 +95,12 @@ class PostController extends BaseController
 
     public function editpost($id): string
     {
+        $userid = session('UserID');
+        $album = $this->AlbumModel->getAlbumByID($userid);
         $data = [
             'validation' => \Config\Services::validation(),
-            'foto' => $this->FotoModel->getFoto($id)
+            'foto' => $this->FotoModel->getFoto($id),
+            'album' => $album,
         ];
         return view('user/editpost', $data);
     }
@@ -117,6 +123,7 @@ class PostController extends BaseController
             "FotoID" => $id,
             "JudulFoto" => $this->request->getVar('JudulFoto'),
             'DeskripsiFoto' => $this->request->getVar('DeskripsiFoto'),
+            'AlbumID' => $this->request->getVar('AlbumID'),
             'Url' => $this->request->getVar('Url'),
             'Foto' => $newName,
         ]);
