@@ -67,7 +67,6 @@ class UserController extends BaseController
         $jumlahfoto = count($foto);
 
         $data = [
-            'validation' => \Config\Services::validation(),
             'user' => $user,
             'foto' => $foto,
             'jumlahfoto' => $jumlahfoto,
@@ -169,8 +168,13 @@ class UserController extends BaseController
 
     public function create(): string
     {
+        $userid = session('UserID');
+        $album = $this->AlbumModel->getAlbumByID($userid);
+        $data = [
+            'album' => $album,
+        ];
         session()->setFlashdata('ActiveCreateNavbar', 'True');
-        return view('user/create');
+        return view('user/create', $data);
     }
 
     public function editprofile($id)

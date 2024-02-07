@@ -52,16 +52,25 @@ class Validation extends BaseConfig
             ]
         ],
         'passwordRegister' => [
-            'rules' => 'min_length[8]|alpha_numeric_punct',
+            'rules' => 'required|min_length[8]|alpha_numeric_punct',
             'errors' => [
                 'min_length' => 'Password harus terdiri dari 8 kata',
                 'alpha_numeric_punct' => 'Password hanya boleh mengandung angka, huruf, dan karakter yang valid'
             ]
         ],
         'confirmRegister' => [
-            'rules' => 'matches[passwordRegister]',
+            'rules' => 'required|matches[passwordRegister]',
             'errors' => [
+                'required' => 'Konfirmasi password harus diisi',
                 'matches' => 'Konfirmasi password tidak cocok'
+            ]
+        ],
+        'emailRegister' => [
+            'rules' => 'required|valid_email|is_unique[user.Email]',
+            'errors' => [
+                'required' => 'Email harus diisi',
+                'valid_email' => 'Penulisan email tidak valid',
+                'is_unique' => 'Email sudah terdaftar'
             ]
         ],
     ];
@@ -88,6 +97,16 @@ class Validation extends BaseConfig
                 'max_size' => 'Ukuran gambar terlalu besar (max 10MB)',
                 'is_image' => 'File yang anda pilih bukan gambar',
                 'mime_in' => 'File yang anda pilih bukan gambar',
+            ]
+        ],
+    ];
+
+    public $resetpassword = [
+        'password' => [
+            'rules' => 'required|min_length[8]',
+            'errors' => [
+                'required' => 'Password harus diisi',
+                'min_length' => 'Password harus terdiri dari 8 karakter',
             ]
         ],
     ];

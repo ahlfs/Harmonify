@@ -40,13 +40,30 @@
                                         <label for="title">Title</label>
                                         <input type="text" id="title" name="JudulFoto" autocomplete="off" required>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group mt-3">
                                         <label for="description">Description</label>
                                         <textarea name="DeskripsiFoto" id="description" rows="10" cols="50" required></textarea>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group mt-3">
                                         <label for="url">Url</label>
                                         <input type="text" id="url" name="Url" autocomplete="off">
+                                    </div>
+                                    <div class="form-group mt-3">
+                                        <label for="album">Album</label>
+
+                                        <select name="AlbumID">
+                                            <?php if ($album) : ?>
+                                                <option selected value="0">None</option>
+                                                <?php foreach ($album as $a) : ?>
+                                                    <option value="<?= $a['AlbumID'] ?>"><?= $a['NamaAlbum'] ?></option>
+                                                <?php endforeach; ?>
+
+                                            <?php else : ?>
+                                                <option selected value="0">No Album Created</option>
+                                            <?php endif; ?>
+
+                                        </select>
+
                                     </div>
                                     <div class="form-submit">
                                     <button type="submit" name="register" class="submit">Post</button>

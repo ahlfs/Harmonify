@@ -8,7 +8,7 @@ class UserModel extends Model
 {
     protected $table = "user";
     protected $primaryKey = "UserID";
-    protected $allowedFields    = ['UserID', 'Username', 'Password', 'Email', 'NamaLengkap', 'Alamat', 'FotoProfil'];
+    protected $allowedFields    = ['UserID', 'Username', 'Password', 'Email', 'NamaLengkap', 'Alamat', 'FotoProfil', 'Active'];
 
     public function getUser($id = false)
     {
@@ -26,5 +26,10 @@ class UserModel extends Model
     public function getUserByKeyword($keyword)
     {
         return $this->like('Username', $keyword)->orLike('NamaLengkap', $keyword);
+    }
+
+    public function getUserByEmail($email)
+    {
+        return $this->where(['Email' => $email])->first();
     }
 }

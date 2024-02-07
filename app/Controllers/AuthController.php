@@ -5,14 +5,19 @@ namespace App\Controllers;
 use App\Models\UserModel;
 
 
+
+
+
 class AuthController extends BaseController
 {
     protected $validation;
     protected $UserModel;
     protected $session;
 
+
     public function __construct()
     {
+
         $this->UserModel = new UserModel();
         $this->validation = \Config\Services::validation();
         $this->session = \Config\Services::session();
@@ -38,6 +43,7 @@ class AuthController extends BaseController
             session()->setFlashdata('usernameError', $this->validation->getError('usernameRegister'));
             session()->setFlashdata('passwordError', $this->validation->getError('passwordRegister'));
             session()->setFlashdata('confirmError', $this->validation->getError('confirmRegister'));
+            session()->setFlashdata('emailError', $this->validation->getError('emailRegister'));
             session()->setFlashdata('RegisterFailed', 'True');
             return redirect()->back()->withInput();
         }
@@ -46,27 +52,29 @@ class AuthController extends BaseController
         $defaultprofile = 'default.jpg';
         //jika tdk ada error 
         //masukan data ke database
+        $randomToken = $this->getRandomToken();
         $this->UserModel->save([
             'Username' => $data['usernameRegister'],
             'Password' => $hashedpass,
+            'Email' => $data['emailRegister'],
             'FotoProfil' => $defaultprofile,
+            'Active' => $randomToken,
         ]);
 
-
-        $user = $this->UserModel->where('Username', $data['usernameRegister'])->first();
-
-        $sessLogin = [
-            'isLogin' => true,
-            'UserID' => $user['UserID'],
-            'FotoProfil' => $user['FotoProfil'],
-        ];
-        $this->session->set($sessLogin);
-
         //arahkan ke halaman login
-        session()->setFlashdata('login', 'Anda berhasil mendaftar, silahkan login');
-        //redirect kembali ke page sebelumnya
-        return redirect()->back();
-        // return redirect()->to('/profile/' . $user['UserID']);
+        $email = \Config\Services::email();
+        $alamat = $data['emailRegister'];
+        $email->setTo($alamat);
+        $email->setSubject('Verifikasi Email');
+        $email->setMessage("Klik link berikut untuk verifikasi email: " . base_url("verifyEmail/{$alamat}/{$randomToken}"));
+
+        if ($email->send()) {
+            session()->setFlashdata('Email', $data['emailRegister']);
+            session()->setFlashdata('EmailVerification', 'True');
+            return redirect()->back();
+        } else {
+            return redirect()->to('/accessdenied');
+        }
     }
 
     public function valid_login()
@@ -90,6 +98,12 @@ class AuthController extends BaseController
 
                 return redirect()->back()->withInput();
             } else {
+                if ($user['Active'] != 'true') {
+                    session()->setFlashdata('LoginFailed', 'True');
+                    session()->setFlashdata('EmailNotVerified', 'Email belum diverifikasi');
+                    return redirect()->back()->withInput();
+                }
+                
                 //jika benar, arahkan user masuk ke aplikasi 
                 $sessLogin = [
                     'isLogin' => true,
@@ -99,13 +113,14 @@ class AuthController extends BaseController
                 $this->session->set($sessLogin);
                 return redirect()->back();
                 // return redirect()->to('/profile/' . $user['UserID']);
+                // kirim email
             }
         } else {
 
             //kembali ke halaman login sekaligus membuka modal register
             session()->setFlashdata('LoginFailed', 'True');
             session()->setFlashdata('usernameNotFound', 'Username tidak ditemukan');
-            return redirect()->to('/');
+            return redirect()->back()->withInput();
         }
     }
 
@@ -115,5 +130,91 @@ class AuthController extends BaseController
         //balikan ke halaman login
         $this->session->destroy();
         return redirect()->to('/');
+    }
+
+    function getRandomToken($length = 32)
+    {
+        // Membuat karakter acak yang mungkin digunakan dalam token
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+        $token = '';
+
+        // Menghasilkan token dengan panjang yang diinginkan
+        for ($i = 0; $i < $length; $i++) {
+            $token .= $characters[random_int(0, strlen($characters) - 1)];
+        }
+
+        // Menambahkan waktu untuk membuat token lebih unik
+        $token .= time();
+
+        return $token;
+    }
+
+    public function verifyEmail($email, $token)
+    {
+        $user = $this->UserModel->getUserByEmail($email);
+        if ($user == '') {
+            return redirect()->to('/accessdenied');
+        }
+        
+        $this->UserModel->save([
+            'UserID' => $user['UserID'],
+            'Active' => 'true',
+        ]);
+
+        session()->setFlashdata('LoginFailed', 'True');
+        session()->setFlashdata('EmailVerified', 'Email berhasil diverifikasi');
+        return redirect()->to('/');
+    }
+
+   public function forgotpassword()
+   {
+    $data = $this->request->getPost();
+    $user = $this->UserModel->getUserByEmail($data['email']);
+    if ($user == '') {
+        session()->setFlashdata('Email', $data['email']);
+        session()->setFlashdata('EmailVerification', 'True');
+        return redirect()->back();
+    }
+    $randomToken = $this->getRandomToken();
+        $this->UserModel->save([
+            'UserID' => $user['UserID'],
+            'ResetToken' => $randomToken,
+        ]);
+   
+    $email = \Config\Services::email();
+    $alamat = $data['email'];
+    $email->setTo($alamat);
+    $email->setSubject('Verifikasi Email');
+    $email->setMessage("Klik link berikut untuk verifikasi email: " . base_url("resetpassword/{$alamat}/{$randomToken}"));
+
+    if ($email->send()) {
+        session()->setFlashdata('Email', $data['email']);
+        session()->setFlashdata('EmailVerification', 'True');
+        return redirect()->back();
+    } else {
+        return redirect()->to('/accessdenied');
+    }
+   }
+
+    public function changepassword($id)
+    {
+     $data = $this->request->getPost();
+     $user = $this->UserModel->getUserByID($id);
+     if ($user == '') {
+          return redirect()->to('/accessdenied');
+     }
+     $this->validation->run($data, 'resetpassword');
+     $errors = $this->validation->getErrors();
+     if ($errors) {
+          session()->setFlashdata('passwordError', $this->validation->getError('passwordReset'));
+          return redirect()->back()->withInput();
+     }
+     $hashedpass = md5($data['passwordReset']);
+     $this->UserModel->save([
+          'UserID' => $user['UserID'],
+          'Password' => $hashedpass,
+     ]);
+     return redirect()->to('/');
     }
 }

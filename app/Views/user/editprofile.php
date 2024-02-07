@@ -29,24 +29,30 @@ $fotoprofileError = session()->getFlashdata('fotoprofileError');
 
             <div class="row">
                 <div class="col-12">
-                    <div class="form-detail">
-                        <div class="form-row">
-                            <span><?= $usernameError ?></span>
-                            <input autocomplete="off" type="text" name="username" class="input-text" placeholder="Username" value="<?= (old('username')) ? old('username') : $user['Username']; ?>" required>
-                        </div>
-                        <div class="form-row">
-                            <input autocomplete="off" type="text" name="namalengkap" class="input-text" placeholder="Nama Lengkap" value="<?= (old('namalengkap')) ? old('namalengkap') : $user['NamaLengkap']; ?>">
-                        </div>
-                        <div class="form-row">
-                            <span><?= $emailError ?></span>
-                            <input autocomplete="off" type="text" name="email" class="input-text" placeholder="Email Address" value="<?= (old('email')) ? old('email') : $user['Email']; ?>">
-                        </div>
-                        <div class="form-row">
-                            <input autocomplete="off" type="text" name="alamat" class="input-text" placeholder="Address" value="<?= (old('alamat')) ? old('alamat') : $user['Alamat']; ?>">
-                        </div>
-                        <div class="form-row-last">
-                            <button type="submit" name="register" class="submit">Update Profile</button>
-                        </div>
+                <div class="form-container">
+                        
+                            <div class="form-group">
+                                <label for="title">Username</label>
+                                <input type="text" id="title" name="username" autocomplete="off" value="<?= (old('username')) ? old('username') : $user['Username']; ?>" required>
+                                <span><?= $usernameError ?></span>
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="title">Full Name</label>
+                                <input type="text" id="title" name="namalengkap" autocomplete="off" value="<?= (old('namalengkap')) ? old('namalengkap') : $user['NamaLengkap']; ?>">
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="title">Email</label>
+                                <input type="text" id="title" name="email" autocomplete="off" value="<?= (old('email')) ? old('email') : $user['Email']; ?>">
+                                <span><?= $emailError ?></span>
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="title">Address</label>
+                                <input type="text" id="title" name="alamat" autocomplete="off" value="<?= (old('alamat')) ? old('alamat') : $user['Alamat']; ?>">
+                            </div>
+                            <div class="form-submit">
+                                <button type="submit" name="register" class="submit">Update</button>
+                            </div>
+                     
                     </div>
                 </div>
             </div>

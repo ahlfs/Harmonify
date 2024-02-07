@@ -1691,7 +1691,7 @@
     height: auto; }
   
   .form-group {
-    margin-bottom: 1rem; }
+    margin-bottom: 0; }
   
   .form-text {
     display: block;

@@ -19,7 +19,7 @@ $isLogin = session()->get('isLogin');
           <!-------------------->
           <div class="bottom-bar">
             <?php if (!empty($fotodata['Url'])) : ?>
-              <a href="<?= $fotodata['Url']; ?>" class="webButton">
+              <a href="<?= $fotodata['Url']; ?>" class="webButton" target="_blank">
               <?= $url ?>
             </a>
             <?php endif; ?>

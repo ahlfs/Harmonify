@@ -7,10 +7,10 @@
   <link rel="stylesheet" href="/assets/css/stylesProfile.css" />
   <link rel="stylesheet" href="/assets/css/modal.css" />
   <link rel="stylesheet" href="/assets/css/post.css" />
- 
-  
+
+
   <link rel="stylesheet" href="/assets/css/form.css" />
-  
+
   <link rel="stylesheet" href="/assets/css/searchresult.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito">
   <link rel="icon" type="image/x-icon" href="/image/icon.png">
@@ -32,12 +32,18 @@ $isLogin = session()->get('isLogin');
 $ProfileID = session()->get('UserID');
 $ProfilePhoto = session()->get('FotoProfil');
 $LoginFailed = session()->getFlashdata('LoginFailed');
+$Email = session()->getFlashdata('Email');
+$EmailVerification = session()->getFlashdata('EmailVerification');
+$EmailVerified = session()->getFlashdata('EmailVerified');
+$ForgotPasswordFailed = session()->getFlashdata('ForgotPasswordFailed');
+$ForgotEmailError = session()->getFlashdata('ForgotEmailError');
 $LoginUsernameError = session()->getFlashdata('usernameNotFound');
 $LoginPasswordError = session()->getFlashdata('passwordWrong');
 $RegisterFailed = session()->getFlashdata('RegisterFailed');
 $RegisterUsernameError = session()->getFlashdata('usernameError');
 $RegisterPasswordError = session()->getFlashdata('passwordError');
 $RegisterConfirmError = session()->getFlashdata('confirmError');
+$RegisterEmailError = session()->getFlashdata('emailError');
 $ActiveHome = session()->getFlashdata('ActiveHomeNavbar');
 $ActiveCreate = session()->getFlashdata('ActiveCreateNavbar');
 ?>
@@ -62,11 +68,12 @@ $ActiveCreate = session()->getFlashdata('ActiveCreateNavbar');
               <span class="subheading">Welcome to Harmonify</span>
               <h3 class="mb-4 heading">Login to continue</h3>
               <form action="/login" class="contact-form" method="post">
-                <div class="form-group mb-3">
+                <p class="text-success"><?= $EmailVerified ?></p>
+                <div class="form-group">
                   <p class="text-danger"><?= $LoginUsernameError ?></p>
                   <input type="text" class="form-control" name="usernameLogin" placeholder="Username" autocomplete="off" value="<?= old('usernameLogin') ?>">
                 </div>
-                <div class="form-group mb-3">
+                <div class="form-group">
                   <p class="text-danger"><?= $LoginPasswordError ?></p>
                   <div class="input-group">
                     <input type="password" class="form-control" id="password" name="passwordLogin" placeholder="Password" value="<?= old('passwordLogin') ?>">
@@ -75,9 +82,15 @@ $ActiveCreate = session()->getFlashdata('ActiveCreateNavbar');
                     </button>
                   </div>
                 </div>
-                <div class="form-group">
-                  <button type="submit" class="form-control btn btn-customblue rounded submit px-3"><span class="btn-custombluetext">Login</span></button>
-                  <p class="mt-3" type="button" data-dismiss="modal" id="RegisterModal" aria-label="Close" data-toggle="modal" data-target="#ModalRegister">
+                <div class="form-group mt-3">
+                  <div class="display-flex justify-content-center">
+                    <button type="submit" class="form-control btn btn-customblue rounded submit px-3"><span class="btn-custombluetext">Login</span></button>
+                  </div>
+                  <p type="button" data-dismiss="modal" aria-label="Close" data-toggle="modal" data-target="#ModalForgot">
+                    Forget your password? Change
+                  </p>
+
+                  <p type="button" data-dismiss="modal" id="RegisterModal" aria-label="Close" data-toggle="modal" data-target="#ModalRegister">
                     Don't Have an account? Register
                   </p>
                 </div>
@@ -110,12 +123,12 @@ $ActiveCreate = session()->getFlashdata('ActiveCreateNavbar');
               <h3 class="mb-4 heading">Register</h3>
               <form action="/register" class="contact-form" method="post">
 
-                <div class="form-group mb-3">
+                <div class="form-group">
                   <p class="text-danger"><?= $RegisterUsernameError ?></p>
                   <input type="text" class="form-control" name="usernameRegister" placeholder="Username" autocomplete="off" value="<?= old('usernameRegister') ?>">
                 </div>
 
-                <div class="form-group mb-3">
+                <div class="form-group">
                   <p class="text-danger"><?= $RegisterPasswordError ?></p>
                   <div class="input-group">
                     <input type="password" id="passwordRegister" class="form-control" name="passwordRegister" placeholder="Password" value="<?= old('passwordRegister') ?>">
@@ -124,7 +137,7 @@ $ActiveCreate = session()->getFlashdata('ActiveCreateNavbar');
                     </button>
                   </div>
                 </div>
-                <div class="form-group mb-3">
+                <div class="form-group">
                   <p class="text-danger"><?= $RegisterConfirmError ?></p>
                   <div class="input-group">
                     <input type="password" class="form-control" id="passwordConfirm" name="confirmRegister" placeholder="Confirm Password" value="<?= old('confirmRegister') ?>">
@@ -134,14 +147,93 @@ $ActiveCreate = session()->getFlashdata('ActiveCreateNavbar');
                   </div>
                 </div>
                 <div class="form-group">
-                  <button type="submit" class="form-control btn btn-customblue btn-custombluetext rounded submit px-3">Register</button>
-                  <p class="mt-3" type="button" data-dismiss="modal" aria-label="Close" data-toggle="modal" data-target="#ModalLogin">
+                  <p class="text-danger"><?= $RegisterEmailError ?></p>
+                  <div class="input-group">
+                    <input type="email" class="form-control" name="emailRegister" placeholder="Email" autocomplete="off" value="<?= old('emailRegister') ?>">
+                  </div>
+                </div>
+                <div class="form-group mt-3">
+                  <div class="display-flex justify-content-center">
+                    <button type="submit" class="form-control btn btn-customblue btn-custombluetext rounded submit px-3">Register</button>
+                  </div>
+                  <p type="button" data-dismiss="modal" aria-label="Close" data-toggle="modal" data-target="#ModalLogin">
                     Already have an account? Login
                   </p>
                 </div>
               </form>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="ModalForgot" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close d-flex align-items-center justify-content-center" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="ion-ios-close"><i class="fa-solid fa-xmark fa-xl"></i></span>
+        </button>
+      </div>
+      <div class="row no-gutters">
+        <div class="col-md-6 d-flex">
+          <div class="modal-body p-5 img d-flex text-center d-flex align-items-center" style="background-image: url(https://i.pinimg.com/564x/34/7a/2a/347a2a4ab565bfe4090bb0f76fc38a97.jpg);">
+          </div>
+        </div>
+        <div class="col-md-6 d-flex">
+          <div class="modal-body p-4 p-md-5 d-flex align-items-center color-1">
+            <div class="text w-100 py-3">
+              <span class="subheading">Welcome to Harmonify</span>
+              <h3 class="mb-4 heading">Forget Password</h3>
+              <form action="/forgotpassword" class="contact-form" method="post">
+                <div class="form-group">
+                  <p class="text-danger"><?= $ForgotEmailError ?></p>
+                  <div class="input-group">
+                    <input type="email" class="form-control" name="email" placeholder="Email" autocomplete="off" value="<?= old('email') ?>">
+                  </div>
+                </div>
+                <div class="form-group mt-3">
+                  <div class="display-flex justify-content-center">
+                    <button type="submit" class="form-control btn btn-customblue btn-custombluetext rounded submit px-3">Send</button>
+                  </div>
+                  <p type="button" data-dismiss="modal" aria-label="Close" data-toggle="modal" data-target="#ModalLogin">
+                    Remember your password? Login
+                  </p>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="ModalVerification" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close d-flex align-items-center justify-content-center" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="ion-ios-close"><i class="fa-solid fa-xmark fa-xl"></i></span>
+        </button>
+      </div>
+      <div class="row no-gutters">
+        <div class="col-md-6 d-flex">
+          <div class="modal-body p-5 img d-flex text-center d-flex align-items-center" style="background-image: url(https://i.pinimg.com/564x/34/7a/2a/347a2a4ab565bfe4090bb0f76fc38a97.jpg);">
+          </div>
+        </div>
+        <div class="col-md-6 d-flex">
+          <div class="modal-body p-4 p-md-5 d-flex align-items-center color-1">
+            <div class="text w-100 py-3">
+              <span class="subheading">Please verify your email</span>
+              <h3 class="mb-4 heading">we've sent it at <?= $Email ?></h3>
+            </div>
+          </div>
+          <p style="display: none;" type="button" data-dismiss="modal" id="VerificationModal" aria-label="Close" data-toggle="modal" data-target="#ModalVerification">
+            Don't Have an account? Register
+          </p>
         </div>
       </div>
     </div>
@@ -349,6 +441,18 @@ $ActiveCreate = session()->getFlashdata('ActiveCreateNavbar');
   <script>
     $(document).ready(function() {
       $('#RegisterModal').trigger('click');
+    });
+  </script>
+<?php elseif ($EmailVerification) : ?>
+  <script>
+    $(document).ready(function() {
+      $('#VerificationModal').trigger('click');
+    });
+  </script>
+  <?php elseif ($ForgotPasswordFailed) : ?>
+  <script>
+    $(document).ready(function() {
+      $('#VerificationModal').trigger('click');
     });
   </script>
 <?php endif; ?>
