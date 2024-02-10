@@ -35,8 +35,24 @@ class User extends Migration
                 'type' => 'TEXT',
             ],
             'PhotoProfile' => [
-                'type' => 'FotoProfil',
+                'type' => 'VARCHAR',
+                'constraint' => 255,
             ],
+            'Active' => [
+                'type' => 'VARCHAR',
+                'constraint' => 255,
+            ],
+            'ActiveExpired' => [
+                'type' => 'DATETIME',
+            ],
+            'ResetToken' => [
+                'type' => 'VARCHAR',
+                'constraint' => 255,
+            ],
+            'ResetExpired' => [
+                'type' => 'DATETIME',
+            ],
+
         ]);
         $this->forge->addKey('UserID', true);
         $this->forge->createTable('user');

@@ -5,12 +5,15 @@
       <div class="row">
         <div class="col-6">
           <div class="profilefotobar">
-            <img src="/user_profile/<?= $user['FotoProfil']; ?>" alt="" class="profilefoto" draggable="false">
+            <img src="/user_profile/<?= $user['PhotoProfile']; ?>" alt="" class="profilefoto" draggable="false">
           </div>
         </div>
         <div class="col-6 mt-1">
           <div class="namalengkap">
             <?= $user['NamaLengkap'] ?>
+            <?php if ($user['NamaLengkap'] == "") : ?>
+              <span style='text-transform: capitalize;'><?= $user['Username'] ?></span>
+            <?php endif; ?>
           </div>
           <div class="username">
             <p>@<?= $user['Username'] ?></p>
@@ -21,7 +24,7 @@
           </ul>
           <div class="managebar">
             <?php if (session()->get('UserID') == $user['UserID']) : ?>
-              <a href="#" class="editButton">Edit</a>
+              <a href="/editprofile/<?= $user['UserID'] ?>" class="editButton">Edit</a>
               <a href="/logout" class="editButton">Logout</a>
             <?php endif; ?>
           </div>
@@ -39,8 +42,8 @@
   </div>
 </div>
 
+<?php if (session()->get('UserID') == $user['UserID']) : ?>
 <div class="d-flex justify-content-center mt-4">
-
   <a href="/addalbum">
     <button class="buttonalbum" type="button">
       <span class="button__text">Add Album</span>
@@ -51,8 +54,13 @@
     </button>
   </a>
 </div>
+<?php endif; ?>
 
-<div class="containerFoto">
+
+<div class="containerAlbum">
+  <?php if (empty($album)) : ?>
+      <p class="text-center">Album is empty</p>
+  <?php endif; ?>
   <?php foreach ($album as $a) : ?>
     <a href="/profile/album/<?= $a['AlbumID']; ?>">
       <button class="listalbum">

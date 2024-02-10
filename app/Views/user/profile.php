@@ -8,12 +8,15 @@
       <div class="row">
         <div class="col-6">
           <div class="profilefotobar">
-            <img src="/user_profile/<?= $user['FotoProfil']; ?>" alt="" class="profilefoto" draggable="false">
+            <img src="/user_profile/<?= $user['PhotoProfile']; ?>" alt="" class="profilefoto" draggable="false">
           </div>
         </div>
         <div class="col-6 mt-1">
           <div class="namalengkap">
             <?= $user['NamaLengkap'] ?>
+            <?php if ($user['NamaLengkap'] == "") : ?>
+              <span style='text-transform: capitalize;'><?= $user['Username'] ?></span>
+            <?php endif; ?>
           </div>
           <div class="username">
             <p>@<?= $user['Username'] ?></p>
@@ -48,7 +51,7 @@
           <img class="foto" src="/image_storage/<?= $f['Foto']; ?>">
           <div class="hover-zone" onclick="redirectToPage('/post/<?= $f['FotoID']; ?>')">
             <div class="top-bar">
-              <div class="radius-ico">
+              <div class="radius-ico mt-1">
                 <?php if (session()->get('UserID') == $user['UserID']) : ?>
                   <a href="/deletepost/<?= $f['FotoID'] ?>" class="deleteButton"><i class="fa-solid fa-trash fa-xl"></i></a>
                   <a href="/editpost/<?= $f['FotoID'] ?>" class="editButton"><i class="fa-solid fa-pencil fa-xl"></i></a>
@@ -57,7 +60,7 @@
             </div>
             <div class="bottom-bar">
               <div class="radius-ico">
-                <a href="/download/<?= $f['FotoID'] ?>" class="iconButton"><i class="fa-solid fa-download fa-xl"></i></a>
+                <a href="/download/<?= $f['FotoID'] ?>" class="iconButtonDownload"><i class="fa-solid fa-download fa-xl"></i></a>
               </div>
             </div>
           </div>

@@ -1,7 +1,5 @@
 /*ROOT*/
-body {
-  font-family: "Times New Roman", Times, serif;
-}
+
 body::-webkit-scrollbar {
   display: none;
 }
@@ -288,7 +286,7 @@ img {
   background-color: rgba(000, 000, 0, 0.4);
   user-select: none;
 }
-.hover-zone .top-bar {
+.top-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -298,7 +296,7 @@ img {
   margin-top: 5px;
 }
 
-.hover-zone .top-bar .icon {
+.top-bar .icon {
   width: 40px;
   height: 40px;
   object-fit: cover;
@@ -306,9 +304,9 @@ img {
   cursor: pointer;
   padding: 2px;
 }
-.hover-zone .top-bar .deleteButton {
+.deleteButton {
   color: white;
-  padding: 9px;
+  padding: 15px;
   font-weight: bolder;
   font-size: 12px;
   border-radius: 40px;
@@ -316,13 +314,13 @@ img {
   background: #ff4d4d;
   margin-top: 3px;
 }
-.hover-zone .top-bar .deleteButton:hover {
+.deleteButton:hover {
   background: #ff3333;
 }
 
-.hover-zone .top-bar .editButton {
+.editButton {
   color: white;
-  padding: 9px;
+  padding: 15px;
   font-weight: bolder;
   font-size: 12px;
   border-radius: 40px;
@@ -330,10 +328,10 @@ img {
   background: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
   margin-top: 3px;
 }
-.hover-zone .top-bar .editButton:hover {
+.editButton:hover {
   background: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
 }
-.hover-zone .bottom-bar {
+.bottom-bar {
   padding: 10px 10px;
   width: 100%;
   border-radius: 20px;
@@ -341,7 +339,7 @@ img {
   justify-content: space-between;
   align-items: center;
 }
-.hover-zone .bottom-bar .webButton {
+.bottom-bar .webButton {
   color: #161b22;
   padding: 5px 10px;
   background: #efefef;
@@ -349,10 +347,27 @@ img {
   cursor: pointer;
   font-weight: bolder;
 }
-.hover-zone .bottom-bar .webButton:hover {
+.bottom-bar .webButton:hover {
   background: white;
 }
-.hover-zone .bottom-bar .iconButton {
+.iconButtonLike {
+  color: #161b22;
+  width: 40px;
+  border-radius: 30%;
+  background: #efefef;
+  padding: 13px;
+  cursor: pointer;
+  margin: 0px 2px;
+  font-weight: bold;
+}
+.iconButton:hover {
+  color: #161b22;
+  background: white;
+}
+.iconButtonLike i {
+  margin-right: 7px;
+}
+.iconButtonDownload {
   color: #161b22;
   width: 40px;
   border-radius: 30%;
@@ -360,8 +375,9 @@ img {
   padding: 9px;
   cursor: pointer;
   margin: 0px 2px;
+  font-weight: bold;
 }
-.hover-zone .bottom-bar .iconButton:hover {
+.iconButtonDownload:hover {
   color: #161b22;
   background: white;
 }
@@ -419,6 +435,16 @@ header {
   margin: 10px;
 }
 
+.colmodal1 {
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+
+.colmodal2 {
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+
 @media (max-width: 1450px) {
   .containerFoto {
     margin-left: 15px;
@@ -455,7 +481,7 @@ header {
     background-color: rgba(000, 000, 0, 0.4);
     user-select: none;
   }
-  .hover-zone .top-bar {
+  .top-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -463,13 +489,13 @@ header {
     width: 100%;
     border-radius: 20px;
   }
-  .hover-zone .top-bar .icon {
+  .top-bar .icon {
     width: 40px;
     border-radius: 50%;
     cursor: pointer;
     padding: 2px;
   }
-  .hover-zone .top-bar .saveButton {
+  .top-bar .saveButton {
     color: white;
     padding: 15px 25px;
     font-weight: bolder;
@@ -477,7 +503,7 @@ header {
     border-radius: 40px;
     margin-top: 3px;
   }
-  .hover-zone .bottom-bar {
+  .bottom-bar {
     padding: 10px 10px;
     width: 100%;
     border-radius: 20px;
@@ -485,7 +511,7 @@ header {
     justify-content: space-between;
     align-items: center;
   }
-  .hover-zone .bottom-bar .webButton {
+  .bottom-bar .webButton {
     color: #161b22;
     padding: 5px 10px;
     background: #efefef;
@@ -493,10 +519,10 @@ header {
     cursor: pointer;
     font-weight: bolder;
   }
-  .hover-zone .bottom-bar .webButton:hover {
+  .bottom-bar .webButton:hover {
     background: white;
   }
-  .hover-zone .bottom-bar img {
+  .bottom-bar img {
     width: 20px;
     border-radius: 50%;
     background: #efefef;
@@ -504,7 +530,7 @@ header {
     cursor: pointer;
     margin: 0px 2px;
   }
-  .hover-zone .bottom-bar img:hover {
+  .bottom-bar img:hover {
     background: white;
   }
   .hover-zone {
@@ -569,7 +595,7 @@ header {
     background-color: rgba(000, 000, 0, 0.4);
     user-select: none;
   }
-  .hover-zone .top-bar {
+  .top-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -577,13 +603,13 @@ header {
     width: 100%;
     border-radius: 20px;
   }
-  .hover-zone .top-bar .icon {
+  .top-bar .icon {
     width: 40px;
     border-radius: 50%;
     cursor: pointer;
     padding: 2px;
   }
-  .hover-zone .top-bar .saveButton {
+  .top-bar .saveButton {
     color: white;
     padding: 15px 25px;
     font-weight: bolder;
@@ -591,7 +617,7 @@ header {
     border-radius: 40px;
     margin-top: 3px;
   }
-  .hover-zone .bottom-bar {
+  .bottom-bar {
     padding: 10px 10px;
     width: 100%;
     border-radius: 20px;
@@ -599,7 +625,7 @@ header {
     justify-content: space-between;
     align-items: center;
   }
-  .hover-zone .bottom-bar .webButton {
+  .bottom-bar .webButton {
     color: #161b22;
     padding: 5px 10px;
     background: #efefef;
@@ -607,10 +633,10 @@ header {
     cursor: pointer;
     font-weight: bolder;
   }
-  .hover-zone .bottom-bar .webButton:hover {
+  .bottom-bar .webButton:hover {
     background: white;
   }
-  .hover-zone .bottom-bar img {
+  .bottom-bar img {
     width: 20px;
     border-radius: 50%;
     background: #efefef;
@@ -618,7 +644,7 @@ header {
     cursor: pointer;
     margin: 0px 2px;
   }
-  .hover-zone .bottom-bar img:hover {
+  .bottom-bar img:hover {
     background: white;
   }
   .hover-zone {
@@ -667,7 +693,7 @@ header {
     background-color: rgba(000, 000, 0, 0.4);
     user-select: none;
   }
-  .hover-zone .top-bar {
+  .top-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -675,13 +701,13 @@ header {
     width: 100%;
     border-radius: 20px;
   }
-  .hover-zone .top-bar .icon {
+  .top-bar .icon {
     width: 40px;
     border-radius: 50%;
     cursor: pointer;
     padding: 2px;
   }
-  .hover-zone .top-bar .saveButton {
+  .top-bar .saveButton {
     color: white;
     padding: 15px 25px;
     font-weight: bolder;
@@ -689,7 +715,7 @@ header {
     border-radius: 40px;
     margin-top: 3px;
   }
-  .hover-zone .bottom-bar {
+  .bottom-bar {
     padding: 10px 10px;
     width: 100%;
     border-radius: 20px;
@@ -697,7 +723,7 @@ header {
     justify-content: space-between;
     align-items: center;
   }
-  .hover-zone .bottom-bar .webButton {
+  .bottom-bar .webButton {
     font-size: 12px;
     color: #161b22;
     padding: 5px 10px;
@@ -706,10 +732,10 @@ header {
     cursor: pointer;
     font-weight: bolder;
   }
-  .hover-zone .bottom-bar .webButton:hover {
+  .bottom-bar .webButton:hover {
     background: white;
   }
-  .hover-zone .bottom-bar img {
+  .bottom-bar img {
     width: 20px;
     border-radius: 50%;
     background: #efefef;
@@ -717,7 +743,7 @@ header {
     cursor: pointer;
     margin: 0px 2px;
   }
-  .hover-zone .bottom-bar img:hover {
+  .bottom-bar img:hover {
     background: white;
   }
   .hover-zone {
@@ -775,7 +801,7 @@ header {
     background-color: rgba(000, 000, 0, 0.4);
     user-select: none;
   }
-  .hover-zone .top-bar {
+  .top-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -783,13 +809,14 @@ header {
     width: 100%;
     border-radius: 20px;
   }
-  .hover-zone .top-bar .icon {
+  .top-bar .icon {
     width: 40px;
     border-radius: 50%;
     cursor: pointer;
     padding: 2px;
+    display: none;
   }
-  .hover-zone .top-bar .saveButton {
+  .top-bar .saveButton {
     color: white;
     padding: 15px 25px;
     font-weight: bolder;
@@ -797,7 +824,7 @@ header {
     border-radius: 40px;
     margin-top: 3px;
   }
-  .hover-zone .bottom-bar {
+  .bottom-bar {
     padding: 10px 10px;
     width: 100%;
     border-radius: 20px;
@@ -805,18 +832,19 @@ header {
     justify-content: space-between;
     align-items: center;
   }
-  .hover-zone .bottom-bar .webButton {
+  .bottom-bar .webButton {
     color: #161b22;
     padding: 5px 10px;
     background: #efefef;
     border-radius: 40px;
     cursor: pointer;
     font-weight: bolder;
+    display: none;
   }
-  .hover-zone .bottom-bar .webButton:hover {
+  .bottom-bar .webButton:hover {
     background: white;
   }
-  .hover-zone .bottom-bar img {
+  .bottom-bar img {
     width: 13px;
     border-radius: 50%;
     background: #efefef;
@@ -824,7 +852,7 @@ header {
     cursor: pointer;
     margin: 0px 2px;
   }
-  .hover-zone .bottom-bar img:hover {
+  .bottom-bar img:hover {
     background: white;
   }
   .hover-zone {
@@ -837,6 +865,11 @@ header {
   .harmonify-icon {
     display: none;
   }
+
+  .bottom-bar .iconButtonDownload {
+    display: none;
+  }
+
 }
 
 @media (max-width: 480px) {
@@ -1028,7 +1061,7 @@ header {
     background-color: rgba(000, 000, 0, 0.4);
     user-select: none;
   }
-  .hover-zone .top-bar {
+  .top-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -1036,7 +1069,7 @@ header {
     width: 100%;
     border-radius: 20px;
   }
-  .hover-zone .top-bar .icon {
+  .top-bar .icon {
     width: 40px;
     height: 40px;
     object-fit: cover;
@@ -1044,7 +1077,7 @@ header {
     cursor: pointer;
     padding: 2px;
   }
-  .hover-zone .top-bar .saveButton {
+  .top-bar .saveButton {
     color: white;
     padding: 15px 25px;
     font-weight: bolder;
@@ -1053,7 +1086,7 @@ header {
     margin-top: 3px;
   }
   
-  .hover-zone .bottom-bar {
+  .bottom-bar {
     padding: 10px 10px;
     width: 100%;
     border-radius: 20px;
@@ -1061,7 +1094,7 @@ header {
     justify-content: space-between;
     align-items: center;
   }
-  .hover-zone .bottom-bar .webButton {
+  .bottom-bar .webButton {
     color: #161b22;
     padding: 5px 10px;
     background: #efefef;
@@ -1069,10 +1102,10 @@ header {
     cursor: pointer;
     font-weight: bolder;
   }
-  .hover-zone .bottom-bar .webButton:hover {
+  .bottom-bar .webButton:hover {
     background: white;
   }
-  .hover-zone .bottom-bar img {
+  .bottom-bar img {
     width: 13px;
     border-radius: 50%;
     background: #efefef;
@@ -1080,7 +1113,7 @@ header {
     cursor: pointer;
     margin: 0px 2px;
   }
-  .hover-zone .bottom-bar img:hover {
+  .bottom-bar img:hover {
     background: white;
   }
   .hover-zone {
@@ -1088,6 +1121,14 @@ header {
   }
   .window:hover .hover-zone {
     opacity: 1;
+  }
+  .colmodal1 {
+    display: none;
+  }
+  
+  .colmodal2 {
+    flex: 0 0 100%;
+    max-width: 100%;
   }
 }
 
@@ -1130,7 +1171,7 @@ header {
     background-color: rgba(000, 000, 0, 0.4);
     user-select: none;
   }
-  .hover-zone .top-bar {
+  .top-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -1138,13 +1179,13 @@ header {
     width: 100%;
     border-radius: 20px;
   }
-  .hover-zone .top-bar .icon {
+  .top-bar .icon {
     width: 40px;
     border-radius: 50%;
     cursor: pointer;
     padding: 2px;
   }
-  .hover-zone .top-bar .saveButton {
+  .top-bar .saveButton {
     color: white;
     padding: 15px 25px;
     font-weight: bolder;
@@ -1153,7 +1194,7 @@ header {
     margin-top: 3px;
   }
 
-  .hover-zone .bottom-bar {
+  .bottom-bar {
     padding: 10px 10px;
     width: 100%;
     border-radius: 20px;
@@ -1161,7 +1202,7 @@ header {
     justify-content: space-between;
     align-items: center;
   }
-  .hover-zone .bottom-bar .webButton {
+  .bottom-bar .webButton {
     color: #161b22;
     padding: 5px 10px;
     background: #efefef;
@@ -1169,10 +1210,10 @@ header {
     cursor: pointer;
     font-weight: bolder;
   }
-  .hover-zone .bottom-bar .webButton:hover {
+  .bottom-bar .webButton:hover {
     background: white;
   }
-  .hover-zone .bottom-bar img {
+  .bottom-bar img {
     width: 13px;
     border-radius: 50%;
     background: #efefef;
@@ -1180,7 +1221,7 @@ header {
     cursor: pointer;
     margin: 0px 2px;
   }
-  .hover-zone .bottom-bar img:hover {
+  .bottom-bar img:hover {
     background: white;
   }
   .hover-zone {
@@ -1230,13 +1271,13 @@ header {
     background-color: rgba(000, 000, 0, 0.4);
     user-select: none;
   }
-  .hover-zone .top-bar .icon {
+  .top-bar .icon {
     width: 40px;
     border-radius: 50%;
     cursor: pointer;
     padding: 2px;
   }
-  .hover-zone .top-bar .saveButton {
+  .top-bar .saveButton {
     color: white;
     padding: 15px 25px;
     font-weight: bolder;
@@ -1244,7 +1285,7 @@ header {
     border-radius: 40px;
     margin-top: 3px;
   }
-  .hover-zone .bottom-bar {
+  .bottom-bar {
     padding: 10px 10px;
     width: 100%;
     border-radius: 20px;
@@ -1252,7 +1293,7 @@ header {
     justify-content: space-between;
     align-items: center;
   }
-  .hover-zone .bottom-bar .webButton {
+  .bottom-bar .webButton {
     color: #161b22;
     padding: 5px 10px;
     background: #efefef;
@@ -1260,10 +1301,10 @@ header {
     cursor: pointer;
     font-weight: bolder;
   }
-  .hover-zone .bottom-bar .webButton:hover {
+  .bottom-bar .webButton:hover {
     background: white;
   }
-  .hover-zone .bottom-bar img {
+  .bottom-bar img {
     width: 13px;
     border-radius: 50%;
     background: #efefef;
@@ -1271,7 +1312,7 @@ header {
     cursor: pointer;
     margin: 0px 2px;
   }
-  .hover-zone .bottom-bar img:hover {
+  .bottom-bar img:hover {
     background: white;
   }
   .hover-zone {
@@ -1322,7 +1363,7 @@ header {
     background-color: rgba(000, 000, 0, 0.4);
     user-select: none;
   }
-  .hover-zone .top-bar {
+  .top-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -1330,13 +1371,13 @@ header {
     width: 100%;
     border-radius: 20px;
   }
-  .hover-zone .top-bar .icon {
+  .top-bar .icon {
     width: 40px;
     border-radius: 50%;
     cursor: pointer;
     padding: 2px;
   }
-  .hover-zone .top-bar .saveButton {
+  .top-bar .saveButton {
     color: white;
     padding: 15px 25px;
     font-weight: bolder;
@@ -1345,7 +1386,7 @@ header {
     margin-top: 3px;
   }
   
-  .hover-zone .bottom-bar {
+  .bottom-bar {
     padding: 10px 10px;
     width: 100%;
     border-radius: 20px;
@@ -1353,7 +1394,7 @@ header {
     justify-content: space-between;
     align-items: center;
   }
-  .hover-zone .bottom-bar .webButton {
+  .bottom-bar .webButton {
     font-size: 9px;
     color: #161b22;
     padding: 5px 10px;
@@ -1362,10 +1403,10 @@ header {
     cursor: pointer;
     font-weight: bolder;
   }
-  .hover-zone .bottom-bar .webButton:hover {
+  .bottom-bar .webButton:hover {
     background: white;
   }
-  .hover-zone .bottom-bar img {
+  .bottom-bar img {
     width: 13px;
     border-radius: 50%;
     background: #efefef;
@@ -1373,7 +1414,7 @@ header {
     cursor: pointer;
     margin: 0px 2px;
   }
-  .hover-zone .bottom-bar img:hover {
+  .bottom-bar img:hover {
     background: white;
   }
   .hover-zone {

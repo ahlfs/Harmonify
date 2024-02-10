@@ -85,13 +85,12 @@ class Validation extends BaseConfig
             ]
         ],
         'email' => [
-            'rules' => 'permit_empty|valid_email|is_unique[user.Email]',
+            'rules' => 'permit_empty|valid_email',
             'errors' => [
                 'valid_email' => 'Penulisan email tidak valid',
-                'is_unique' => 'Email sudah terdaftar'
             ]
         ],
-        'fotoprofile' => [
+        'photoprofile' => [
             'rules' => 'permit_empty|max_size[foto,10240]|is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/png,image/webp,image/svg]',
             'errors' => [
                 'max_size' => 'Ukuran gambar terlalu besar (max 10MB)',

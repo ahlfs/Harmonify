@@ -23,6 +23,7 @@ class PostController extends BaseController
         $this->UserModel = new UserModel();
         $this->AlbumModel = new AlbumModel();
         $this->session = \Config\Services::session();
+        date_default_timezone_set('Asia/Jakarta');
     }
 
     public function upload()

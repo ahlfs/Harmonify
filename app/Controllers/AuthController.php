@@ -21,6 +21,7 @@ class AuthController extends BaseController
         $this->UserModel = new UserModel();
         $this->validation = \Config\Services::validation();
         $this->session = \Config\Services::session();
+        date_default_timezone_set('Asia/Jakarta');
     }
     public function valid_register()
     {
@@ -53,12 +54,14 @@ class AuthController extends BaseController
         //jika tdk ada error 
         //masukan data ke database
         $randomToken = $this->getRandomToken();
+        $expired = date('Y-m-d H:i:s', strtotime('+1 day', strtotime(date('Y-m-d H:i:s'))));
         $this->UserModel->save([
             'Username' => $data['usernameRegister'],
             'Password' => $hashedpass,
             'Email' => $data['emailRegister'],
-            'FotoProfil' => $defaultprofile,
+            'PhotoProfile' => $defaultprofile,
             'Active' => $randomToken,
+            'ActiveExpired' => $expired,
         ]);
 
         //arahkan ke halaman login
@@ -66,7 +69,16 @@ class AuthController extends BaseController
         $alamat = $data['emailRegister'];
         $email->setTo($alamat);
         $email->setSubject('Verifikasi Email');
-        $email->setMessage("Klik link berikut untuk verifikasi email: " . base_url("verifyEmail/{$alamat}/{$randomToken}"));
+        $message = "<html><body>
+    <p>Hi {$data['usernameRegister']},</p>
+    <p style='font-weight: bold;'>We're happy you signed up for Harmonify. To start exploring more further,<br>please confirm that this is your email address.</p>
+    <p>To verify your email, click on the button below</p>
+    <a href='" . base_url("verify/email/{$alamat}/{$randomToken}") . "'><button style='font-size: 17px; font-weight: bold; color: white; border: transparent; padding: 0.5em 2em; background: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1); border-radius: 4px;'>Verify</button></a><br>
+    <p style='font-size: 14px;'>Welcome to Harmonify!</p>
+    <p>If this isn't you who signed up, please ignore this email. This link is only valid for the next 24 hours.</p><br>
+    <p style='font-style: italic;'>Thanks,<br>The Harmonify Team</p>
+    </body></html>";
+        $email->setMessage($message);
 
         if ($email->send()) {
             session()->setFlashdata('Email', $data['emailRegister']);
@@ -103,12 +115,12 @@ class AuthController extends BaseController
                     session()->setFlashdata('EmailNotVerified', 'Email belum diverifikasi');
                     return redirect()->back()->withInput();
                 }
-                
+
                 //jika benar, arahkan user masuk ke aplikasi 
                 $sessLogin = [
                     'isLogin' => true,
                     'UserID' => $user['UserID'],
-                    'FotoProfil' => $user['FotoProfil'],
+                    'PhotoProfile' => $user['PhotoProfile'],
                 ];
                 $this->session->set($sessLogin);
                 return redirect()->back();
@@ -134,17 +146,11 @@ class AuthController extends BaseController
 
     function getRandomToken($length = 32)
     {
-        // Membuat karakter acak yang mungkin digunakan dalam token
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
         $token = '';
-
-        // Menghasilkan token dengan panjang yang diinginkan
         for ($i = 0; $i < $length; $i++) {
             $token .= $characters[random_int(0, strlen($characters) - 1)];
         }
-
-        // Menambahkan waktu untuk membuat token lebih unik
         $token .= time();
 
         return $token;
@@ -156,7 +162,10 @@ class AuthController extends BaseController
         if ($user == '') {
             return redirect()->to('/accessdenied');
         }
-        
+        if ($user['Active'] != $token) {
+            return redirect()->to('/accessdenied');
+        }
+
         $this->UserModel->save([
             'UserID' => $user['UserID'],
             'Active' => 'true',
@@ -167,54 +176,84 @@ class AuthController extends BaseController
         return redirect()->to('/');
     }
 
-   public function forgotpassword()
-   {
-    $data = $this->request->getPost();
-    $user = $this->UserModel->getUserByEmail($data['email']);
-    if ($user == '') {
-        session()->setFlashdata('Email', $data['email']);
-        session()->setFlashdata('EmailVerification', 'True');
-        return redirect()->back();
-    }
-    $randomToken = $this->getRandomToken();
+    public function forgotpassword()
+    {
+        $data = $this->request->getPost();
+        $user = $this->UserModel->getUserByEmail($data['email']);
+        if ($user == '') {
+            session()->setFlashdata('Email', "Email tidak terdaftar");
+            session()->setFlashdata('EmailVerification', 'True');
+            return redirect()->back();
+        }
+        $today = date('Y-m-d H:i:s');
+        $expired = date('Y-m-d H:i:s', strtotime('+1 day', strtotime($today)));
+        
+        $randomToken = $this->getRandomToken();
         $this->UserModel->save([
             'UserID' => $user['UserID'],
             'ResetToken' => $randomToken,
+            'ResetExpired' => $expired,
         ]);
-   
-    $email = \Config\Services::email();
-    $alamat = $data['email'];
-    $email->setTo($alamat);
-    $email->setSubject('Verifikasi Email');
-    $email->setMessage("Klik link berikut untuk verifikasi email: " . base_url("resetpassword/{$alamat}/{$randomToken}"));
 
-    if ($email->send()) {
-        session()->setFlashdata('Email', $data['email']);
-        session()->setFlashdata('EmailVerification', 'True');
-        return redirect()->back();
-    } else {
-        return redirect()->to('/accessdenied');
+        $email = \Config\Services::email();
+        $alamat = $data['email'];
+        $email->setTo($alamat);
+        $email->setSubject('Verifikasi Email');
+        $message = "
+    <html><body>
+    <p>Hi {$user['Username']},</p>
+    <p style='font-weight: bold;'>Forgot your password?<br>We receveived a request to reset the password from your account</p>
+    <p>To reset your password, click on the button below</p>
+    <a href='" . base_url("verify/resetpassword/{$alamat}/{$randomToken}") . "'><button style='font-size: 17px; font-weight: bold; color: white; border: transparent; padding: 0.5em 2em; background: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1); border-radius: 4px;'>Reset Password</button></a><br>
+    <p>If you did not request a password reset, please ignore this email. This link is only valid for the next 24 hours.</p><br>
+    <p style='font-style: italic;'>Thanks,<br>The Harmonify Team</p>
+    </body></html>";
+        $email->setMessage($message);
+
+        if ($email->send()) {
+            session()->setFlashdata('Email', $data['email']);
+            session()->setFlashdata('EmailVerification', 'True');
+            return redirect()->back();
+        } else {
+            return redirect()->to('/accessdenied');
+        }
     }
-   }
+
+    public function verifyResetPassword($email, $token)
+    {
+        $user = $this->UserModel->getUserByEmail($email);
+        if ($user == '') {
+            return redirect()->to('/accessdenied');
+        } elseif ($user['ResetToken'] != $token) {
+            return redirect()->to('/accessdenied');
+        }
+        $data = [
+            'user' => $user,
+        ];
+
+        return view('user/resetpassword', $data);
+    }
 
     public function changepassword($id)
     {
-     $data = $this->request->getPost();
-     $user = $this->UserModel->getUserByID($id);
-     if ($user == '') {
-          return redirect()->to('/accessdenied');
-     }
-     $this->validation->run($data, 'resetpassword');
-     $errors = $this->validation->getErrors();
-     if ($errors) {
-          session()->setFlashdata('passwordError', $this->validation->getError('passwordReset'));
-          return redirect()->back()->withInput();
-     }
-     $hashedpass = md5($data['passwordReset']);
-     $this->UserModel->save([
-          'UserID' => $user['UserID'],
-          'Password' => $hashedpass,
-     ]);
-     return redirect()->to('/');
+        $data = $this->request->getPost();
+        $user = $this->UserModel->getUser($id);
+        if ($user == '') {
+            return redirect()->to('/accessdenied');
+        }
+        $this->validation->run($data, 'resetpassword');
+        $errors = $this->validation->getErrors();
+        if ($errors) {
+            session()->setFlashdata('passwordError', $this->validation->getError('passwordReset'));
+            return redirect()->back()->withInput();
+        }
+        $hashedpass = md5($data['password']);
+        $this->UserModel->save([
+            'UserID' => $user['UserID'],
+            'Password' => $hashedpass,
+        ]);
+        session()->setFlashdata('LoginFailed', 'True');
+        session()->setFlashdata('EmailVerified', 'Password berhasil diubah');
+        return redirect()->to('/');
     }
 }

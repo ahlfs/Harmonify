@@ -215,7 +215,7 @@
   height: 40px;
   width: 128px;
   border: none;
-  background: #056bfa27;
+  background: #056bfa29;
   border-radius: 20px;
   cursor: pointer;
 }
@@ -236,6 +236,20 @@
 .listalbum:hover .svg-icon {
   animation: spin 1s linear infinite;
 }
+
+.containerAlbum {
+  margin-top: 30px;
+  float: center;
+  margin-left: 15px;
+  margin-right: 15px;
+  display: flex;
+  column-gap: 10px;
+  flex-wrap: wrap;
+  justify-content: start;
+  align-items: center;
+}
+
+
 
 @keyframes spin {
   0% {

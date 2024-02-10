@@ -5,12 +5,15 @@
       <div class="row">
         <div class="col-6">
           <div class="profilefotobar">
-            <img src="/user_profile/<?= $user['FotoProfil']; ?>" alt="" class="profilefoto" draggable="false">
+            <img src="/user_profile/<?= $user['PhotoProfile']; ?>" alt="" class="profilefoto" draggable="false">
           </div>
         </div>
         <div class="col-6 mt-1">
           <div class="namalengkap">
             <?= $user['NamaLengkap'] ?>
+            <?php if ($user['NamaLengkap'] == "") : ?>
+              <span style='text-transform: capitalize;'><?= $user['Username'] ?></span>
+            <?php endif; ?>
           </div>
           <div class="username">
             <p>@<?= $user['Username'] ?></p>
@@ -21,13 +24,16 @@
           </ul>
           <div class="managebar">
             <?php if (session()->get('UserID') == $user['UserID']) : ?>
-              <a href="#" class="editButton">Edit</a>
+              <a href="/editprofile/<?= $user['UserID'] ?>" class="editButton">Edit</a>
               <a href="/logout" class="editButton">Logout</a>
             <?php endif; ?>
           </div>
         </div>
       </div>
 
+    </div>
+    <div class="box">
+      <div class="garis"></div>
     </div>
 <div class="box">
   <div class="photobar">
@@ -44,7 +50,7 @@
       <div class="hover-zone" onclick="redirectToPage('/post/<?= $f['FotoID']; ?>')">
         <div class="bottom-bar">
           <div class="radius-ico">
-            <a href="/download/<?= $f['FotoID'] ?>" class="iconButton"><i class="fa-solid fa-download fa-xl"></i></a>
+            <a href="/download/<?= $f['FotoID'] ?>" class="iconButtonDownload"><i class="fa-solid fa-download fa-xl"></i></a>
           </div>
         </div>
       </div>

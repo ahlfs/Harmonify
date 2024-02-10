@@ -28,6 +28,7 @@ class UserController extends BaseController
         $this->LikeModel = new LikeModel();
         $this->validation = \Config\Services::validation();
         $this->session = \Config\Services::session();
+        date_default_timezone_set('Asia/Jakarta');
     }
     public function index(): string
     {
@@ -39,7 +40,8 @@ class UserController extends BaseController
         $data = [
             'foto' => $foto,
         ];
-
+        $this->UserModel->getExpiredActive();
+        $this->UserModel->getExpiredReset();
         session()->setFlashdata('ActiveHomeNavbar', 'True');
         return view('user/index', $data);
     }
@@ -64,6 +66,7 @@ class UserController extends BaseController
     {
         $user = $this->UserModel->getUser($id);
         $foto = $this->FotoModel->getCreatedFoto($id);
+        $foto = array_reverse($foto);
         $jumlahfoto = count($foto);
 
         $data = [
@@ -101,6 +104,14 @@ class UserController extends BaseController
         $album = $this->AlbumModel->getAlbumByID($id);
         $createdfoto = $this->FotoModel->getCreatedFoto($id);
         $jumlahfoto = count($createdfoto);
+        $colorbox = [
+            '#0070FF', '#ED1C24', '#57F287', '#FFEB00', '#9E3AC3', '#F88CAE'
+        ];
+        $i = 0;
+        foreach ($album as $f) {
+            $album[$i]['colorbox'] = $colorbox[$i % 6];
+            $i++;
+        }
 
         $data = [
             'validation' => \Config\Services::validation(),
@@ -166,8 +177,9 @@ class UserController extends BaseController
         return view('user/post', $data);
     }
 
-    public function create(): string
+    public function create()
     {
+        
         $userid = session('UserID');
         $album = $this->AlbumModel->getAlbumByID($userid);
         $data = [
@@ -204,6 +216,17 @@ class UserController extends BaseController
             }
         }
 
+        if ($data['email'] != $user['Email']) {
+            if (!$this->validate([
+                'email' => [
+                    'rules' => 'is_unique[user.Email]'
+                ],
+            ])) {
+                session()->setFlashdata('usernameError', "Email sudah dipakai");
+                return redirect()->back()->withInput();
+            }
+        }
+
         $this->validation->run($data, 'updateprofile');
 
         $errors = $this->validation->getErrors();
@@ -212,17 +235,17 @@ class UserController extends BaseController
         if ($errors) {
             session()->setFlashdata('usernameError', $this->validation->getError('username'));
             session()->setFlashdata('emailError', $this->validation->getError('email'));
-            session()->setFlashdata('fotoprofileError', $this->validation->getError('fotoprofile'));
+            session()->setFlashdata('photoprofileError', $this->validation->getError('photoprofile'));
             return redirect()->back()->withInput();
         }
 
-        $fileFoto = $user['FotoProfil'];
-        $fileDokumen = $this->request->getFile('fotoprofile');
+        $fileFoto = $user['PhotoProfile'];
+        $fileDokumen = $this->request->getFile('photoprofile');
         if ($fileDokumen == "") {
             $namaFoto = $fileFoto;
         } else {
             if ($fileFoto != 'default.jpg') {
-                unlink('user_profile/' . $user['FotoProfil']);
+                unlink('user_profile/' . $user['PhotoProfile']);
             }
             $namaFoto = $fileDokumen->getRandomName();
             $fileDokumen->move('user_profile', $namaFoto);
@@ -230,7 +253,7 @@ class UserController extends BaseController
             $sessLogin = [
                 'isLogin' => true,
                 'UserID' => $user['UserID'],
-                'FotoProfil' => $namaFoto,
+                'PhotoProfile' => $namaFoto,
             ];
             $this->session->set($sessLogin);
         }
@@ -240,7 +263,7 @@ class UserController extends BaseController
             'Email' =>  $data['email'],
             'NamaLengkap' =>  $data['namalengkap'],
             'Alamat' =>  $data['alamat'],
-            'FotoProfil' => $namaFoto,
+            'PhotoProfile' => $namaFoto,
         ]);
         return redirect()->to('/profile/' . $id);
     }

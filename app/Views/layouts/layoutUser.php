@@ -14,8 +14,7 @@
   <link rel="stylesheet" href="/assets/css/searchresult.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito">
   <link rel="icon" type="image/x-icon" href="/image/icon.png">
-  <!-- <link href="/assets/filepond/css/filepond.min.css" rel="stylesheet">
-  <link href="/assets/filepond/css/filepond-plugin-image-preview.min.css" rel="stylesheet"> -->
+
 
 
 
@@ -30,7 +29,7 @@
 <?php
 $isLogin = session()->get('isLogin');
 $ProfileID = session()->get('UserID');
-$ProfilePhoto = session()->get('FotoProfil');
+$ProfilePhoto = session()->get('PhotoProfile');
 $LoginFailed = session()->getFlashdata('LoginFailed');
 $Email = session()->getFlashdata('Email');
 $EmailVerification = session()->getFlashdata('EmailVerification');
@@ -58,11 +57,7 @@ $ActiveCreate = session()->getFlashdata('ActiveCreateNavbar');
         </button>
       </div>
       <div class="row no-gutters">
-        <div class="col-md-6 d-flex">
-          <div class="modal-body p-5 img d-flex text-center d-flex align-items-center" style="background-image: url(https://i.pinimg.com/564x/34/7a/2a/347a2a4ab565bfe4090bb0f76fc38a97.jpg);">
-          </div>
-        </div>
-        <div class="col-md-6 d-flex">
+        <div class="col-md-12 d-flex">
           <div class="modal-body p-4 p-md-5 d-flex align-items-center color-1">
             <div class="text w-100 py-3">
               <span class="subheading">Welcome to Harmonify</span>
@@ -112,11 +107,8 @@ $ActiveCreate = session()->getFlashdata('ActiveCreateNavbar');
         </button>
       </div>
       <div class="row no-gutters">
-        <div class="col-md-6 d-flex">
-          <div class="modal-body p-5 img d-flex text-center d-flex align-items-center" style="background-image: url(https://i.pinimg.com/564x/34/7a/2a/347a2a4ab565bfe4090bb0f76fc38a97.jpg);">
-          </div>
-        </div>
-        <div class="col-md-6 d-flex">
+        
+        <div class="col-md-12 d-flex">
           <div class="modal-body p-4 p-md-5 d-flex align-items-center color-1">
             <div class="text w-100 py-3">
               <span class="subheading">Welcome to Harmonify</span>
@@ -178,11 +170,8 @@ $ActiveCreate = session()->getFlashdata('ActiveCreateNavbar');
         </button>
       </div>
       <div class="row no-gutters">
-        <div class="col-md-6 d-flex">
-          <div class="modal-body p-5 img d-flex text-center d-flex align-items-center" style="background-image: url(https://i.pinimg.com/564x/34/7a/2a/347a2a4ab565bfe4090bb0f76fc38a97.jpg);">
-          </div>
-        </div>
-        <div class="col-md-6 d-flex">
+        
+        <div class="col-md-12 d-flex">
           <div class="modal-body p-4 p-md-5 d-flex align-items-center color-1">
             <div class="text w-100 py-3">
               <span class="subheading">Welcome to Harmonify</span>
@@ -243,7 +232,7 @@ $ActiveCreate = session()->getFlashdata('ActiveCreateNavbar');
 
 
 
-<body>
+<body class="px-0">
   <header style="z-index: 1000;">
     <nav>
       <div class="menu">
@@ -251,7 +240,7 @@ $ActiveCreate = session()->getFlashdata('ActiveCreateNavbar');
         <a href="/" id="home" class="home displaytext" draggable="false">Home</a>
         <a href="/create" id="create" class="create displaytext" draggable="false">Create</a>
         <a href="/" id="home" class="homeicon displayicon" style="color: #161b22" draggable="false"><i class="fa-solid fa-house fa-xl"></i></a>
-        <a href="/create-js" id="create" style="color: #161b22" class="createicon displayicon" draggable="false"><i class="fa-solid fa-plus fa-xl"></i></a>
+        <a href="/create" id="create" style="color: #161b22" class="createicon displayicon" draggable="false"><i class="fa-solid fa-plus fa-xl"></i></a>
         <div class="full-search-bar">
           <form method="post" action="/search">
             <?php if (!empty($keyword)) : ?>
@@ -278,14 +267,7 @@ $ActiveCreate = session()->getFlashdata('ActiveCreateNavbar');
   </header>
 
 
-  <!-- <div id="loading" class="loader" >
-  <svg class="pl" width="240" height="240" viewBox="0 0 240 240">
-	<circle class="pl__ring pl__ring--a" cx="120" cy="120" r="105" fill="none" stroke="#000" stroke-width="20" stroke-dasharray="0 660" stroke-dashoffset="-330" stroke-linecap="round"></circle>
-	<circle class="pl__ring pl__ring--b" cx="120" cy="120" r="35" fill="none" stroke="#000" stroke-width="20" stroke-dasharray="0 220" stroke-dashoffset="-110" stroke-linecap="round"></circle>
-	<circle class="pl__ring pl__ring--c" cx="85" cy="120" r="70" fill="none" stroke="#000" stroke-width="20" stroke-dasharray="0 440" stroke-linecap="round"></circle>
-	<circle class="pl__ring pl__ring--d" cx="155" cy="120" r="70" fill="none" stroke="#000" stroke-width="20" stroke-dasharray="0 440" stroke-linecap="round"></circle>
-</svg>
-   </div> -->
+
 
 
   <?= $this->renderSection('content'); ?>

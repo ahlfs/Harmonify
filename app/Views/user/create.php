@@ -38,15 +38,15 @@
                                 <form class="form">
                                     <div class="form-group">
                                         <label for="title">Title</label>
-                                        <input type="text" id="title" name="JudulFoto" autocomplete="off" required>
+                                        <input type="text" id="title" name="JudulFoto" autocomplete="off" value="<?= (old('JudulFoto')) ?>" required>
                                     </div>
                                     <div class="form-group mt-3">
                                         <label for="description">Description</label>
-                                        <textarea name="DeskripsiFoto" id="description" rows="10" cols="50" required></textarea>
+                                        <textarea name="DeskripsiFoto" id="description" rows="10" cols="50" required><?= (old('DeskripsiFoto')) ?></textarea>
                                     </div>
                                     <div class="form-group mt-3">
                                         <label for="url">Url</label>
-                                        <input type="text" id="url" name="Url" autocomplete="off">
+                                        <input type="text" id="url" name="Url" autocomplete="off" value="<?= (old('Url')) ?>">
                                     </div>
                                     <div class="form-group mt-3">
                                         <label for="album">Album</label>

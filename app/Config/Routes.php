@@ -37,8 +37,9 @@ $routes->post('/register', 'AuthController::valid_register');
 $routes->post('/login', 'AuthController::valid_login');
 $routes->get('/logout', 'AuthController::logout');
 
-$routes->get('/verifyEmail/(:any)/(:any)', 'AuthController::verifyEmail/$1/$2');
-$routes->get('/forgotpassword', 'AuthController::forgotpassword');
+$routes->get('/verify/email/(:any)/(:any)', 'AuthController::verifyEmail/$1/$2');
+$routes->get('/verify/resetpassword/(:any)/(:any)', 'AuthController::verifyResetPassword/$1/$2');
+$routes->post('/forgotpassword', 'AuthController::forgotpassword');
 $routes->post('/changepassword/(:num)', 'AuthController::changepassword/$1');
 
 

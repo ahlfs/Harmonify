@@ -7,7 +7,7 @@
 
 $usernameError = session()->getFlashdata('usernameError');
 $emailError = session()->getFlashdata('emailError');
-$fotoprofileError = session()->getFlashdata('fotoprofileError');
+$photoprofileError = session()->getFlashdata('photoprofileError');
 ?>
 
 <div class="container">
@@ -17,12 +17,12 @@ $fotoprofileError = session()->getFlashdata('fotoprofileError');
                 <div class="col-12">
                     <div class="fotoprofile d-flex justify-content-center">
                         <label for="foto" id="drop-area-profile">
-                            <input type="file" accept="image/*" id="foto" name="fotoprofile" hidden />
+                            <input type="file" accept="image/*" id="foto" name="photoprofile" hidden />
                             <div id="img-view-profile">
                                 <div id="img-preview-profile"></div>
                             </div>
                         </label>
-                        <span><?= $fotoprofileError ?></span>
+                        <span><?= $photoprofileError ?></span>
                     </div>
                 </div>
             </div>
@@ -63,7 +63,7 @@ $fotoprofileError = session()->getFlashdata('fotoprofileError');
 <script src="/assets/js/imagepreviewprofile.js"></script>
 <script>
     // Pemanggilan displayImage dengan URL gambar yang sudah dimiliki
-    var profileUrl = <?php echo json_encode(base_url('user_profile/' . $user["FotoProfil"])); ?>;
+    var profileUrl = <?php echo json_encode(base_url('user_profile/' . $user["PhotoProfile"])); ?>;
     window.onload = function() {
         displayImageProfile(profileUrl);
     };
