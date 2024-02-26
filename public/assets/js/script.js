@@ -22,3 +22,9 @@ function checkAddOption(selectBox) {
         document.getElementById('newOption').style.display = 'none';
     }
 }
+
+function getRandomColor() {
+    const colors = [];
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+    return randomColor;
+  }

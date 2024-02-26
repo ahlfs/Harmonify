@@ -1,63 +1,62 @@
 .profilefotobar {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .profilefoto {
-    width: 180px;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 2px solid #fff;
-    box-shadow: 0 0 0 2px #fff;
-    transition: all 0.3s ease-in-out;
-   
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 2px #fff;
+  transition: all 0.3s ease-in-out;
 }
 .foto:hover {
-    box-shadow: 0 0 0 2px #fff, 0 0 0 6px #E60023;
+  box-shadow: 0 0 0 2px #fff, 0 0 0 6px #e60023;
 }
 
 .profilebar {
-    position: relative;
-    text-align: center;
-    align-items: center;
-    justify-content: space-between;
+  position: relative;
+  text-align: center;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.profilebar .count{
-    font-size: 16px;
-    font-style: italic;
-    color: #161b22;
+.profilebar .count {
+  font-size: 16px;
+  font-style: italic;
+  color: #161b22;
 }
 
-.profilebar .username{
-    font-size: 20px;
-    font-weight: bold;
-    color: #161b22;
+.profilebar .username {
+  font-size: 20px;
+  font-weight: bold;
+  color: #161b22;
 }
 
 .garis {
-    margin-top: 30px;
-    margin-bottom: 20px;
-    margin-left: 26%;
-    display: flex;
-    width: 50%;
-    height: 2px;
-    background-color: #161b22; /* Warna hitam dengan tingkat transparansi 0.5 */
-    opacity: 0.2;
-  }
-
-  .managebar {
-    position: relative;
-    display: flex;
-    margin-top: 20px;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  margin-left: 26%;
+  display: flex;
+  width: 50%;
+  height: 2px;
+  background-color: #161b22; /* Warna hitam dengan tingkat transparansi 0.5 */
+  opacity: 0.2;
 }
 
-.managebar .shareButton{
+.managebar {
+  position: relative;
+  display: flex;
+  margin-top: 20px;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.managebar .shareButton {
   color: black;
   background: #efefef;
   padding: 12px 25px;
@@ -67,7 +66,7 @@
   margin: 0px 5px;
   text-decoration: none;
 }
-.managebar .editButton{
+.managebar .editButton {
   color: black;
   background: #efefef;
   padding: 12px 25px;
@@ -77,34 +76,46 @@
   margin: 0px 5px;
   text-decoration: none;
 }
-.managebar .shareButton:hover{
-    color: black;
-    background:  rgb(216, 216, 216);
-    transition: 0.3s;
-  }
+.managebar .shareButton:hover {
+  color: black;
+  background: rgb(216, 216, 216);
+  transition: 0.3s;
+}
 
-.managebar .editButton:hover{
-    color: black;
-    background: rgb(216, 216, 216);
-    transition: 0.3s;
-  }
+.managebar .editButton:hover {
+  color: black;
+  background: rgb(216, 216, 216);
+  transition: 0.3s;
+}
 
 .photobar {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 20px;
-    font-weight: bold;
-    letter-spacing: 0.3px;
-    
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  font-weight: bold;
+  letter-spacing: 0.3px;
 }
 
-
 .underline {
-    border-bottom: 3px solid transparent;
-    border-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
-    border-image-slice: 1;
+  border-bottom: 3px solid transparent;
+  border-image: linear-gradient(
+    to right top,
+    #d16ba5,
+    #c777b9,
+    #ba83ca,
+    #aa8fd8,
+    #9a9ae1,
+    #8aa7ec,
+    #79b3f4,
+    #69bff8,
+    #52cffe,
+    #41dfff,
+    #46eefa,
+    #5ffbf1
+  );
+  border-image-slice: 1;
 }
 
 /* make a hover with background animation */
@@ -117,32 +128,29 @@
   opacity: 0.7;
 }
 
-
-
 .no-underline:hover {
   background: rgb(216, 216, 216);
   border-radius: 20px;
   cursor: pointer;
-
 }
 
 .no-decoration {
-    text-decoration: none;
+  text-decoration: none;
 }
 
-.photobar .photoButtonCreated{
+.photobar .photoButtonCreated {
   padding: 12px 20px;
   margin-right: 10px;
   color: black;
 }
 
-.photobar .photoButtonSaved{
+.photobar .photoButtonSaved {
   padding: 12px 20px;
   margin-left: 10px;
   color: black;
 }
 
-.photobar .photoButtonAlbum{
+.photobar .photoButtonAlbum {
   padding: 12px 20px;
   margin-left: 10px;
   color: black;
@@ -162,7 +170,9 @@
   overflow: hidden;
 }
 
-.buttonalbum, .button__icon, .button__text {
+.buttonalbum,
+.button__icon,
+.button__text {
   transition: all 0.3s;
 }
 
@@ -206,76 +216,8 @@
   box-shadow: 0px 0px #323232;
 }
 
-.listalbum {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 8px 12px 8px 16px;
-  gap: 8px;
-  height: 40px;
-  width: 128px;
-  border: none;
-  background: #056bfa29;
-  border-radius: 20px;
-  cursor: pointer;
-}
-
-.lable {
-  margin-top: 1px;
-  font-size: 19px;
-  line-height: 22px;
-  color: #056DFA;
-  font-family: sans-serif;
-  letter-spacing: 1px;
-}
-
-.listalbum:hover {
-  background: #056bfa49;
-}
-
-.listalbum:hover .svg-icon {
-  animation: spin 1s linear infinite;
-}
-
-.containerAlbum {
-  margin-top: 30px;
-  float: center;
-  margin-left: 15px;
-  margin-right: 15px;
-  display: flex;
-  column-gap: 10px;
-  flex-wrap: wrap;
-  justify-content: start;
-  align-items: center;
-}
-
-
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  25% {
-    transform: rotate(-8deg);
-  }
-
-  50% {
-    transform: rotate(0deg);
-  }
-
-  75% {
-    transform: rotate(8deg);
-  }
-
-  100% {
-    transform: rotate(0deg);
-  }
-}
-
-
 .flex-menu {
-  display:flex;
+  display: flex;
 }
 
 .flex-menu li {
@@ -290,12 +232,12 @@
 }
 
 .harmonify-icon-username {
-  max-width: 15px; 
-  max-height: 15px; 
+  max-width: 15px;
+  max-height: 15px;
   margin: 2px;
 }
 
-.username{
+.username {
   margin-left: 3px;
   font-size: 15px;
   font-weight: bold;
@@ -303,28 +245,156 @@
   opacity: 0.7;
 }
 
-@media (max-width: 376px) {
+.containerAlbum {
+  float: center;
+  margin-top: 20px;
+  margin-left: 15px;
+  margin-right: 15px;
+  display: flex;
+  column-gap: 10px;
+  flex-wrap: wrap;
+  justify-content: start;
+  align-items: center;
+  columns: 5;
+}
+
+.cardalbum {
+  margin-top: 10px;
+  position: relative;
+  width: 16%;
+  height: 150px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: all 120ms;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5em;
+  border-radius: 0.625em;
+  overflow: hidden;
+}
+.cardalbum .titlezone {
+  width: 100%;
+  height: 30%;
+}
+
+.cardalbum .titlezone .title {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 22px;
+  position: relative;
+  font-weight: bold;
+  color: #000;
+  margin-left: 10px;
+}
+
+.cardalbum .imagezone {
+  width: 100%;
+  height: 70%;
+  display: flex;
+  justify-content: end;
+  margin-left: 25px;
+}
+
+.cardalbum .imagezone .image {
+  width: 110px;
+  height: 110px;
+  background: #f1f1f1;
+  border-radius: 0.625em;
+  overflow: hidden;
+  transform: rotate(20deg);
+}
+
+.cardalbum .image img {
+  object-fit: cover;
+  width: 100%;
+}
+
+.cardalbum:hover::after {
+  bottom: 0;
+  opacity: 1;
+}
+
+
+.textalbum {
+  max-width: 55px;
+}
+
+.image {
+  background: rgb(241, 241, 241);
+  width: 100%;
+  height: 100%;
+}
+@media (max-width: 770px) {
+  .containerAlbum {
+    columns: 4;
+  }
+  .cardalbum {
+    margin-top: 10px;
+    position: relative;
+    width: 25%;
+    height: 150px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    transition: all 120ms;
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em;
+    border-radius: 0.625em;
+    overflow: hidden;
+  }
+  .cardalbum .titlezone {
+    width: 100%;
+    height: 30%;
+  }
+  
+  .cardalbum .titlezone .title {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 22px;
+    position: relative;
+    font-weight: bold;
+    color: #000;
+    margin-left: 10px;
+  }
+  
+  .cardalbum .imagezone {
+    width: 100%;
+    height: 70%;
+    display: flex;
+    justify-content: end;
+    margin-left: 25px;
+  }
+  
+  .cardalbum .imagezone .image {
+    width: 110px;
+    height: 110px;
+    background: #f1f1f1;
+    border-radius: 0.625em;
+    overflow: hidden;
+    transform: rotate(20deg);
+  }
+}
+
+@media (max-width: 500px) {
   .profilefoto {
     width: 150px;
     height: 150px;
   }
-  .profilebar .count{
+  .profilebar .count {
     font-size: 14px;
   }
-  .profilebar .username{
+  .profilebar .username {
     font-size: 18px;
   }
-  .managebar .editButton{
+  .managebar .editButton {
     padding: 5px 10px;
     margin-right: 5px;
   }
-  .photobar .photoButtonCreated{
+  .photobar .photoButtonCreated {
     padding: 10px 15px;
   }
-  .photobar .photoButtonSaved{
+  .photobar .photoButtonSaved {
     padding: 10px 15px;
   }
-  .photobar .photoButtonAlbum{
+  .photobar .photoButtonAlbum {
     padding: 10px 15px;
   }
   .buttonalbum {
@@ -349,7 +419,67 @@
   .namalengkap {
     font-size: 18px;
   }
-  .username{
+  .username {
     font-size: 13px;
+  }
+  .containerAlbum {
+    columns: 3;
+  }
+  .containerAlbum {
+    float: center;
+    margin-top: 20px;
+    margin-left: 15px;
+    margin-right: 15px;
+    display: flex;
+    column-gap: 10px;
+    flex-wrap: wrap;
+    justify-content: start;
+    align-items: center;
+    columns: 5;
+  }
+  
+  .cardalbum {
+    margin-top: 10px;
+    position: relative;
+    width: 48%;
+    height: 150px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    transition: all 120ms;
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em;
+    border-radius: 0.625em;
+    overflow: hidden;
+  }
+  .cardalbum .titlezone {
+    width: 100%;
+    height: 30%;
+  }
+  
+  .cardalbum .titlezone .title {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 22px;
+    position: relative;
+    font-weight: bold;
+    color: #000;
+    margin-left: 10px;
+  }
+  
+  .cardalbum .imagezone {
+    width: 100%;
+    height: 70%;
+    display: flex;
+    justify-content: end;
+    margin-left: 25px;
+  }
+  
+  .cardalbum .imagezone .image {
+    width: 110px;
+    height: 110px;
+    background: #f1f1f1;
+    border-radius: 0.625em;
+    overflow: hidden;
+    transform: rotate(20deg);
   }
 }

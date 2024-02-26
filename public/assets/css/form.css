@@ -116,7 +116,7 @@ button:active {
   border-color: #fff;
 }
 
-select {
+.selectform {
   position: relative;
   width: 100%;
   background: transparent;

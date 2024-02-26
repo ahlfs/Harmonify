@@ -51,8 +51,7 @@ class AuthController extends BaseController
 
         $hashedpass = md5($data['passwordRegister']);
         $defaultprofile = 'default.jpg';
-        //jika tdk ada error 
-        //masukan data ke database
+      
         $randomToken = $this->getRandomToken();
         $expired = date('Y-m-d H:i:s', strtotime('+1 day', strtotime(date('Y-m-d H:i:s'))));
         $this->UserModel->save([
@@ -64,7 +63,6 @@ class AuthController extends BaseController
             'ActiveExpired' => $expired,
         ]);
 
-        //arahkan ke halaman login
         $email = \Config\Services::email();
         $alamat = $data['emailRegister'];
         $email->setTo($alamat);
@@ -144,6 +142,11 @@ class AuthController extends BaseController
         return redirect()->to('/');
     }
 
+    public function testo()
+    {
+       return view('user/testo');
+    }
+
     function getRandomToken($length = 32)
     {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -158,6 +161,8 @@ class AuthController extends BaseController
 
     public function verifyEmail($email, $token)
     {
+        $this->UserModel->getExpiredActive();
+
         $user = $this->UserModel->getUserByEmail($email);
         if ($user == '') {
             return redirect()->to('/accessdenied');
@@ -192,7 +197,7 @@ class AuthController extends BaseController
         $this->UserModel->save([
             'UserID' => $user['UserID'],
             'ResetToken' => $randomToken,
-            'ResetExpired' => $expired,
+            'ResetTokenExpired' => $expired,
         ]);
 
         $email = \Config\Services::email();
@@ -221,6 +226,7 @@ class AuthController extends BaseController
 
     public function verifyResetPassword($email, $token)
     {
+        $this->UserModel->getExpiredReset();
         $user = $this->UserModel->getUserByEmail($email);
         if ($user == '') {
             return redirect()->to('/accessdenied');
@@ -234,7 +240,7 @@ class AuthController extends BaseController
         return view('user/resetpassword', $data);
     }
 
-    public function changepassword($id)
+    public function resetpassword($id)
     {
         $data = $this->request->getPost();
         $user = $this->UserModel->getUser($id);
@@ -251,6 +257,8 @@ class AuthController extends BaseController
         $this->UserModel->save([
             'UserID' => $user['UserID'],
             'Password' => $hashedpass,
+            'ResetToken' => null,
+            'ResetTokenExpired' => null,
         ]);
         session()->setFlashdata('LoginFailed', 'True');
         session()->setFlashdata('EmailVerified', 'Password berhasil diubah');

@@ -109,4 +109,21 @@ class Validation extends BaseConfig
             ]
         ],
     ];
+
+    public $changepassword = [
+        'newpassword' => [
+            'rules' => 'required|min_length[8]',
+            'errors' => [
+                'required' => 'Password harus diisi',
+                'min_length' => 'Password harus terdiri dari 8 karakter',
+            ]
+        ],
+        'confirm' => [
+            'rules' => 'required|matches[newpassword]',
+            'errors' => [
+                'required' => 'Konfirmasi Password harus diisi',
+                'matches' => 'Konfirmasi Password tidak sesuai',
+            ]
+        ],
+    ];
 }

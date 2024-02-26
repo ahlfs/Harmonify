@@ -51,7 +51,7 @@
                                     <div class="form-group mt-3">
                                         <label for="album">Album</label>
 
-                                        <select name="AlbumID">
+                                        <select class="selectform" name="AlbumID">
                                             <?php if ($album) : ?>
                                                 <option selected value="0">None</option>
                                                 <?php foreach ($album as $a) : ?>

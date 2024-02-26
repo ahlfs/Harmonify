@@ -225,8 +225,8 @@ img {
 
 /*POSTS*/
 .containerFoto {
-  margin-top: 30px;
   float: center;
+  margin-top: 30px;
   margin-left: 15px;
   margin-right: 15px;
   columns: 6;
@@ -331,6 +331,21 @@ img {
 .editButton:hover {
   background: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
 }
+
+.albumButton {
+  color: white;
+  padding: 15px;
+  font-weight: bolder;
+  font-size: 12px;
+  border-radius: 40px;
+  cursor: pointer;
+  background: #FFBB64;
+  margin-top: 3px;
+}
+.albumButton:hover {
+  background: #FF9843;
+}
+
 .bottom-bar {
   padding: 10px 10px;
   width: 100%;
@@ -867,6 +882,14 @@ header {
   }
 
   .bottom-bar .iconButtonDownload {
+    display: none;
+  }
+
+  .top-bar .deleteButton {
+    display: none;
+  }
+
+  .top-bar .editButton {
     display: none;
   }
 

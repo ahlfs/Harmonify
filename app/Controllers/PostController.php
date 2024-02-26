@@ -6,6 +6,7 @@ use App\Models\KomentarModel;
 use App\Models\LikeModel;
 use App\Models\UserModel;
 use App\Models\AlbumModel;
+use App\Models\FotoAlbumModel;
 
 class PostController extends BaseController
 {
@@ -14,6 +15,7 @@ class PostController extends BaseController
     protected $LikeModel;
     protected $UserModel;
     protected $AlbumModel;
+    protected $FotoAlbumModel;
     protected $session;
     public function __construct()
     {
@@ -22,6 +24,7 @@ class PostController extends BaseController
         $this->LikeModel = new LikeModel();
         $this->UserModel = new UserModel();
         $this->AlbumModel = new AlbumModel();
+        $this->FotoAlbumModel = new FotoAlbumModel();
         $this->session = \Config\Services::session();
         date_default_timezone_set('Asia/Jakarta');
     }
@@ -45,7 +48,7 @@ class PostController extends BaseController
             'UserID' => $UserID
         ]);
 
-        session()->setFlashdata('pesan', 'Data Berhasil Ditambahkan');
+        session()->setFlashdata('notifSuccess', 'Post Created');
         return redirect()->to('/');
     }
 
@@ -64,7 +67,7 @@ class PostController extends BaseController
             'FotoID' => $id,
             'UserID' => $UserID,
             "IsiKomentar" => $this->request->getVar('IsiKomentar'),
-            'TanggalKomentar' => date('Y-m-d'),
+            'TanggalKomentar' => date('Y-m-d H:i:s'),
         ]);
         return redirect()->to('/post/' . $id);
     }
@@ -118,6 +121,7 @@ class PostController extends BaseController
         $fileDokumen = $this->request->getFile('foto');
         $newName = $fileDokumen->getRandomName();
         $fileDokumen->move('image_storage', $newName);
+        unlink('image_storage/' . $fotoLama['Foto']);
         }
 
         $this->FotoModel->save([
@@ -147,5 +151,21 @@ class PostController extends BaseController
         return redirect()->to('/profile/' . session('UserID'));
     }
 
+    public function addposttoalbum($fotoid, $albumid)
+    {
+        if ($albumid == 0) {
+            return redirect()->to('/post/' . $fotoid);
+        }
+        if ($this->FotoAlbumModel->where('FotoID', $fotoid)->where('AlbumID', $albumid)->first()) {
+            session()->setFlashdata('posttoalbumFailed', 'Fail');
+            return redirect()->to('/post/' . $fotoid);
+        }
+        $this->FotoAlbumModel->save([
+            'FotoID' => $fotoid,
+            'AlbumID' => $albumid,
+        ]);
+        session()->setFlashdata('posttoalbumSuccess', 'Success');
+        return redirect()->to('/post/' . $fotoid);
+    }
     
 }

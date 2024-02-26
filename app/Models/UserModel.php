@@ -8,7 +8,7 @@ class UserModel extends Model
 {
     protected $table = "user";
     protected $primaryKey = "UserID";
-    protected $allowedFields    = ['UserID', 'Username', 'Password', 'Email', 'NamaLengkap', 'Alamat', 'PhotoProfile', 'Active', 'ActiveExpired', 'ResetToken', 'ResetExpired'];
+    protected $allowedFields    = ['UserID', 'Username', 'Password', 'Email', 'NamaLengkap', 'Alamat', 'PhotoProfile', 'Active', 'ActiveExpired', 'ResetToken', 'ResetTokenExpired', 'TemporaryEmail', 'TemporaryEmailToken', 'TemporaryEmailExpired'];
 
     public function getUser($id = false)
     {
@@ -33,18 +33,22 @@ class UserModel extends Model
         return $this->where(['Email' => $email])->first();
     }
 
+    public function getUserByTemporaryEmail($email)
+    {
+        return $this->where(['TemporaryEmail' => $email])->first();
+    }
+
     public function getExpiredReset()
     {
         date_default_timezone_set('Asia/Jakarta');
-        $data = $this->where('ResetExpired <', date('Y-m-d H:i:s'))->findAll();
+        $data = $this->where('ResetTokenExpired <', date('Y-m-d H:i:s'))->findAll();
         foreach ($data as $d) {
                 $this->save([
                     'UserID' => $d['UserID'],
                     'ResetToken' => '',
-                    'ResetExpired' => '',
+                    'ResetTokenExpired' => '',
                 ]);
             }
-        
     }
 
     public function getExpiredActive()
@@ -56,6 +60,19 @@ class UserModel extends Model
                 $this->delete(['UserID' => $d['UserID']]);
             }
         }
+    }
+
+    public function getExpiredEmail()
+    {
+        date_default_timezone_set('Asia/Jakarta');
+        $data = $this->where('TemporaryEmailExpired <', date('Y-m-d H:i:s'))->findAll();
+        foreach ($data as $d) {
+                $this->save([
+                    'UserID' => $d['UserID'],
+                    'TemporaryEmail' => '',
+                    'TemporaryEmailExpired' => '',
+                ]);
+            }
     }
 
 

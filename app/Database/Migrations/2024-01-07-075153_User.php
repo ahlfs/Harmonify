@@ -49,7 +49,7 @@ class User extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => 255,
             ],
-            'ResetExpired' => [
+            'ResetTokenExpired' => [
                 'type' => 'DATETIME',
             ],
 

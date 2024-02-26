@@ -17,7 +17,7 @@ $routes->get('/editprofile/(:num)', 'UserController::editprofile/$1');
 $routes->post('/updateprofile/(:num)', 'UserController::updateprofile/$1');
 
 $routes->get('/addalbum', 'UserController::addalbum');
-$routes->post('/submitalbum', 'UserController::submitalbum');
+$routes->get('/submitalbum/(:any)', 'UserController::submitalbum/$1');
 $routes->get('/profile/album/(:num)', 'UserController::viewalbum/$1');
 
 
@@ -37,10 +37,25 @@ $routes->post('/register', 'AuthController::valid_register');
 $routes->post('/login', 'AuthController::valid_login');
 $routes->get('/logout', 'AuthController::logout');
 
+$routes->get('/testo', 'AuthController::testo');
+
+$routes->get('/logout', 'AuthController::logout');
+
+$routes->get('/addposttoalbum/(:num)/(:num)', 'PostController::addposttoalbum/$1/$2');
+
 $routes->get('/verify/email/(:any)/(:any)', 'AuthController::verifyEmail/$1/$2');
 $routes->get('/verify/resetpassword/(:any)/(:any)', 'AuthController::verifyResetPassword/$1/$2');
 $routes->post('/forgotpassword', 'AuthController::forgotpassword');
-$routes->post('/changepassword/(:num)', 'AuthController::changepassword/$1');
+$routes->post('/resetpassword/(:num)', 'AuthController::resetpassword/$1');
+
+$routes->get('/changepassword', 'UserController::changepassword');
+$routes->post('/changepasswordsubmit/(:num)', 'UserController::changepasswordsubmit/$1');
+
+$routes->get('/changeemail', 'UserController::changeemail');
+$routes->post('/changeemailsubmit/(:num)', 'UserController::changeemailsubmit/$1');
+$routes->get('/verify/changeemail/(:any)/(:any)', 'UserController::verifyChangeEmail/$1/$2');
+
+$routes->get('/deleteacc/(:num)', 'UserController::deleteaccount/$1');
 
 
 

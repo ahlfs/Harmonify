@@ -7,9 +7,13 @@ use App\Models\UserModel;
 use App\Models\KomentarModel;
 use App\Models\LikeModel;
 use App\Models\AlbumModel;
+use App\Models\FotoAlbumModel;
+use CodeIgniter\I18n\Time;
+
 
 class UserController extends BaseController
 {
+    protected $Carbon;
     protected $FotoModel;
     protected $UserModel;
     protected $KomentarModel;
@@ -17,6 +21,7 @@ class UserController extends BaseController
     protected $validation;
     protected $session;
     protected $AlbumModel;
+    protected $FotoAlbumModel;
 
 
     public function __construct()
@@ -25,6 +30,7 @@ class UserController extends BaseController
         $this->UserModel = new UserModel();
         $this->KomentarModel = new KomentarModel();
         $this->AlbumModel = new AlbumModel();
+        $this->FotoAlbumModel = new FotoAlbumModel();
         $this->LikeModel = new LikeModel();
         $this->validation = \Config\Services::validation();
         $this->session = \Config\Services::session();
@@ -40,8 +46,7 @@ class UserController extends BaseController
         $data = [
             'foto' => $foto,
         ];
-        $this->UserModel->getExpiredActive();
-        $this->UserModel->getExpiredReset();
+
         session()->setFlashdata('ActiveHomeNavbar', 'True');
         return view('user/index', $data);
     }
@@ -85,8 +90,11 @@ class UserController extends BaseController
         foreach ($liked as $like) {
             $foto[] = $this->FotoModel->getFoto($like['FotoID']);
         }
+        $foto = array_reverse($foto);
 
         $createdfoto = $this->FotoModel->getCreatedFoto($id);
+        //reverse array
+
         $jumlahfoto = count($createdfoto);
 
         $data = [
@@ -104,14 +112,26 @@ class UserController extends BaseController
         $album = $this->AlbumModel->getAlbumByID($id);
         $createdfoto = $this->FotoModel->getCreatedFoto($id);
         $jumlahfoto = count($createdfoto);
-        $colorbox = [
-            '#0070FF', '#ED1C24', '#57F287', '#FFEB00', '#9E3AC3', '#F88CAE'
-        ];
+
         $i = 0;
-        foreach ($album as $f) {
-            $album[$i]['colorbox'] = $colorbox[$i % 6];
+        foreach ($album as &$a) {
+            $colors = array("#ffb3ba", "#ffdbfa", "#baffc9", "#e3b7d2", "#bae1ff", "#c9c9ff", "#f1cbff", "#6BCEEE");
+            $a['color'] = $colors[$i];
             $i++;
+            if ($i == 8) {
+                $i = 0;
+            }
+            $foto = $this->FotoAlbumModel->getFotoByAlbum($a['AlbumID']);
+            if (!empty($foto)) {
+                $foto_pertama = $this->FotoModel->getFoto($foto[0]['FotoID']);
+                $a['foto'] = $foto_pertama['Foto'];
+            }
+            else {
+                $a['foto'] = 'false';
+            }
         }
+
+      
 
         $data = [
             'validation' => \Config\Services::validation(),
@@ -134,7 +154,10 @@ class UserController extends BaseController
         });
 
 
+
+
         $userId = session('UserID');
+        $album = $this->AlbumModel->getAlbumByID($userId);
         $fotodata = $this->FotoModel->getFoto($id);
         $user = $this->UserModel->where('UserID', $fotodata['UserID'])->first();
         $like = $this->LikeModel->getLikeByPost($id);
@@ -164,6 +187,12 @@ class UserController extends BaseController
             $url = '↗ website.com';
         }
 
+        foreach ($komentar as &$k) {
+            $time = Time::parse($k['TanggalKomentar']);
+            $ago = $time->humanize();
+            $k['TanggalKomentar'] = $ago;
+        }
+
         $data = [
             'validation' => \Config\Services::validation(),
             'fotodata' => $fotodata,
@@ -172,6 +201,7 @@ class UserController extends BaseController
             'jumlahlike' => $jumlahlike,
             'liked' => $liked,
             'url' => $url,
+            'album' => $album,
         ];
 
         return view('user/post', $data);
@@ -179,7 +209,7 @@ class UserController extends BaseController
 
     public function create()
     {
-        
+
         $userid = session('UserID');
         $album = $this->AlbumModel->getAlbumByID($userid);
         $data = [
@@ -265,6 +295,7 @@ class UserController extends BaseController
             'Alamat' =>  $data['alamat'],
             'PhotoProfile' => $namaFoto,
         ]);
+        session()->setFlashdata('notifSuccess', 'Profile Edited Successfully');
         return redirect()->to('/profile/' . $id);
     }
 
@@ -292,37 +323,180 @@ class UserController extends BaseController
         return view('user/addalbum');
     }
 
-    public function submitalbum()
+    public function submitalbum($albumname)
     {
         $UserID = session('UserID');
-        $post = $this->request->getPost();
-        $NamaAlbum = $this->request->getVar('NamaAlbum');
-        log_message('debug', 'Nama Album: ' . $NamaAlbum);
 
         $this->AlbumModel->save([
-            "NamaAlbum" => $NamaAlbum,
-            'DeskripsiAlbum' => $post['DeskripsiAlbum'],
+            "NamaAlbum" => $albumname,
             'TanggalAlbum' => date('Y-m-d'),
             'UserID' => $UserID
         ]);
 
-        session()->setFlashdata('pesan', 'Data Berhasil Ditambahkan');
-        return redirect()->to('/profile/' . $UserID . '/album');
+        session()->setFlashdata('notifSuccess', 'Album Created Successfully');
+        return redirect()->back();
     }
 
     public function viewalbum($id)
     {
         $album = $this->AlbumModel->getAlbumByID($id);
-        $foto = $this->FotoModel->getFotoByAlbum($id);
+        $albumfoto = $this->FotoAlbumModel->getFotoByAlbum($id);
+        $foto = [];
+        foreach ($albumfoto as $a) {
+            $foto[] = $this->FotoModel->getFoto($a['FotoID']);
+        }
+        $foto = array_reverse($foto);
         $jumlahfoto = count($foto);
 
         $data = [
             'validation' => \Config\Services::validation(),
-            'user' => $this->UserModel->getUser($id),
             'jumlahfoto' => $jumlahfoto,
             'album' => $album,
             'foto' => $foto,
         ];
         return view('user/viewalbum', $data);
+    }
+
+    public function changepassword()
+    {
+        if (session('isLogin') == false) {
+            return redirect()->to('/accessdenied');
+        }
+        $data = [
+            'validation' => \Config\Services::validation(),
+            'user' => $this->UserModel->getUser(session('UserID')),
+        ];
+        return view('user/changepassword', $data);
+    }
+
+    public function changepasswordsubmit($id)
+    {
+        $user = $this->UserModel->getUser($id);
+
+        if (session('UserID') != $user['UserID']) {
+            return redirect()->to('/accessdenied');
+        }
+
+        $data = $this->request->getPost();
+        $this->validation->run($data, 'changepassword');
+        $errors = $this->validation->getErrors();
+        if ($errors) {
+            session()->setFlashdata('newpasswordError', $this->validation->getError('newpassword'));
+            session()->setFlashdata('confirmError', $this->validation->getError('confirm'));
+            return redirect()->back()->withInput();
+        }
+
+        if (md5($data['password']) != $user['Password']) {
+            session()->setFlashdata('passwordError', 'Password incorrect!');
+            return redirect()->back()->withInput();
+        }
+
+        $hashedpass = md5($data['newpassword']);
+
+        $this->UserModel->save([
+            "UserID" => $id,
+            "Password" => $hashedpass,
+        ]);
+        session()->setFlashdata('notifSuccess', 'Password Changed Successfully');
+        return redirect()->to('/profile/' . $id);
+    }
+
+
+    function getRandomToken($length = 32)
+    {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $token = '';
+        for ($i = 0; $i < $length; $i++) {
+            $token .= $characters[random_int(0, strlen($characters) - 1)];
+        }
+        $token .= time();
+
+        return $token;
+    }
+
+
+    public function changeemail()
+    {
+        if (session('isLogin') == false) {
+            return redirect()->to('/accessdenied');
+        }
+        $data = [
+            'user' => $this->UserModel->getUser(session('UserID')),
+        ];
+        return view('user/changeemail', $data);
+    }
+
+    public function changeemailsubmit($id)
+    {
+        $user = $this->UserModel->getUser($id);
+
+        if (session('UserID') != $user['UserID']) {
+            return redirect()->to('/accessdenied');
+        }
+
+        $data = $this->request->getPost();
+
+        if (!$this->validate([
+            'newemail' => [
+                'rules' => 'is_unique[user.Email]'
+            ],
+        ])) {
+            session()->setFlashdata('emailError', "Email already used!");
+            return redirect()->back()->withInput();
+        }
+        $randomToken = $this->getRandomToken();
+        $this->UserModel->save([
+            "UserID" => $id,
+            "TemporaryEmail" => $data['newemail'],
+            "TemporaryEmailToken" => $randomToken,
+            "TemporaryEmailExpired" => date('Y-m-d H:i:s', strtotime('+1 day')),
+        ]);
+
+        $user = $this->UserModel->getUser($id);
+        $email = \Config\Services::email();
+        $alamat = $user['TemporaryEmail'];
+        $email->setTo($alamat);
+        $email->setSubject('Verifikasi Email');
+        $message = "
+    <html><body>
+    <p>Hi {$user['Username']},</p>
+    <p style='font-weight: bold;'>Change your email?<br>We receveived a request to change this account to your email</p>
+    <p>To change your email from {$user['Email']} to {$user['TemporaryEmail']}, click on the button below</p>
+    <a href='" . base_url("/verify/changeemail/{$alamat}/{$randomToken}") . "'><button style='font-size: 17px; font-weight: bold; color: white; border: transparent; padding: 0.5em 2em; background: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1); border-radius: 4px;'>Change</button></a><br>
+    <p>If you did not request an email change, please ignore this email. This link is only valid for the next 24 hours.</p><br>
+    <p style='font-style: italic;'>Thanks,<br>The Harmonify Team</p>
+    </body></html>";
+        $email->setMessage($message);
+
+        if ($email->send()) {
+            session()->setFlashdata('notifSuccess', 'Email Verification Sent');
+            return redirect()->back();
+        } else {
+            return redirect()->to('/accessdenied');
+        }
+    }
+
+    public function verifyChangeEmail($email, $token)
+    {
+        $this->UserModel->getExpiredEmail();
+        $user = $this->UserModel->getUserByTemporaryEmail($email);
+
+        if ($user == '') {
+            return redirect()->to('/accessdenied');
+        } elseif ($user['TemporaryEmailToken'] != $token) {
+            return redirect()->to('/accessdenied');
+        } elseif ($user['TemporaryEmailExpired'] < date('Y-m-d H:i:s')) {
+            return redirect()->to('/accessdenied');
+        } else {
+            $this->UserModel->save([
+                "UserID" => $user['UserID'],
+                "Email" => $user['TemporaryEmail'],
+                "TemporaryEmail" => '',
+                "TemporaryEmailToken" => '',
+                "TemporaryEmailExpired" => NULL,
+            ]);
+            session()->setFlashdata('notifSuccess', 'Email Changed Successfully');
+            return redirect()->to('/profile/' . $user['UserID']);
+        }
     }
 }

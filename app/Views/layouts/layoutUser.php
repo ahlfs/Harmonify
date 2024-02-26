@@ -14,6 +14,8 @@
   <link rel="stylesheet" href="/assets/css/searchresult.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito">
   <link rel="icon" type="image/x-icon" href="/image/icon.png">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="/assets/js/alert.js"></script>
 
 
 
@@ -43,8 +45,7 @@ $RegisterUsernameError = session()->getFlashdata('usernameError');
 $RegisterPasswordError = session()->getFlashdata('passwordError');
 $RegisterConfirmError = session()->getFlashdata('confirmError');
 $RegisterEmailError = session()->getFlashdata('emailError');
-$ActiveHome = session()->getFlashdata('ActiveHomeNavbar');
-$ActiveCreate = session()->getFlashdata('ActiveCreateNavbar');
+$notifSuccess = session()->getFlashdata('notifSuccess');
 ?>
 
 
@@ -107,7 +108,7 @@ $ActiveCreate = session()->getFlashdata('ActiveCreateNavbar');
         </button>
       </div>
       <div class="row no-gutters">
-        
+
         <div class="col-md-12 d-flex">
           <div class="modal-body p-4 p-md-5 d-flex align-items-center color-1">
             <div class="text w-100 py-3">
@@ -170,7 +171,7 @@ $ActiveCreate = session()->getFlashdata('ActiveCreateNavbar');
         </button>
       </div>
       <div class="row no-gutters">
-        
+
         <div class="col-md-12 d-flex">
           <div class="modal-body p-4 p-md-5 d-flex align-items-center color-1">
             <div class="text w-100 py-3">
@@ -229,51 +230,46 @@ $ActiveCreate = session()->getFlashdata('ActiveCreateNavbar');
   </div>
 </div>
 
-
+<header style="z-index: 1000;">
+  <nav>
+    <div class="menu">
+      <img draggable="false" class="harmonify-icon" src="/image/icon.png">
+      <a href="/" id="home" class="home displaytext" draggable="false">Home</a>
+      <a href="/create" id="create" class="create displaytext" draggable="false">Create</a>
+      <a href="/" id="home" class="homeicon displayicon" style="color: #161b22" draggable="false"><i class="fa-solid fa-house fa-xl"></i></a>
+      <a href="/create" id="create" style="color: #161b22" class="createicon displayicon" draggable="false"><i class="fa-solid fa-plus fa-xl"></i></a>
+      <div class="full-search-bar">
+        <form method="post" action="/search">
+          <?php if (!empty($keyword)) : ?>
+            <input id="one" type="text" class="search-bar" name="keyword" value="<?= $keyword ?>" placeholder="Search anything" autocomplete="off">
+          <?php else : ?>
+            <input id="one" type="text" class="search-bar" name="keyword" placeholder="Search anything" autocomplete="off">
+          <?php endif; ?>
+        </form>
+      </div>
+      <?php if ($isLogin == true) : ?>
+        <div class="icon-container">
+          <a href="/profile/<?= $ProfileID ?>" draggable="false" id="profile"><img draggable="false" class="icon" src="/user_profile/<?= $ProfilePhoto ?>"></a>
+        </div>
+      <?php else : ?>
+        <button type="button" class="buttonlogin" data-toggle="modal" id="LoginModal" data-target="#ModalLogin">Login
+          <div class="arrow-wrapper">
+            <div class="arrow"></div>
+          </div>
+        </button>
+      <?php endif; ?>
+    </div>
+    <!--------------------------->
+  </nav>
+</header>
 
 
 <body class="px-0">
-  <header style="z-index: 1000;">
-    <nav>
-      <div class="menu">
-        <img draggable="false" class="harmonify-icon" src="/image/icon.png">
-        <a href="/" id="home" class="home displaytext" draggable="false">Home</a>
-        <a href="/create" id="create" class="create displaytext" draggable="false">Create</a>
-        <a href="/" id="home" class="homeicon displayicon" style="color: #161b22" draggable="false"><i class="fa-solid fa-house fa-xl"></i></a>
-        <a href="/create" id="create" style="color: #161b22" class="createicon displayicon" draggable="false"><i class="fa-solid fa-plus fa-xl"></i></a>
-        <div class="full-search-bar">
-          <form method="post" action="/search">
-            <?php if (!empty($keyword)) : ?>
-              <input id="one" type="text" class="search-bar" name="keyword" value="<?= $keyword ?>" placeholder="Search anything" autocomplete="off">
-            <?php else : ?>
-              <input id="one" type="text" class="search-bar" name="keyword" placeholder="Search anything" autocomplete="off">
-            <?php endif; ?>
-          </form>
-        </div>
-        <?php if ($isLogin == true) : ?>
-          <div class="icon-container">
-            <a href="/profile/<?= $ProfileID ?>" draggable="false" id="profile"><img draggable="false" class="icon" src="/user_profile/<?= $ProfilePhoto ?>"></a>
-          </div>
-        <?php else : ?>
-          <button type="button" class="buttonlogin" data-toggle="modal" id="LoginModal" data-target="#ModalLogin">Login
-            <div class="arrow-wrapper">
-              <div class="arrow"></div>
-            </div>
-          </button>
-        <?php endif; ?>
-      </div>
-      <!--------------------------->
-    </nav>
-  </header>
-
-
-
-
-
   <?= $this->renderSection('content'); ?>
 </body>
 <script src="/assets/js/script.js"></script>
 <script src="/assets/js/modal.js"></script>
+
 
 
 
@@ -284,24 +280,12 @@ $ActiveCreate = session()->getFlashdata('ActiveCreateNavbar');
 <script src="https://kit.fontawesome.com/6d2fa4f343.js" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-<!-- <?php if ($ActiveHome) : ?>
-  <script>
-    $(document).ready(function() {
-      $("#home").addClass("home-active");
-      $("#create").removeClass("create-active");
-    });
-  </script>
-<?php elseif ($ActiveCreate) : ?>
-  <script>
-    $(document).ready(function() {
-      $("#create").addClass("create-active");
-      $("#home").removeClass("home-active");
-    });
-  </script>
-<?php endif; ?> -->
 
 <script>
   $(document).ready(function() {
+
+
+
     // Menambahkan kelas saat tombol "Tambah Kelas" diklik
     if (localStorage.getItem('highlightHome') === 'true') {
       $("#home").addClass("home-active");
@@ -431,11 +415,29 @@ $ActiveCreate = session()->getFlashdata('ActiveCreateNavbar');
       $('#VerificationModal').trigger('click');
     });
   </script>
-  <?php elseif ($ForgotPasswordFailed) : ?>
+<?php elseif ($ForgotPasswordFailed) : ?>
   <script>
     $(document).ready(function() {
       $('#VerificationModal').trigger('click');
     });
+  </script>
+<?php elseif ($notifSuccess) : ?>
+  <script>
+   const Toast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.onmouseenter = Swal.stopTimer;
+      toast.onmouseleave = Swal.resumeTimer;
+    }
+  });
+  Toast.fire({
+    icon: "success",
+    title: "<?= $notifSuccess ?>"
+  });
   </script>
 <?php endif; ?>
 

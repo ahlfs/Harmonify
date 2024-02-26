@@ -2,7 +2,7 @@
 <?= $this->section('content'); ?>
 
 <div class="form-container">
-<form action="/changepassword/<?= $user['UserID'] ?>" method="post">
+<form action="/resetpassword/<?= $user['UserID'] ?>" method="post">
     <div class="form-group mt-3">
         <label for="title">New Password</label>
         <input type="password" id="title" name="password" autocomplete="off">
