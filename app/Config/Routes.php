@@ -57,6 +57,12 @@ $routes->get('/verify/changeemail/(:any)/(:any)', 'UserController::verifyChangeE
 
 $routes->get('/deleteacc/(:num)', 'UserController::deleteaccount/$1');
 
+$routes->get('/deletealbum/(:num)', 'UserController::deletealbum/$1');
+
+$routes->get('/editalbum/(:num)/(:any)', 'UserController::editalbum/$1/$2');
+
+$routes->get('/removefromalbum/(:num)/(:num)', 'UserController::removefromalbum/$1/$2');
+
 
 
 

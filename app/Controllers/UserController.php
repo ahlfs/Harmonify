@@ -337,9 +337,43 @@ class UserController extends BaseController
         return redirect()->back();
     }
 
+    public function deletealbum($albumid)
+    {
+        $album = $this->AlbumModel->getAlbumByAlbumID($albumid);
+        if (session('UserID') != $album[0]['UserID']) {
+            return redirect()->to('/accessdenied');
+        }
+        
+        $this->AlbumModel->where('AlbumID', $albumid)->delete();
+        $this->FotoAlbumModel->where('AlbumID', $albumid)->delete();
+        session()->setFlashdata('notifSuccess', 'Album Deleted Successfully');
+        return redirect()->back();
+    }
+
+    public function editalbum($albumid, $albumname)
+    {
+        $album = $this->AlbumModel->getAlbumByAlbumID($albumid);
+        if (session('UserID') != $album[0]['UserID']) {
+            return redirect()->to('/accessdenied');
+        }
+        $this->AlbumModel->save([
+            "AlbumID" => $albumid,
+            "NamaAlbum" => $albumname,
+        ]);
+        session()->setFlashdata('notifSuccess', 'Album Edited Successfully');
+        return redirect()->back();
+    }
+
+    public function removefromalbum($albumid, $fotoid)
+    {
+        $this->FotoAlbumModel->where('AlbumID', $albumid)->where('FotoID', $fotoid)->delete();
+        session()->setFlashdata('notifSuccess', 'Photo Removed from Album');
+        return redirect()->back();
+    }
+
     public function viewalbum($id)
     {
-        $album = $this->AlbumModel->getAlbumByID($id);
+        $album = $this->AlbumModel->getAlbumByAlbumID($id);
         $albumfoto = $this->FotoAlbumModel->getFotoByAlbum($id);
         $foto = [];
         foreach ($albumfoto as $a) {
@@ -349,7 +383,6 @@ class UserController extends BaseController
         $jumlahfoto = count($foto);
 
         $data = [
-            'validation' => \Config\Services::validation(),
             'jumlahfoto' => $jumlahfoto,
             'album' => $album,
             'foto' => $foto,

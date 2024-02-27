@@ -85,7 +85,3 @@ function createalbum(createalbumUrl) {
     },
   }); 
 }
-
-function albumcreatedsuccess() {
- 
-}

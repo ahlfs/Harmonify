@@ -65,15 +65,80 @@
     <div class="cardalbum" onclick="redirectToPage('/profile/album/<?= $a['AlbumID']; ?>')" style="background: <?= $a['color'] ?>;">
       <div class="titlezone">
         <span class="title"><?= $a['NamaAlbum']; ?></span>
+        <span class="icon" onclick="openAlbumSetting('<?= $a['AlbumID'] ?>')"><i class="fa-solid fa-ellipsis-vertical fa-xl"></i></span>
       </div>
       <?php if ($a['foto'] != 'false') : ?>
-      <div class="imagezone">
-        <div class="image"><img src="/image_storage/<?= $a['foto']; ?>"></div>
-      </div>
+        <div class="imagezone">
+          <div class="image"><img src="/image_storage/<?= $a['foto']; ?>" draggable="false"></div>
+        </div>
       <?php endif; ?>
     </div>
   <?php endforeach; ?>
 </div>
+
+
+<script>
+  function openAlbumSetting($id) {
+    event.stopPropagation();
+    albumSetting($id);
+  }
+
+
+  function albumSetting($id) {
+    Swal.fire({
+      title: "Setting Album",
+      showDenyButton: true,
+      confirmButtonText: "<i class='fa-solid fa-pen fa-xl'></i> Edit",
+      confirmButtonColor: "#3085d6",
+      denyButtonText: "<i class='fa-solid fa-trash fa-xl'></i> Delete",
+      denyButtonColor: "FF8080",
+
+    }).then((result) => {
+      if (result.isConfirmed) {
+        editalbum($id);
+      } else if (result.isDenied) {
+        deletealbum($id);
+      }
+    });
+  }
+
+  function deletealbum($id) {
+  Swal.fire({
+    title: "Are you sure",
+    text: "You want to delete this album?",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!",
+  }).then((result) => {
+    if (result.value) {
+      const deleteUrl = '/deletealbum/' + $id;
+      window.location.href = deleteUrl;
+    }
+  });
+}
+
+function editalbum($id) {
+  Swal.fire({
+    input: "text",
+    inputLabel: "Edit Album",
+    inputPlaceholder: "Enter album name...",
+    showCancelButton: true,
+    confirmButtonText: "Update",
+    cancelButtonText: "Cancel",
+    inputAttributes: {
+      autocomplete: "off"
+    },
+    inputValidator: (value) => {
+      if (value == "") {
+        resolve("You need to enter an album name");
+      } else {
+        const editUrl = '/editalbum/' + $id;
+        window.location.href = editUrl + '/' + value;
+      }
+    },
+  }); 
+}
+</script>
 
 
 

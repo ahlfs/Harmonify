@@ -16,5 +16,10 @@ class AlbumModel extends Model
     {
         return $this->where(['UserID' => $id])->findAll();
     }
+
+    public function getAlbumByAlbumID($id)
+    {
+        return $this->where(['AlbumID' => $id])->find();
+    }
     
 }
