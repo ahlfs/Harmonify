@@ -16,5 +16,10 @@ class KomentarModel extends Model
     {
         return $this->where(['FotoID' => $id])->findAll();
     }
+
+    public function getKomentarByID($id)
+    {
+        return $this->where(['KomentarID' => $id])->findAll();
+    }
     
 }

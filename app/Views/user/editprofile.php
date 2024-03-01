@@ -41,11 +41,6 @@ $photoprofileError = session()->getFlashdata('photoprofileError');
                                 <input type="text" id="title" name="namalengkap" autocomplete="off" value="<?= (old('namalengkap')) ? old('namalengkap') : $user['NamaLengkap']; ?>">
                             </div>
                             <div class="form-group mt-3">
-                                <label for="title">Email</label>
-                                <input type="text" id="title" name="email" autocomplete="off" value="<?= (old('email')) ? old('email') : $user['Email']; ?>">
-                                <span><?= $emailError ?></span>
-                            </div>
-                            <div class="form-group mt-3">
                                 <label for="title">Address</label>
                                 <input type="text" id="title" name="alamat" autocomplete="off" value="<?= (old('alamat')) ? old('alamat') : $user['Alamat']; ?>">
                             </div>

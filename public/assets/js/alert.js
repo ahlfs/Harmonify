@@ -30,6 +30,23 @@ function confirmEdit(editUrl) {
   });
 }
 
+function deleteComment(id) {
+  Swal.fire({
+    title: "Are you sure",
+    text: "To Delete This Comment?",
+    type: "info",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, lemme delete it!",
+  }).then((result) => {
+    if (result.value) {
+      const deleteCommentUrl = '/deletecomment/' + id;
+      window.location.href = deleteCommentUrl; // Redirect to delete URL if confirmed
+    }
+  });
+}
+
 function logout(logoutUrl) {
   Swal.fire({
     title: "Are you sure",
@@ -54,11 +71,12 @@ function setting(changePassword, changeEmail) {
     confirmButtonColor: "#3085d6",
     denyButtonText: `Change Email`,
     denyButtonColor: "#3085d6",
-   
   }).then((result) => {
     if (result.isConfirmed) {
       window.location.href = changePassword;
     } else if (result.isDenied) {
+      window.location.href = changeEmail;
+    } else if (result.isDismisse) {
       window.location.href = changeEmail;
     }
   });
@@ -73,7 +91,7 @@ function createalbum(createalbumUrl) {
     confirmButtonText: "Create",
     cancelButtonText: "Cancel",
     inputAttributes: {
-      autocomplete: "off"
+      autocomplete: "off",
     },
     inputValidator: (value) => {
       if (value == "") {
@@ -83,5 +101,5 @@ function createalbum(createalbumUrl) {
         window.location.href = album;
       }
     },
-  }); 
+  });
 }

@@ -241,18 +241,7 @@ class UserController extends BaseController
                     'rules' => 'is_unique[user.Username]'
                 ],
             ])) {
-                session()->setFlashdata('usernameError', "Username sudah dipakai");
-                return redirect()->back()->withInput();
-            }
-        }
-
-        if ($data['email'] != $user['Email']) {
-            if (!$this->validate([
-                'email' => [
-                    'rules' => 'is_unique[user.Email]'
-                ],
-            ])) {
-                session()->setFlashdata('usernameError', "Email sudah dipakai");
+                session()->setFlashdata('usernameError', "Username already been taken!");
                 return redirect()->back()->withInput();
             }
         }
@@ -264,7 +253,6 @@ class UserController extends BaseController
         //jika ada error kembalikan ke halaman register
         if ($errors) {
             session()->setFlashdata('usernameError', $this->validation->getError('username'));
-            session()->setFlashdata('emailError', $this->validation->getError('email'));
             session()->setFlashdata('photoprofileError', $this->validation->getError('photoprofile'));
             return redirect()->back()->withInput();
         }
@@ -290,7 +278,6 @@ class UserController extends BaseController
         $this->UserModel->save([
             "UserID" => $id,
             "Username" => $data['username'],
-            'Email' =>  $data['email'],
             'NamaLengkap' =>  $data['namalengkap'],
             'Alamat' =>  $data['alamat'],
             'PhotoProfile' => $namaFoto,

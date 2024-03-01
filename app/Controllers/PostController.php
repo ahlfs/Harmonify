@@ -48,6 +48,14 @@ class PostController extends BaseController
             'UserID' => $UserID
         ]);
 
+        if ($this->request->getVar('AlbumID') != 0) {
+            $foto = $this->FotoModel->where('Foto', $newName)->first();
+            $this->FotoAlbumModel->save([
+                'FotoID' => $foto['FotoID'],
+                'AlbumID' => $this->request->getVar('AlbumID'),
+            ]);
+        }
+
         session()->setFlashdata('notifSuccess', 'Post Created');
         return redirect()->to('/');
     }
@@ -70,6 +78,18 @@ class PostController extends BaseController
             'TanggalKomentar' => date('Y-m-d H:i:s'),
         ]);
         return redirect()->to('/post/' . $id);
+    }
+
+    public function deletekomentar($id, $creatorID)
+    {
+        $komentar = $this->KomentarModel->getKomentarByID($id);
+        if ($komentar[0]['UserID'] != session('UserID') ) {
+            if ($creatorID != session('UserID')) {
+                return redirect()->to('/accessdenied');
+            }
+        }
+        $this->KomentarModel->where('KomentarID', $id)->delete();
+        return redirect()->to('/post/' . $komentar[0]['FotoID']);
     }
 
     public function like($id)
@@ -97,14 +117,16 @@ class PostController extends BaseController
 
     
 
-    public function editpost($id): string
+    public function editpost($id)
     {
         $userid = session('UserID');
-        $album = $this->AlbumModel->getAlbumByID($userid);
+        $post = $this->FotoModel->getFoto($id);
+        if ($post['UserID'] != $userid) {
+            return redirect()->to('/accessdenied');
+        }
         $data = [
             'validation' => \Config\Services::validation(),
             'foto' => $this->FotoModel->getFoto($id),
-            'album' => $album,
         ];
         return view('user/editpost', $data);
     }

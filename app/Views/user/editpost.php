@@ -40,34 +40,17 @@
                                         <label for="title">Title</label>
                                         <input type="text" id="title" name="JudulFoto" autocomplete="off" value="<?= $foto['JudulFoto'] ?>" required>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group mt-3">
                                         <label for="description">Description</label>
                                         <textarea name="DeskripsiFoto" id="description" rows="10" cols="50" required><?= $foto['DeskripsiFoto'] ?></textarea>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group mt-3">
                                         <label for="url">Url</label>
                                         <input type="text" id="url" name="Url" autocomplete="off" value="<?= $foto['Url'] ?>">
                                     </div>
-                                    <div class="form-group">
-                                        <label for="album">Album</label>
-
-                                        <select class="selectform" name="AlbumID">
-                                            <?php if ($album) : ?>
-                                                <option selected value="0">None</option>
-                                                <?php foreach ($album as $a) : ?>
-                                                    <option value="<?= $a['AlbumID'] ?>"><?= $a['NamaAlbum'] ?></option>
-                                                <?php endforeach; ?>
-
-                                            <?php else : ?>
-                                                <option selected value="0">No Album Created</option>
-                                            <?php endif; ?>
-
-                                        </select>
-
-                                    </div>
 
                                     <div class="form-submit">
-                                        <button type="submit" name="register" class="submit">Post</button>
+                                        <button type="submit" name="register" class="submit">Update</button>
                                     </div>
                                 </form>
                             </div>

@@ -3,6 +3,9 @@
 
 <link rel="stylesheet" href="/assets/css/imagepreview.css" />
 
+<?php if (session('isLogin')) :?>
+    
+
 <div class="container">
     <form action="/upload" method="post" enctype="multipart/form-data">
         <div class="row">
@@ -77,6 +80,16 @@
         </div>
     </form>
 </div>
+
+<?php else : ?>
+    <link rel="stylesheet" href="/assets/css/accessdenied.css" />
+
+    <div class="containerAccessDenied">
+        <h1>Oops!</h1>
+        <p class="textku">Sorry, but you have to login before create a post.</p>
+    </div>
+
+<?php endif; ?>
 
 <script src="/assets/js/imagepreview.js"></script>
 <?= $this->endSection(); ?>

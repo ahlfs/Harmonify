@@ -114,9 +114,9 @@ $posttoalbumSuccess = session()->getFlashdata('posttoalbumSuccess');
 
                         <div class="komentarprofile" onclick="redirectToPage('/profile/<?= $k['UserID']; ?>')">
                           <img src="/user_profile/<?= $k['PhotoProfile'] ?>" class="iconkomentar">
-                          <span class="text2"><?= $k['Username'] ?></span>
+                          <span class="textprofile"><?= $k['Username'] ?></span>
                           <?php if ($k['UserID'] == $fotodata['UserID']) : ?>
-                            <a class="creatorlogo" draggable="false"><span style="font-size: 10px; color: #fff;">Creator</span></a>
+                            <a class="creatorlogo" draggable="false"><span style="font-size: 10px; color: #fff; font-weight: bold;">Creator</span></a>
                           <?php endif; ?>
                         </div>
 
@@ -125,11 +125,18 @@ $posttoalbumSuccess = session()->getFlashdata('posttoalbumSuccess');
                         <div class="ms-auto">
                           <span class="text2"><?= $k['TanggalKomentar'] ?></span>
                         </div>
-
-
-
                       </div>
+
+                      <div class="d-flex">
                       <span class="text1"><?= $k['IsiKomentar'] ?></span>
+                      
+                      <div class="ms-auto">
+                        <?php if (session()->get('UserID') == $k['UserID'] || session()->get('UserID') == $user['UserID']) : ?>
+                          <a onclick="deleteComment('<?= $k['KomentarID'] ?>/<?= $user['UserID'] ?>')" class="buttonDeleteComment"><i class="fa-solid fa-trash-can" style="color: white;"></i></a>
+                        <?php endif; ?>
+                      </div>
+                        </div>
+
                     </div>
                   </div>
                 </div>
@@ -165,41 +172,39 @@ $posttoalbumSuccess = session()->getFlashdata('posttoalbumSuccess');
       });
     }
 
-    
+
 
     function confirma(albumUrl) {
       Swal.fire({
-        title: "Choose album",
-        input: "select",
-        inputOptions: {
-          <?php foreach ($album as $a) : ?> "<?php echo $a['AlbumID']; ?>": "<?php echo $a['NamaAlbum']; ?>",
-          <?php endforeach; ?>},
-        inputPlaceholder: "Select an album",
-        showCancelButton: true,
-        showDenyButton: true,
-        denyButtonColor: "#3085d6",
-        denyButtonText: "Create Album",
-        inputValidator: (value) => {
-          return new Promise((resolve) => {
-            if (value === "") {
-              resolve("You need to select an album");
-            } else {
-              const albumUrls = albumUrl + value;
-              window.location.href = albumUrls;
-            }
-          })
-          
-        },
-        
-      })
-      .then((result) => {
-            if (result.isDenied) {
-            createalbum('/submitalbum/');
-            }
-          });
-    }
+          title: "Choose album",
+          input: "select",
+          inputOptions: {
+            <?php foreach ($album as $a) : ?> "<?php echo $a['AlbumID']; ?>": "<?php echo $a['NamaAlbum']; ?>",
+            <?php endforeach; ?>},
+          inputPlaceholder: "Select an album",
+          showCancelButton: true,
+          showDenyButton: true,
+          denyButtonColor: "#3085d6",
+          denyButtonText: "Create Album",
+          inputValidator: (value) => {
+            return new Promise((resolve) => {
+              if (value === "") {
+                resolve("You need to select an album");
+              } else {
+                const albumUrls = albumUrl + value;
+                window.location.href = albumUrls;
+              }
+            })
 
-    
+          },
+
+        })
+        .then((result) => {
+          if (result.isDenied) {
+            createalbum('/submitalbum/');
+          }
+        });
+    }
   </script>
 
   <?php if ($posttoalbumFailed) : ?>

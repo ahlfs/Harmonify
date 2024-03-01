@@ -43,34 +43,35 @@ class Validation extends BaseConfig
     // --------------------------------------------------------------------
     public $register = [
         'usernameRegister' => [
-            'rules' => 'required|min_length[5]|alpha_numeric|is_unique[user.Username]',
+            'rules' => 'required|min_length[5]|alpha_numeric|is_unique[user.Username]|is_lowercase',
             'errors' => [
-                'required' => 'Username harus diisi',
-                'min_length' => 'Username harus terdiri dari 5 huruf',
-                'alpha_numeric' => 'Username hanya boleh mengandung huruf dan angka',
-                'is_unique' => 'Username sudah dipakai'
+                'required' => 'Username need to be filled',
+                'min_length' => 'Username must be at least 5 characters',
+                'alpha_numeric' => 'Username can only contain letters and numbers',
+                'is_unique' => 'Username has been taken',
+                'is_lowercase' => 'Username must be lowercase'
             ]
         ],
         'passwordRegister' => [
             'rules' => 'required|min_length[8]|alpha_numeric_punct',
             'errors' => [
-                'min_length' => 'Password harus terdiri dari 8 kata',
-                'alpha_numeric_punct' => 'Password hanya boleh mengandung angka, huruf, dan karakter yang valid'
+                'min_length' => 'Password must be at least 8 characters',
+                'alpha_numeric_punct' => 'Password can only contain letters, numbers, and punctuation'
             ]
         ],
         'confirmRegister' => [
             'rules' => 'required|matches[passwordRegister]',
             'errors' => [
-                'required' => 'Konfirmasi password harus diisi',
-                'matches' => 'Konfirmasi password tidak cocok'
+                'required' => 'Confirm password need to be filled',
+                'matches' => 'Confirm password does not match with password'
             ]
         ],
         'emailRegister' => [
             'rules' => 'required|valid_email|is_unique[user.Email]',
             'errors' => [
-                'required' => 'Email harus diisi',
-                'valid_email' => 'Penulisan email tidak valid',
-                'is_unique' => 'Email sudah terdaftar'
+                'required' => 'Email need to be filled',
+                'valid_email' => 'Email is not valid',
+                'is_unique' => 'Email already registered'
             ]
         ],
     ];
@@ -79,23 +80,17 @@ class Validation extends BaseConfig
         'username' => [
             'rules' => 'required|min_length[5]|alpha_numeric',
             'errors' => [
-                'required' => 'Username harus diisi',
-                'min_length' => 'Username harus terdiri dari 5 huruf',
-                'alpha_numeric' => 'Username hanya boleh mengandung huruf dan angka',
-            ]
-        ],
-        'email' => [
-            'rules' => 'permit_empty|valid_email',
-            'errors' => [
-                'valid_email' => 'Penulisan email tidak valid',
+                'required' => 'Username need to be filled',
+                'min_length' => 'Username must be at least 5 characters',
+                'alpha_numeric' => 'Username can only contain letters and numbers',
             ]
         ],
         'photoprofile' => [
             'rules' => 'permit_empty|max_size[foto,10240]|is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/png,image/webp,image/svg]',
             'errors' => [
-                'max_size' => 'Ukuran gambar terlalu besar (max 10MB)',
-                'is_image' => 'File yang anda pilih bukan gambar',
-                'mime_in' => 'File yang anda pilih bukan gambar',
+                'max_size' => 'File size is too large (max 10MB)',
+                'is_image' => 'File that you choose is not an image',
+                'mime_in' => 'File that you choose is not an image',
             ]
         ],
     ];
@@ -104,8 +99,8 @@ class Validation extends BaseConfig
         'password' => [
             'rules' => 'required|min_length[8]',
             'errors' => [
-                'required' => 'Password harus diisi',
-                'min_length' => 'Password harus terdiri dari 8 karakter',
+                'required' => 'Password need to be filled',
+                'min_length' => 'Password must be at least 8 characters',
             ]
         ],
     ];
@@ -114,15 +109,15 @@ class Validation extends BaseConfig
         'newpassword' => [
             'rules' => 'required|min_length[8]',
             'errors' => [
-                'required' => 'Password harus diisi',
-                'min_length' => 'Password harus terdiri dari 8 karakter',
+                'required' => 'Password need to be filled',
+                'min_length' => 'Password must be at least 8 characters',
             ]
         ],
         'confirm' => [
             'rules' => 'required|matches[newpassword]',
             'errors' => [
-                'required' => 'Konfirmasi Password harus diisi',
-                'matches' => 'Konfirmasi Password tidak sesuai',
+                'required' => 'Confirm Password need to be filled',
+                'matches' => 'Confirm Password does not match with New Password',
             ]
         ],
     ];

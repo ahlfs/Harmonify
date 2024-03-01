@@ -120,7 +120,7 @@
 function editalbum($id) {
   Swal.fire({
     input: "text",
-    inputLabel: "Edit Album",
+    title: "Edit Album",
     inputPlaceholder: "Enter album name...",
     showCancelButton: true,
     confirmButtonText: "Update",
