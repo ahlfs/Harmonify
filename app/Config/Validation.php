@@ -43,7 +43,7 @@ class Validation extends BaseConfig
     // --------------------------------------------------------------------
     public $register = [
         'usernameRegister' => [
-            'rules' => 'required|min_length[5]|alpha_numeric|is_unique[user.Username]|is_lowercase|max_length[15]',
+            'rules' => 'required|min_length[5]|alpha_numeric|is_unique[user.Username]|max_length[15]',
             'errors' => [
                 'required' => 'Username need to be filled',
                 'min_length' => 'Username must be at least 5 characters',
