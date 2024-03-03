@@ -68,6 +68,13 @@
     var imageUrl = <?php echo json_encode(base_url('image_storage/' . $foto["Foto"])); ?>;
     window.onload = function() {
         displayImage(imageUrl);
+
+        $("#create").removeClass("create-active");
+        $("#create").addClass("create-deactive");
+        $("#home").removeClass("home-active");
+        $("#home").addClass("home-deactive");
     };
 </script>
 <?= $this->endSection(); ?>
+
+

@@ -63,7 +63,7 @@ $notifSuccess = session()->getFlashdata('notifSuccess');
             <div class="text w-100 py-3">
               <span class="subheading">Welcome to Harmonify</span>
               <h3 class="mb-4 heading">Login to continue</h3>
-              <form action="/login" class="contact-form" method="post">
+              <form action="/login" method="post">
                 <p class="text-success"><?= $EmailVerified ?></p>
                 <div class="form-group">
                   <p class="text-danger"><?= $LoginUsernameError ?></p>
@@ -114,7 +114,7 @@ $notifSuccess = session()->getFlashdata('notifSuccess');
             <div class="text w-100 py-3">
               <span class="subheading">Welcome to Harmonify</span>
               <h3 class="mb-4 heading">Register</h3>
-              <form action="/register" class="contact-form" method="post">
+              <form action="/register" method="post">
 
                 <div class="form-group">
                   <p class="text-danger"><?= $RegisterUsernameError ?></p>
@@ -177,7 +177,7 @@ $notifSuccess = session()->getFlashdata('notifSuccess');
             <div class="text w-100 py-3">
               <span class="subheading">Welcome to Harmonify</span>
               <h3 class="mb-4 heading">Forget Password</h3>
-              <form action="/forgotpassword" class="contact-form" method="post">
+              <form action="/forgotpassword" method="post">
                 <div class="form-group">
                   <p class="text-danger"><?= $ForgotEmailError ?></p>
                   <div class="input-group">
@@ -284,39 +284,6 @@ $notifSuccess = session()->getFlashdata('notifSuccess');
 <script>
   $(document).ready(function() {
 
-
-
-    // Menambahkan kelas saat tombol "Tambah Kelas" diklik
-    if (localStorage.getItem('highlightHome') === 'true') {
-      $("#home").addClass("home-active");
-      $("#home").removeClass("home-deactive");
-      $("#create").removeClass("create-active");
-      $("#create").addClass("create-deactive");
-      localStorage.setItem('highlightHome', 'true');
-      localStorage.setItem('highlightCreate', 'false');
-      localStorage.setItem('highlightProfile', 'false');
-    }
-
-    if (localStorage.getItem('highlightCreate') === 'true') {
-      $("#create").addClass("create-active");
-      $("#create").removeClass("create-deactive");
-      $("#home").removeClass("home-active");
-      $("#home").addClass("home-deactive");
-      localStorage.setItem('highlightCreate', 'true');
-      localStorage.setItem('highlightHome', 'false');
-      localStorage.setItem('highlightProfile', 'false');
-    }
-
-    if (localStorage.getItem('highlightProfile') === 'true') {
-      $("#create").removeClass("create-active");
-      $("#create").addClass("create-deactive");
-      $("#home").removeClass("home-active");
-      $("#home").addClass("home-deactive");
-      localStorage.setItem('highlightCreate', 'false');
-      localStorage.setItem('highlightHome', 'false');
-      localStorage.setItem('highlightProfile', 'true');
-    }
-
     $("#home").on("click", function() {
       $("#home").addClass("home-active");
       $("#home").removeClass("home-deactive");
@@ -327,7 +294,6 @@ $notifSuccess = session()->getFlashdata('notifSuccess');
       localStorage.setItem('highlightProfile', 'false');
     });
 
-    // Menghapus kelas saat tombol "Hapus Kelas" diklik
     $("#create").on("click", function() {
       $("#create").addClass("create-active");
       $("#create").removeClass("create-deactive");
@@ -345,13 +311,6 @@ $notifSuccess = session()->getFlashdata('notifSuccess');
       localStorage.setItem('highlightCreate', 'false');
       localStorage.setItem('highlightHome', 'false');
       localStorage.setItem('highlightProfile', 'true');
-    });
-
-    // Hapus data dari localStorage saat pengguna mengclose saja, pindah halaman masih tetap ada
-    $(window).on('beforeunload', function() {
-      localStorage.addItem('highlightHome');
-      localStorage.removeItem('highlightCreate');
-      localStorage.removeItem('highlightProfile');
     });
 
     // Untuk Toggle Password Visibility pada Login dan Register

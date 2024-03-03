@@ -9,6 +9,7 @@
 </div>
 
 
+
 <?php if ($foto) : ?>
     <div class="containerFoto">
         <?php foreach ($foto as $f) : ?>
@@ -19,7 +20,7 @@
                 <div class="hover-zone-album" >
                     <div class="bottom-bar">
                         <div class="radius-ico">
-                            <a onclick="removeFromAlbum('<?= $album[0]['AlbumID'] ?>/<?= $f['FotoID'] ?>')" class="iconButtonDownload"><i class="fa-solid fa-trash fa-xl"></i></i></a>
+                            <a onclick="removeFromAlbum('<?= $album[0]['AlbumID'] ?>/<?= $f['FotoID'] ?>')" class="iconButtonRemove"><i class="fa-solid fa-trash fa-xl"></i></i></a>
                         </div>
                     </div>
                 </div>
@@ -47,7 +48,17 @@
     }
   });
 }
+
+window.onload = function() {
+        $("#create").removeClass("create-active");
+        $("#create").addClass("create-deactive");
+        $("#home").removeClass("home-active");
+        $("#home").addClass("home-deactive");
+    };
 </script>
+
+
+
 
 
 <?= $this->endSection(); ?>

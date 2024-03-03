@@ -45,6 +45,11 @@
   max-height: 300px;
 }
 
+.horizontal-scrolling {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
 
 
 

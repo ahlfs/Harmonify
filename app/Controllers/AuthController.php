@@ -264,4 +264,5 @@ class AuthController extends BaseController
         session()->setFlashdata('EmailVerified', 'Password berhasil diubah');
         return redirect()->to('/');
     }
+    
 }

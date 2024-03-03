@@ -30,9 +30,6 @@ $posttoalbumSuccess = session()->getFlashdata('posttoalbumSuccess');
                 <?= $url ?>
               </a>
             <?php endif; ?>
-            <div class="radius-ico">
-              <a href="/download/<?= $fotodata['FotoID'] ?>" class="iconButtonDownload"><i class="fa-solid fa-download fa-xl"></i></a>
-            </div>
           </div>
         </div>
       </div>
@@ -205,6 +202,13 @@ $posttoalbumSuccess = session()->getFlashdata('posttoalbumSuccess');
           }
         });
     }
+
+    window.onload = function() {
+        $("#create").removeClass("create-active");
+        $("#create").addClass("create-deactive");
+        $("#home").removeClass("home-active");
+        $("#home").addClass("home-deactive");
+    };
   </script>
 
   <?php if ($posttoalbumFailed) : ?>
@@ -216,12 +220,5 @@ $posttoalbumSuccess = session()->getFlashdata('posttoalbumSuccess');
       posttoalbumSuccess();
     </script>
   <?php endif; ?>
-
-
-
-
-
-
-
 
   <?= $this->endSection(); ?>

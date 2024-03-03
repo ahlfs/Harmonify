@@ -61,6 +61,13 @@ $photoprofileError = session()->getFlashdata('photoprofileError');
     var profileUrl = <?php echo json_encode(base_url('user_profile/' . $user["PhotoProfile"])); ?>;
     window.onload = function() {
         displayImageProfile(profileUrl);
+
+        $("#create").removeClass("create-active");
+        $("#create").addClass("create-deactive");
+        $("#home").removeClass("home-active");
+        $("#home").addClass("home-deactive");
     };
 </script>
 <?= $this->endSection(); ?>
+
+

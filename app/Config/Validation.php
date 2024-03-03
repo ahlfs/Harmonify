@@ -43,13 +43,14 @@ class Validation extends BaseConfig
     // --------------------------------------------------------------------
     public $register = [
         'usernameRegister' => [
-            'rules' => 'required|min_length[5]|alpha_numeric|is_unique[user.Username]|is_lowercase',
+            'rules' => 'required|min_length[5]|alpha_numeric|is_unique[user.Username]|is_lowercase|max_length[15]',
             'errors' => [
                 'required' => 'Username need to be filled',
                 'min_length' => 'Username must be at least 5 characters',
                 'alpha_numeric' => 'Username can only contain letters and numbers',
                 'is_unique' => 'Username has been taken',
-                'is_lowercase' => 'Username must be lowercase'
+                'is_lowercase' => 'Username must be lowercase',
+                'max_length' => 'Username maximum 15 characters'
             ]
         ],
         'passwordRegister' => [
@@ -78,15 +79,27 @@ class Validation extends BaseConfig
 
     public $updateprofile = [
         'username' => [
-            'rules' => 'required|min_length[5]|alpha_numeric',
+            'rules' => 'required|min_length[5]|alpha_numeric|max_length[15]',
             'errors' => [
                 'required' => 'Username need to be filled',
                 'min_length' => 'Username must be at least 5 characters',
                 'alpha_numeric' => 'Username can only contain letters and numbers',
+                'max_length' => 'Username maximum 15 characters'
             ]
         ],
         'photoprofile' => [
             'rules' => 'permit_empty|max_size[foto,10240]|is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/png,image/webp,image/svg]',
+            'errors' => [
+                'max_size' => 'File size is too large (max 10MB)',
+                'is_image' => 'File that you choose is not an image',
+                'mime_in' => 'File that you choose is not an image',
+            ]
+        ],
+    ];
+
+    public $postphoto = [
+        'foto' => [
+            'rules' => 'max_size[foto,10240]|is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/png,image/webp,image/svg]',
             'errors' => [
                 'max_size' => 'File size is too large (max 10MB)',
                 'is_image' => 'File that you choose is not an image',

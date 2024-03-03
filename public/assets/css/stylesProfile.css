@@ -284,7 +284,7 @@
   font-size: 22px;
   position: relative;
   font-weight: bold;
-  color: #000;
+  color: #161b22;
   margin-left: 10px;
   word-break: break-all;
 }
@@ -340,6 +340,18 @@
   width: 100%;
   height: 100%;
 }
+
+.iconButtonRemove {
+  color: #f1f1f1;
+  width: 40px;
+  border-radius: 30%;
+  background: #fc3f3f;
+  padding: 9px;
+  cursor: pointer;
+  margin: 0px 2px;
+  font-weight: bold;
+}
+
 @media (max-width: 770px) {
   .containerAlbum {
     columns: 4;
@@ -392,8 +404,8 @@
 
 @media (max-width: 500px) {
   .profilefoto {
-    width: 150px;
-    height: 150px;
+    width: 140px;
+    height: 140px;
   }
   .profilebar .count {
     font-size: 14px;
@@ -489,11 +501,12 @@
     display: flex;
     justify-content: end;
     margin-left: 25px;
+    margin-top: 20px;
   }
   
   .cardalbum .imagezone .image {
-    width: 110px;
-    height: 110px;
+    width: 90px;
+    height: 90px;
     background: #f1f1f1;
     border-radius: 0.625em;
     overflow: hidden;

@@ -484,6 +484,67 @@ header {
   max-width: 50%;
 }
 
+
+
+.containerProfile {
+  margin-top: 20px;
+  margin-left: 15px;
+  margin-right: 15px;
+  display: flex;
+  column-gap: 10px;
+ 
+  justify-content: start;
+}
+
+.cardprofile {
+  cursor: pointer;
+  width: 160px;
+  height: 250px;
+  border: none;
+  border-radius: 10px;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  position: relative;
+  font-family: inherit;
+  margin-bottom: 5px;
+}
+
+.cardprofile .fullname {
+  font-weight: 600;
+  color: #161b22;
+  text-align: center;
+  display: block;
+  padding-top: 10px;
+  font-size: 18px;
+}
+
+.cardprofile .username {
+  font-weight: 400;
+  color: #161b22;
+  display: block;
+  text-align: center;
+  padding-top: 5px;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.cardprofile .img {
+  width: 130px;
+  height: 130px;
+  background: #e8e8e8;
+  border-radius: 100%;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.cardprofile .img img {
+  width: 130px;
+  height: 130px;
+  border-radius: 100%;
+}
+
 @media (max-width: 1450px) {
   .containerFoto {
     margin-left: 15px;

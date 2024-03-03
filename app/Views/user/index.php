@@ -24,4 +24,13 @@
 
 </div>
 
+<script>
+    window.onload = function() {
+        $("#home").addClass("home-active");
+        $("#home").removeClass("home-deactive");
+        $("#create").removeClass("create-active");
+        $("#create").addClass("create-deactive");
+    };
+</script>
+
 <?= $this->endSection(); ?>

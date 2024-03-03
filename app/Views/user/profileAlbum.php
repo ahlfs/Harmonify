@@ -65,7 +65,7 @@
     <div class="cardalbum" onclick="redirectToPage('/profile/album/<?= $a['AlbumID']; ?>')" style="background: <?= $a['color'] ?>;">
       <div class="titlezone">
         <span class="title"><?= $a['NamaAlbum']; ?></span>
-        <span class="icon" onclick="openAlbumSetting('<?= $a['AlbumID'] ?>')"><i class="fa-solid fa-ellipsis-vertical fa-xl"></i></span>
+        <span class="icon" onclick="openAlbumSetting('<?= $a['AlbumID'] ?>', '<?= $a['NamaAlbum'] ?>')"><i class="fa-solid fa-ellipsis-vertical fa-xl"></i></span>
       </div>
       <?php if ($a['foto'] != 'false') : ?>
         <div class="imagezone">
@@ -78,13 +78,13 @@
 
 
 <script>
-  function openAlbumSetting($id) {
+  function openAlbumSetting($id, $albumname) {
     event.stopPropagation();
-    albumSetting($id);
+    albumSetting($id, $albumname);
   }
 
 
-  function albumSetting($id) {
+  function albumSetting($id, $albumname) {
     Swal.fire({
       title: "Setting Album",
       showDenyButton: true,
@@ -95,17 +95,17 @@
 
     }).then((result) => {
       if (result.isConfirmed) {
-        editalbum($id);
+        editalbum($id, $albumname);
       } else if (result.isDenied) {
-        deletealbum($id);
+        deletealbum($id, $albumname);
       }
     });
   }
 
-  function deletealbum($id) {
+  function deletealbum($id, $albumname) {
   Swal.fire({
     title: "Are you sure",
-    text: "You want to delete this album?",
+    text: "You want to delete album " + $albumname + " ?",
     showCancelButton: true,
     confirmButtonColor: "#d33",
     confirmButtonText: "Yes, delete it!",
@@ -117,7 +117,7 @@
   });
 }
 
-function editalbum($id) {
+function editalbum($id, $albumname) {
   Swal.fire({
     input: "text",
     title: "Edit Album",
@@ -128,8 +128,10 @@ function editalbum($id) {
     inputAttributes: {
       autocomplete: "off"
     },
+    inputValue: $albumname,
+    
     inputValidator: (value) => {
-      if (value == "") {
+      if (value == null || value == "" || value == " ") {
         resolve("You need to enter an album name");
       } else {
         const editUrl = '/editalbum/' + $id;
@@ -138,7 +140,15 @@ function editalbum($id) {
     },
   }); 
 }
+
+window.onload = function() {
+        $("#create").removeClass("create-active");
+        $("#create").addClass("create-deactive");
+        $("#home").removeClass("home-active");
+        $("#home").addClass("home-deactive");
+    };
 </script>
+
 
 
 

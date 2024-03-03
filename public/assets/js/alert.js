@@ -85,7 +85,7 @@ function setting(changePassword, changeEmail) {
 function createalbum(createalbumUrl) {
   Swal.fire({
     input: "text",
-    inputLabel: "Create New Album",
+    title: "Create New Album",
     inputPlaceholder: "Enter album name...",
     showCancelButton: true,
     confirmButtonText: "Create",

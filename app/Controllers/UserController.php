@@ -56,12 +56,21 @@ class UserController extends BaseController
         $keyword = $this->request->getVar('keyword');
         $foto = $this->FotoModel->getFotoByKeyword($keyword);
         $akun = $this->UserModel->getUserByKeyword($keyword);
-
+        $alluser = $this->UserModel->findAll();
+        $i = 0;
+        foreach ($akun as &$a) {
+            $colors = array("#ffb3ba", "#ffdbfa", "#baffc9", "#e3b7d2", "#bae1ff", "#c9c9ff", "#f1cbff", "#6BCEEE");
+            $a['color'] = $colors[$i];
+            $i++;
+            if ($i == 8) {
+                $i = 0;
+            }
+        }
         $data = [
-            'validation' => \Config\Services::validation(),
             'foto' => $foto,
             'akun' => $akun,
             'keyword' => $keyword,
+            'alluser' => $alluser,
         ];
 
         return view('user/searchresult', $data);
@@ -96,10 +105,12 @@ class UserController extends BaseController
         //reverse array
 
         $jumlahfoto = count($createdfoto);
+        $alluser = $this->UserModel->findAll();
 
         $data = [
             'validation' => \Config\Services::validation(),
             'user' => $user,
+            'alluser' => $alluser,
             'foto' => $foto,
             'jumlahfoto' => $jumlahfoto,
 
@@ -192,6 +203,8 @@ class UserController extends BaseController
             $ago = $time->humanize();
             $k['TanggalKomentar'] = $ago;
         }
+
+        $komentar = array_reverse($komentar);
 
         $data = [
             'validation' => \Config\Services::validation(),

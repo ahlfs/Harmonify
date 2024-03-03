@@ -25,7 +25,7 @@ class UserModel extends Model
 
     public function getUserByKeyword($keyword)
     {
-        return $this->like('Username', $keyword)->orLike('NamaLengkap', $keyword);
+        return $this->like('Username', $keyword)->orLike('NamaLengkap', $keyword)->findAll();
     }
 
     public function getUserByEmail($email)

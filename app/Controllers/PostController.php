@@ -17,8 +17,10 @@ class PostController extends BaseController
     protected $AlbumModel;
     protected $FotoAlbumModel;
     protected $session;
+    protected $validation;
     public function __construct()
     {
+        $this->validation = \Config\Services::validation();
         $this->FotoModel = new FotoModel();
         $this->KomentarModel = new KomentarModel();
         $this->LikeModel = new LikeModel();
@@ -36,7 +38,6 @@ class PostController extends BaseController
         $fileDokumen = $this->request->getFile('foto');
         $newName = $fileDokumen->getRandomName();
         $fileDokumen->move('image_storage', $newName);
-
 
 
         $this->FotoModel->save([
@@ -57,7 +58,7 @@ class PostController extends BaseController
         }
 
         session()->setFlashdata('notifSuccess', 'Post Created');
-        return redirect()->to('/');
+        return redirect()->to('/profile/' . $UserID);
     }
 
     public function download($id)
@@ -137,10 +138,14 @@ class PostController extends BaseController
         if ("" == $this->request->getFile('foto')) {
             $newName = $fotoLama['Foto'];
         } else {
-            $rule_foto = 'uploaded[foto]|max_size[foto,1024]|is_image[foto]|mime_in[foto,image/jpg,image/jpeg,image/png]';
-
-            // ambil gambar
         $fileDokumen = $this->request->getFile('foto');
+        $file = $this->request->getPost();
+        //validasi change photo
+        $this->validation->run($file, 'postphoto');
+        $errors = $this->validation->getErrors();
+        if ($errors) {
+            return redirect()->back()->withInput();;
+        }
         $newName = $fileDokumen->getRandomName();
         $fileDokumen->move('image_storage', $newName);
         unlink('image_storage/' . $fotoLama['Foto']);
@@ -155,8 +160,8 @@ class PostController extends BaseController
             'Foto' => $newName,
         ]);
 
-        session()->setFlashdata('pesan', 'Post Succesfully Updated');
-        return redirect()->to('/');
+        session()->setFlashdata('notifSuccess', 'Post Succesfully Updated');
+        return redirect()->to('/post/' . $id);
     }
 
     public function deletepost($id)
@@ -169,6 +174,7 @@ class PostController extends BaseController
         $this->LikeModel->where('FotoID', $id)->delete();
         unlink('image_storage/' . $foto['Foto']);
         $this->FotoModel->where('FotoID', $id)->delete();
+        $this->FotoAlbumModel->where('FotoID', $id)->delete();
         session()->setFlashdata('pesan', 'Post Succesfully Deleted');
         return redirect()->to('/profile/' . session('UserID'));
     }
